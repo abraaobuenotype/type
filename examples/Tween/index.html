@@ -1,0 +1,117 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Type exemple</title>
+
+    <script src="../../lib/pixi.js" charset="utf-8"></script>
+    <script src="../../lib/Font.js" charset="utf-8"></script>
+    <script src="../../bin/type.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+</head>
+
+<body>
+    <script>
+        console.log("código a partir daqui.....");
+
+        var fontLibrary = [{
+            name: 'arcena',
+            url: 'fonts/arcena.ttf'
+        }, {
+            name: 'playtime',
+            url: 'fonts/playtime-webfont.ttf'
+        }, {
+            name: 'maria',
+            url: 'fonts/maria_lucia.ttf'
+        }, {
+            name: 'century',
+            url: 'fonts/century.ttf'
+        }, {
+            name: 'escolar',
+            url: 'fonts/escolar8.ttf'
+        }];
+
+        var count = 0;
+
+        for (var i = 0; i < fontLibrary.length; i++) {
+            var f = new Font();
+            f.fontFamily = fontLibrary[i].name;
+            f.onload = tempLoad;
+            f.src = fontLibrary[i].url;
+        }
+
+        function tempLoad() {
+            count++;
+
+            if (count >= fontLibrary.length) {
+                fontsComplete();
+            }
+        }
+
+        function fontsComplete() {
+            init()
+
+        }
+
+        function init() {
+            var renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, {
+                transparent: true
+            });
+
+            document.body.appendChild(renderer.view);
+            var dom = renderer.view;
+            dom.style.position = "absolute";
+            document.body.style.margin = '0px';
+
+
+            var stage = new PIXI.Container();
+            var txField = new type.text.TextField(window.innerWidth - 100, window.innerHeight - 100);
+
+            txField.x += 50;
+            txField.spaceBetweenLines = 20;
+            txField.align = "center";
+
+
+            txField.setText(
+                "Nada do que é social e humano é mais real que as utopias. Na sua vertente eutópica, as utopias constituíram sempre o fundamento simbólico e mítico sem o qual nenhuma forma de organização social se sustenta, justifica ou sobrevive. E criam, tanto na vertente eutópica como na distópica, o vocabulário da revolução e da mudança: sem os amanhãs que cantam (ou choram) teríamos, em vez de História, um presente intemporal e eterno - como o dos faraós ou o de Francis Fukuyama.\n\nAldous Huxley publicou o seu Brave New World em 1932. George Orwell, que não tinha em grande conta este livro ou o seu autor, publicou 17 anos depois a sua própria distopia, Nineteen Eighty-Four. Entre estas duas datas interpôs-se a Segunda Grande Guerra: não admira que na primeira a técnica básica da opressão do Estado fosse a manipulação genética e que na segunda, depois do descrédito em que o regime nazi lançou o eugenismo, as técnicas principais da opressão sejam a lavagem ao cérebro, a crueldade gratuita e a manipulação da linguagem.\n\nApesar desta e de outras diferenças, os dois textos foram muitas vezes lidos, nas décadas seguintes, como os dois pólos - um hedonista, outro o oposto disto - duma mesma distopia, a que os sinais dos tempos davam e dão plausibilidade. Esta distopia bipolar é identificável em grande parte com a ideia de modernidade; e hoje a invocação da modernidade, sempre na boca dos políticos e dos capitães da indústria, soa aos nossos ouvidos tanto a ameaça como a promessa."
+            );
+
+
+            stage.addChild(txField);
+
+
+            animate();
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                renderer.render(stage);
+            }
+
+            function startDemo() {
+
+                for (var i = 0; i < txField.children.length; i++) {
+                    tween = TweenMax.to(txField.children[i], 3, {
+
+                        x: (Math.random() * (window.innerWidth - 100)),
+                        y: (Math.random() * window.innerHeight),
+                        repeat: 10,
+                        yoyo: true,
+                        delay: 2,
+                        easeing: Back.easeOut
+
+                    });
+                }
+
+            }
+
+            startDemo();
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>

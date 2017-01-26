@@ -1,0 +1,310 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Type exemple</title>
+
+    <script src="../../lib/pixi.js" charset="utf-8"></script>
+    <script src="../../lib/Font.js" charset="utf-8"></script>
+    <script src="../../bin/type.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <script>
+
+        var fontLibrary = [{
+            name: 'arcena',
+            url: 'fonts/arcena.ttf'
+        }, {
+            name: 'playtime',
+            url: 'fonts/playtime-webfont.ttf'
+        }, {
+            name: 'maria',
+            url: 'fonts/maria_lucia.ttf'
+        }, {
+            name: 'century',
+            url: 'fonts/century.ttf'
+        }, {
+            name: 'escolar',
+            url: 'fonts/escolar8.ttf'
+        }];
+
+        var count = 0;
+
+        for (var i = 0; i < fontLibrary.length; i++) {
+            var f = new Font();
+            f.fontFamily = fontLibrary[i].name;
+            f.onload = tempLoad;
+            f.src = fontLibrary[i].url;
+        }
+
+        function tempLoad() {
+            count++;
+
+            if (count >= fontLibrary.length) {
+                fontsComplete();
+            }
+        }
+
+        function fontsComplete() {
+            init()
+
+        }
+
+        function init() {
+            var renderer = PIXI.autoDetectRenderer(1024, 500, {
+                transparent: true
+            });
+            document.body.appendChild(renderer.view);
+            var dom = renderer.view;
+            dom.style.border = "1px solid red";
+
+            var stage = new PIXI.Container();
+
+            var txField = new type.text.TextField(800, 400);
+
+            var typeAlign = new type.text.TypeAlign();
+
+            typeAlign.startingX = 250;
+            typeAlign.startingY = 100;
+
+             typeAlign.steps = [{
+                "x": 12,
+                "y": 0
+            }, {
+                "x": 12,
+                "y": 0
+            }, {
+                "x": 12,
+                "y": 0
+            }, {
+                "x": 12,
+                "y": 0
+            }, {
+                "x": 12,
+                "y": 0
+            },
+            {
+                "x": 10,
+                "y": -13,
+                "rotation": -30
+            }, {
+                "x": 10,
+                "y": -13,
+                "rotation": -30
+            }, {
+                "x": 10,
+                "y": -13,
+                "rotation": -30
+            }, {
+                "x": 10,
+                "y": -13,
+                "rotation": -30
+            }, {
+                "x": 10,
+                "y": -13,
+                "rotation": -30
+            },{
+                "x": 20,
+                "y": +13,
+                "rotation": +30
+            },{
+                "x": 10,
+                "y": +13,
+                "rotation": +30
+            },{
+                "x": 10,
+                "y": +13,
+                "rotation": +30
+            },{
+                "x": 10,
+                "y": +13,
+                "rotation": +30
+            },{
+                "x": 10,
+                "y": +13,
+                "rotation": +30
+            },{
+                "x": 12,
+                "y": 0
+            }, {
+                "x": 12,
+                "y": 0
+            }, {
+                "x": 12,
+                "y": 0
+            }, {
+                "x": 12,
+                "y": 0
+            }, {
+                "x": 12,
+                "y": 0
+            },
+
+            {
+                "x": 20,
+                "y": +23,
+                "rotation": +120
+            },{
+                "x": -10,
+                "y": +13,
+                "rotation": +120
+            },{
+                "x": -10,
+                "y": +13,
+                "rotation": +120
+            },{
+                "x": -10,
+                "y": +13,
+                "rotation": +120
+            },{
+                "x": -10,
+                "y": +13,
+                "rotation": +120
+            }
+
+            ,{
+                "x": 0,
+                "y": +10,
+                "rotation": +70
+            },{
+                "x": 10,
+                "y": +13,
+                "rotation": +70
+            },{
+                "x": 10,
+                "y": +13,
+                "rotation": +70
+            },{
+                "x": 10,
+                "y": +13,
+                "rotation": +70
+            },{
+                "x": 10,
+                "y": +13,
+                "rotation": +90
+            },
+
+            {
+                "x": -50,
+                "y": 10,
+                "rotation": +260
+            },
+            {
+                "x": -20,
+                "y": -13,
+                "rotation": +190
+            },{
+                "x": -20,
+                "y": -13,
+                "rotation": +190
+            },{
+                "x": -20,
+                "y": -13,
+                "rotation": +190
+            },{
+                "x": -20,
+                "y": -13,
+                "rotation": +190
+            },
+
+            {
+                "x": -20,
+                "y": +10,
+                "rotation": +260
+            },
+            {
+                "x": -20,
+                "y": +13,
+                "rotation": +190
+            },{
+                "x": -20,
+                "y": +13,
+                "rotation": +190
+            },{
+                "x": -20,
+                "y": +13,
+                "rotation": +190
+            },{
+                "x": -20,
+                "y": +13,
+                "rotation": +190
+            }
+
+            ,{
+                "x": -20,
+                "y": -35,
+                "rotation": -50
+            },{
+                "x": +10,
+                "y": -18,
+                "rotation": -50
+            },{
+                "x": +10,
+                "y": -18,
+                "rotation": -50
+            },{
+                "x": +10,
+                "y": -18,
+                "rotation": -50
+            },{
+                "x": +10,
+                "y": -18,
+                "rotation": -50
+            },
+
+            {
+                "x": -0,
+                "y": -8,
+                "rotation": 30
+            },{
+                "x": -10,
+                "y": -8,
+                "rotation": 30
+            },{
+                "x": -10,
+                "y": -8,
+                "rotation": 30
+            },{
+                "x": -10,
+                "y": -8,
+                "rotation": 30
+            },{
+                "x": -10,
+                "y": -8,
+                "rotation": 30
+            }];
+
+
+            txField.typeAlign = typeAlign;
+
+            txField.x += 50;
+            txField.y += 50;
+
+            txField.setText("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+
+            txField.customAlign = true;
+
+
+            stage.addChild(txField);
+
+            g = new PIXI.Graphics();
+            g.lineStyle(3, 0xFF0000, 0.8);
+            g.drawRect(txField.x, txField.y, 800, 400);
+            g.endFill();
+            stage.addChild(g);
+
+
+            animate();
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                renderer.render(stage);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

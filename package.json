@@ -1,0 +1,43 @@
+{
+  "name": "TYPE",
+  "version": "1.0.0",
+  "description": "Type for PIXI is a powerfull tool for working with texts on HTML 5 canvas.",
+  "author": {
+    "name": "Abraão Bueno",
+    "email": "abraao@studiokori.com.br"
+  },
+  "contributors": [
+    {
+      "name": "Amauri Alvarenga",
+      "email": "doomadbr@hotmail.com"
+    }
+  ],
+  "main": "src/Main.js",
+  "license": "MIT Licence",
+  "readme": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/lab_de_ideias/Type"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-decorators-legacy": ">=1.3.4",
+    "babel-plugin-transform-private-properties": ">=1.0.2",
+    "babel-preset-es2015": ">=6.18.0",
+    "babelify": ">=7.3.0",
+    "browserify": ">=13.3.0",
+    "browserify-versionify": ">=1.0.6",
+    "grunt": ">=1.0.1",
+    "grunt-chokidar": ">=1.0.0",
+    "grunt-contrib-uglify": ">=2.0.0",
+    "grunt-jsdoc": ">=2.1.0",
+    "jaguarjs-jsdoc": ">=1.0.0"
+  },
+  "dependencies": {
+    "autobind-decorator": ">=1.3.4",
+    "babel-plugin-transform-class-properties": ">=6.19.0",
+    "diff": ">=3.1.0",
+    "eventemitter3": ">=2.0.2",
+    "opentype.js": ">=0.6.9",
+    "pixi.js": ">=4.3.0"
+  }
+}
