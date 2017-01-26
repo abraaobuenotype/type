@@ -43,26 +43,27 @@ Type for PIXI is a powerfull tool for working with texts on HTML 5 canvas.
 
 			var stage = new PIXI.Container();
 
-			var myText = new type.TextField(600, 600);
-			myText.setText('<myTag>Nada do que é <tagB>social e humano</tagB> é mais real que as <anotherTag>utopias</anotherTag></myTag>', {
-				align: 'left',
-			
-				myTag:{
-					fontFamily: 'century',
-					fontSize: 20,
-					fill: 'red'
-				},
+			var myText = new type.text.TextField(600, 600);
+            myText.setText('<mytag>Nada do que é <tagb>social e humano</tagb> é mais real que as <anothertag>utopias.</anothertag></mytag>', {
+                align: 'left',
 
-				tagB:{
-					fontSize: 50,
-					fill: 'green'
-				},
+                mytag: {
+                    fontFamily: "century",
+                    fontSize: 20,
+                    fill: "red"
+                },
 
-				anotherTag:{
-					fontWeight: 'bold',
-					underscore: true
-				}
-			});
+                tagb: {
+                    fontFamily: "playtime",
+                    fontSize: 50,
+                    fill: "green"
+                },
+
+                anothertag: {
+                    fontWeight: "bold",
+                    underscore: true
+                }
+            });
 
 			myText.x = 300;
 			myText.y = 300;
@@ -80,6 +81,8 @@ Type for PIXI is a powerfull tool for working with texts on HTML 5 canvas.
 </script>
 ```
 
+[view example here](http://www.studiokori.com.br/typeExample);
+
 ####NPM install
 
 ```
@@ -88,7 +91,7 @@ npm install type-for-pixi --save
 
 > ####Type is write using es2015+ features
 
-> compile with browserify and babelify with presset es2015 and plugins: 
+> compile with browserify and babelify with presset es2015 and plugins:
 > - babel-plugin-transform-decorators-legacy
 > - babel-plugin-transform-class-properties
 > - babel-plugin-transform-private-properties
@@ -99,7 +102,7 @@ require('type-for-pixi');
 var type = window.type._instance;
 var loader = new type.Loader();
 
-... 
+...
 ```
 
 -------------
