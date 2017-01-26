@@ -17,7 +17,7 @@
   "readme": "README.md",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/lab_de_ideias/Type"
+    "url": "https://github.com/abraaobuenotype/type"
   },
   "devDependencies": {
     "babel-plugin-transform-decorators-legacy": ">=1.3.4",
