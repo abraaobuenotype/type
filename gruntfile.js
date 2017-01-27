@@ -11,8 +11,7 @@ module.exports = function(grunt) {
         browserify: {
             dist: {
                 files: {
-                    'bin/type.js': ['./src/Main.js'],
-                    'src/type.js': ['./src/Main.js']
+                    'bin/type.js': ['./src/Main.js']
                 },
                 options: {
                     transform: [
@@ -21,16 +20,13 @@ module.exports = function(grunt) {
                             'babelify', {
                                 presets: ['es2015'],
                                 plugins: [
-                                    'babel-plugin-transform-decorators-legacy',
-                                    'babel-plugin-transform-class-properties',
+                                    'transform-decorators-legacy',
+                                    'transform-class-properties',
                                     'babel-plugin-transform-private-properties'
                                 ]
                             }
                         ]
-                    ],
-                    browserifyOptions:{
-                        standalone: 'type-for-pixi'
-                    }
+                    ]
                 }
             }
         },
