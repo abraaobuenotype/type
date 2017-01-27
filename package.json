@@ -1,6 +1,6 @@
 {
   "name": "type-for-pixi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Type for PIXI is a powerfull tool for working with texts on HTML 5 canvas.",
   "author": {
     "name": "Abraão Bueno",
@@ -12,7 +12,7 @@
       "email": "doomadbr@hotmail.com"
     }
   ],
-  "main": "src/Main.js",
+  "main": "src/type.js",
   "license": "MIT Licence",
   "readme": "README.md",
   "repository": {
@@ -27,6 +27,7 @@
     "browserify": ">=13.3.0",
     "browserify-versionify": ">=1.0.6",
     "grunt": ">=1.0.1",
+    "grunt-browserify": ">=5.0.0",
     "grunt-chokidar": ">=1.0.0",
     "grunt-contrib-uglify": ">=2.0.0",
     "grunt-jsdoc": ">=2.1.0",

@@ -11,7 +11,8 @@ module.exports = function(grunt) {
         browserify: {
             dist: {
                 files: {
-                    'bin/type.js': ['./src/Main.js']
+                    'bin/type.js': ['./src/Main.js'],
+                    'src/type.js': ['./src/Main.js']
                 },
                 options: {
                     transform: [
@@ -26,7 +27,10 @@ module.exports = function(grunt) {
                                 ]
                             }
                         ]
-                    ]
+                    ],
+                    browserifyOptions:{
+                        standalone: 'type-for-pixi'
+                    }
                 }
             }
         },
