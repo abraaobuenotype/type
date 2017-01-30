@@ -84,6 +84,7 @@
 	    function type() {
 	        _classCallCheck(this, type);
 
+	        this.version = '1.0.3';
 	        this.Loader = _Loader2.default;
 	        this.Metrics = _Metrics2.default;
 	        this.text = {

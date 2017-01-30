@@ -9,6 +9,7 @@ class type{
 
     @Private static _instance = null;
 
+    version = '__VERSION__';
     Loader = Loader;
     Metrics = Metrics;
     text = {

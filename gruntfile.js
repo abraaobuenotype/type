@@ -2,7 +2,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-chokidar');
     grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-babel');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-webpack');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
     var path = 'bin/';
     var lib = '../lib/';
@@ -42,6 +44,10 @@ module.exports = function(grunt) {
             }
         },
 
+        clean: {
+            temp: ['temp']
+        },
+
         chokidar: {
             scripts: {
                 files: ['src/**/*.js'],
@@ -77,4 +83,13 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', ['chokidar']);
+    grunt.registerTask('build', ['babel', 'webpack', 'version', 'uglify', 'clean']);
+
+    grunt.registerTask('version', 'adiciona a versão pelo package', function(){
+        var pkg = grunt.file.readJSON('package.json');
+        var main = grunt.file.read('bin/type.js');
+        main = main.replace('__VERSION__', pkg.version);
+
+        grunt.file.write('bin/type.js', main);
+    });
 };
