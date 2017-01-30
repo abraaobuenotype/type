@@ -1,33 +1,44 @@
 module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-chokidar');
     grunt.loadNpmTasks('grunt-jsdoc');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-babel');
+    grunt.loadNpmTasks('grunt-webpack');
 
     var path = 'bin/';
     var lib = '../lib/';
 
     grunt.initConfig({
-        browserify: {
-            dist: {
-                files: {
-                    'bin/type.js': ['./src/Main.js']
+        webpack: {
+            someName: {
+                entry: './temp/Main.js',
+                output: {
+                    path: "bin/",
+                    filename: "type.js"
                 },
-                options: {
-                    transform: [
-                        'browserify-versionify',
-                        [
-                            'babelify', {
-                                presets: ['es2015'],
-                                plugins: [
-                                    'transform-decorators-legacy',
-                                    'transform-class-properties',
-                                    'babel-plugin-transform-private-properties'
-                                ]
-                            }
-                        ]
-                    ]
+                stats: {
+                    // Configure the console output
+                    colors: false,
+                    modules: true,
+                    reasons: true
                 }
+            }
+        },
+
+        babel: {
+            options: {
+                presets: ['es2015'],
+                plugins: ['transform-decorators-legacy', 'transform-class-properties', 'babel-plugin-transform-private-properties']
+            },
+            dist: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'src',
+                        src: ['**/*.js'],
+                        dest: 'temp/',
+                        ext: '.js'
+                    }
+                ]
             }
         },
 
@@ -40,7 +51,9 @@ module.exports = function(grunt) {
 
         jsdoc: {
             dist: {
-                src: ['src/**/*.js', 'README.md'],
+                src: [
+                    'src/**/*.js', 'README.md'
+                ],
                 options: {
                     destination: 'documentation',
                     template: "node_modules/jaguarjs-jsdoc",
