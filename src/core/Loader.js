@@ -1,8 +1,9 @@
 import autobind from 'autobind-decorator';
 import EventEmiter from 'eventemitter3';
+import Font from '../../lib/Font';
+
 import Metrics from './Metrics';
 
-require('../../lib/Font');
 
 @autobind
 class Loader extends EventEmiter{
