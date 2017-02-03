@@ -12,8 +12,10 @@ Type for PIXI is a powerfull tool for working with texts on HTML 5 canvas.
 
 
 - Tag system
-- Basic Aligns **(left - right - center - justify)**
+- 36 Basic Aligns
 - Suports any Font
+- Line Spacing
+- Word Spacing
 
 -------------
 
@@ -89,7 +91,7 @@ Type for PIXI is a powerfull tool for working with texts on HTML 5 canvas.
 npm install type-for-pixi --save
 ```
 
-> ####Type is write using es2015+ features
+> ####Type is writen using es2015+ features
 
 > compile with browserify and babelify with presset es2015 and plugins:
 > - babel-plugin-transform-decorators-legacy
@@ -138,7 +140,7 @@ Then, to build the source, run:
 - More Aligns
 - Input
 - More customizations
--  Softkeyboard
+- Softkeyboard
 
 -------------
 

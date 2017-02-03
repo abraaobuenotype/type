@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Type exemple</title>
 
-    <script src="../../lib/pixi.js" charset="utf-8"></script>
+    <script src="../../node_modules/pixi.js/dist/pixi.js" charset="utf-8"></script>
     <script src="../../lib/Font.js" charset="utf-8"></script>
     <script src="../../bin/type.js" charset="utf-8"></script>
 </head>
@@ -31,25 +31,13 @@
 
         var count = 0;
 
-        for (var i = 0; i < fontLibrary.length; i++) {
-            var f = new Font();
-            f.fontFamily = fontLibrary[i].name;
-            f.onload = tempLoad;
-            f.src = fontLibrary[i].url;
-        }
+        var loader = new type.Loader();
+        loader.add('playtime', 'fonts/playtime-webfont.ttf');
+        loader.add('escolar', 'fonts/escolar8.ttf');
+        loader.add('century', 'fonts/century.ttf');
+        loader.once('loadComplete', init);
+        loader.load();
 
-        function tempLoad() {
-            count++;
-
-            if (count >= fontLibrary.length) {
-                fontsComplete();
-            }
-        }
-
-        function fontsComplete() {
-            init()
-
-        }
 
         function init() {
             var renderer = PIXI.autoDetectRenderer(1024, 500, {

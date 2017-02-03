@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         chokidar: {
             scripts: {
                 files: ['src/**/*.js'],
-                tasks: ['browserify']
+                tasks: 'build'
             }
         },
 

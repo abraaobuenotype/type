@@ -4,7 +4,7 @@ import autobind from 'autobind-decorator';
 class Word{
     indexWord = null;
     chars = [];
-    
+
     @Private _width = 0;
     @Private _height = 0;
     @Private _x = 0;
@@ -36,6 +36,14 @@ class Word{
 
     set width(value){
         this._width = value;
+    }
+
+    get height(){
+        return this._height;
+    }
+
+    set height(value){
+        this._height = value;
     }
 }
 

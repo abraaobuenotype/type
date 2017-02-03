@@ -26,13 +26,15 @@ class HorizontalModule {
         this._width = width;
         this._height = height;
 
+        this._lines = [];
+
         var d_words = defaultText.match(/\S+(?=\s?)/g);
         var d_spaces = defaultText.match(/\s+(?=[^\n])/g);
 
         var __words = [];
         for (var i = 0; i < d_words.length; i++) {
             var w = '';
-            if (d_spaces[i]) {
+            if (d_spaces !== null && d_spaces[i]) {
                 w = d_words[i] + d_spaces[i];
             } else {
                 w = d_words[i];
@@ -242,18 +244,34 @@ class HorizontalModule {
                 }
             }
         } else {
-            switch (this._textAlign) {
-                case "center":
-                    this._centerAlignRLDU(lines);
-                    break;
-                case "right":
-                    this._rightAlignRLDU(lines);
-                    break;
-                case "justify":
-                    this._justifyAlignRLDU(lines);
-                    break;
-                default:
-                    this._leftAlignRLDU(lines);
+            if (this._textLeftToRight) {
+                switch (this._textAlign) {
+                    case "center":
+                        this._centerAlignLRDU(lines);
+                        break;
+                    case "right":
+                        this._rightAlignLRDU(lines);
+                        break;
+                    case "justify":
+                        this._justifyAlignLRDU(lines);
+                        break;
+                    default:
+                        this._leftAlignLRDU(lines);
+                }
+            }else {
+                switch (this._textAlign) {
+                    case "center":
+                        this._centerAlignRLDU(lines);
+                        break;
+                    case "right":
+                        this._rightAlignRLDU(lines);
+                        break;
+                    case "justify":
+                        this._justifyAlignRLDU(lines);
+                        break;
+                    default:
+                        this._leftAlignRLDU(lines);
+                }
             }
         }
     }
@@ -263,7 +281,7 @@ class HorizontalModule {
 
         for (var i = 0; i < lines.length; i++) {
             var line = lines[i];
-
+            //soma ao y o tamanho das linhas para alinha-las
             if (i !== 0) {
                 y += lines[i - 1].height;
             }
@@ -290,9 +308,8 @@ class HorizontalModule {
                     line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.8);
                     continue;
                 }
-
-                y += this._spaceBetweenLines;
             }
+            y += this._spaceBetweenLines;
         }
     }
 
@@ -301,7 +318,7 @@ class HorizontalModule {
 
         for (var i = 0; i < lines.length; i++) {
             var line = lines[i];
-
+            //soma ao y o tamanho das linhas para alinha-las
             if (i !== 0) {
                 y += lines[i - 1].height;
             }
@@ -459,6 +476,592 @@ class HorizontalModule {
 
         }
     }
+
+    //TODO daqui pra baixo
+
+    //
+    //
+    //iniciando RLUD  (direita esquerda começando do topo)
+    //
+    //
+    //
+    /**
+     * Align on the left starting from the top right going left then down
+     *
+     * @param lines Array of lines to be repositioned {Array}
+     */
+    @Private _leftAlignRLUD(lines) {
+
+        var y = 0;
+
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            //soma ao y o tamanho das linhas para alinha-las
+            if (i !== 0) {
+                y += lines[i - 1].height;
+            }
+
+            line.y = y;
+
+            for (var j = line.words.length - 1; j >= 0; j--) {
+                for (var k = line.words[j].chars.length - 1; k >= 0; k--) {
+
+                    if (k == line.words[j].chars.length - 1 && j == line.words.length - 1) {
+                        line.words[j].chars[k].x = 0;
+                        line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.8);
+                        continue;
+                    }
+                    if (k == line.words[j].chars.length - 1) {
+                        line.words[j].chars[k].x = line.words[j + 1].chars[0].x + line.words[j + 1].chars[0].vwidth;
+                        line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.8);
+                        continue;
+                    }
+                    line.words[j].chars[k].x = line.words[j].chars[k + 1].x + line.words[j].chars[k + 1].vwidth;
+                    line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.8);
+                }
+            }
+            y += this._spaceBetweenLines;
+        }
+    };
+    /**
+    * Align on the center starting from the top right going left then down
+    *
+    * @param lines Array of lines to be repositioned {Array}
+    */
+    @Private _centerAlignRLUD(lines) {
+        var y = 0;
+        for (var i = 0; i < lines.length; i++) {
+
+            var line = lines[i];
+            //soma ao y o tamanho das linhas para alinha-las
+            if (i !== 0) {
+                y += lines[i - 1].height;
+            }
+
+            line.y = y;
+
+            for (var j = 0; j < lines[i].words.length; j++) {
+                for (var k = 0; k < lines[i].words[j].chars.length; k++) {
+                    if (k === 0 && j === 0) {
+                        lines[i].words[j].chars[k].x = this._width / 2 + lines[i].width / 2 - lines[i].words[j].chars[k].width;
+                        lines[i].words[j].chars[k].y = y + ((line.height - lines[i].words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    if (k === 0) {
+                        lines[i].words[j].chars[k].x = lines[i].words[j - 1].chars[lines[i].words[j - 1].chars.length - 1].x - lines[i].words[j].chars[k].vwidth;
+                        lines[i].words[j].chars[k].y = y + ((line.height - lines[i].words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    lines[i].words[j].chars[k].x = lines[i].words[j].chars[k - 1].x - lines[i].words[j].chars[k].vwidth;
+                    lines[i].words[j].chars[k].y = y + ((line.height - lines[i].words[j].chars[k].height) * 0.80);
+                }
+            }
+            y += this._spaceBetweenLines;
+        }
+    };
+    /**
+    * Align on the right starting from the top right going left then down
+    *
+    * @param lines Array of lines to be repositioned {Array}
+    */
+    @Private _rightAlignRLUD(lines) {
+
+        var y = 0;
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            //soma ao y o tamanho das linhas para alinha-las
+            if (i !== 0) {
+                y += lines[i - 1].height;
+            }
+            line.y = y;
+            for (var j = 0; j < line.words.length; j++) {
+                for (var k = 0; k < line.words[j].chars.length; k++) {
+                    if (j === 0 && k === 0) {
+                        line.words[j].chars[k].x = this._width - line.words[j].chars[k].width;
+                        line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    if (k === 0) {
+                        line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x - line.words[j].chars[k].vwidth;
+                        line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    line.words[j].chars[k].x = line.words[j].chars[k - 1].x - line.words[j].chars[k].vwidth;
+                    line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    continue;
+                }
+            }
+            y += this._spaceBetweenLines;
+        }
+    };
+    /**
+    * Align justified starting from the top right going left then down
+    *
+    * @param lines Array of lines to be repositioned {Array}
+    */
+    @Private _justifyAlignRLUD(lines) {
+
+        var y = 0;
+        if (lines.length > 1) {
+            for (var i = 0; i < lines.length - 1; i++) {
+                var line = lines[i];
+                //soma ao y o tamanho das linhas para alinha-las
+                if (i !== 0) {
+                    y += lines[i - 1].height;
+                }
+                line.y = y;
+                var difEspacoLinha = (this._width - line.width) / (line.words.length - 1);
+                for (var j = 0; j < line.words.length; j++) {
+                    //se for mais de uma palavra e for a ultima palavra alinha na esquerda
+                    if (line.words.length != 1) {
+                        if (j == line.words.length - 1) {
+                            for (var k = line.words[j].chars.length - 1; k >= 0; k--) {
+                                if (k === line.words[j].chars.length - 1) {
+                                    line.words[j].chars[k].x = 0;
+                                    line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                                    continue;
+                                }
+                                line.words[j].chars[k].x = line.words[j].chars[k + 1].x + line.words[j].chars[k + 1].vwidth;
+                                line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                            }
+                            break;
+                        }
+                    }
+                    //se n for a ultima palavra alinha da direita
+                    // if (k === 0 && j === 0) {
+                    //     line.words[j].chars[k].x = 0;
+                    //     line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    //     continue;
+                    // }
+                    // if (k === 0) {
+                    //     line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x + line.words[j - 1].chars[line.words[j - 1].chars.length - 1].width + difEspacoLinha;
+                    //     line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    //     continue;
+                    // }
+                    //
+                    //
+                    // line.words[j].chars[k].x = line.words[j].chars[k - 1].x + line.words[j].chars[k - 1].width;
+                    // line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    // continue;
+                    for (var k = 0; k < line.words[j].chars.length; k++) {
+                        if (j === 0 && k === 0) {
+                            line.words[j].chars[k].x = this._width - line.words[j].chars[k].width;
+                            line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                            continue;
+                        }
+                        if (k === 0) {
+                            line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x - line.words[j].chars[k].vwidth - difEspacoLinha;
+                            line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                            continue;
+                        }
+                        line.words[j].chars[k].x = line.words[j].chars[k - 1].x - line.words[j].chars[k].vwidth;
+                        line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                }
+                y += this._spaceBetweenLines;
+            }
+            y += lines[lines.length - 2].height;
+        }
+        var line = lines[lines.length - 1];
+        for (var j = 0; j < line.words.length; j++) {
+            for (var k = 0; k < line.words[j].chars.length; k++) {
+                if (j === 0 && k === 0) {
+                    line.words[j].chars[k].x = this._width - line.words[j].chars[k].width;
+                    line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    continue;
+                }
+                if (k === 0) {
+                    line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x - line.words[j].chars[k].vwidth;
+                    line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    continue;
+                }
+                line.words[j].chars[k].x = line.words[j].chars[k - 1].x - line.words[j].chars[k].vwidth;
+                line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                continue;
+            }
+        }
+    };
+    //FIM do justify
+    //
+    //
+    //iniciando LRDU  (esquerda direita começando da base)
+    //
+    //
+    /**
+    * Align on the left starting from the bottom left going right then up
+    *
+    * @param lines Array of lines to be repositioned {Array}
+    */
+    @Private _leftAlignLRDU(lines) {
+
+        var y = this._height;
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            //subtrai ao y o tamanho das linhas para alinha-las
+            if (i !== 0) {
+                y -= lines[i - 1].height;
+            }
+            line.y = y;
+            for (var j = 0; j < line.words.length; j++) {
+                for (var k = 0; k < line.words[j].chars.length; k++) {
+                    if (j === 0 && k === 0) {
+                        line.words[j].chars[k].x = 0;
+                        line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    if (k === 0) {
+                        line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x + line.words[j - 1].chars[line.words[j - 1].chars.length - 1].vwidth;
+                        line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    line.words[j].chars[k].x = line.words[j].chars[k - 1].x + line.words[j].chars[k - 1].vwidth;
+                    line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    continue;
+                }
+            }
+            y -= this._spaceBetweenLines;
+        }
+    };
+    /**
+    * Align on the right starting from the bottom left going right then up
+    *
+    * @param lines Array of lines to be repositioned {Array}
+    */
+    @Private _rightAlignLRDU(lines) {
+
+        var y = this._height;
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            //subtrai ao y o tamanho das linhas para alinha-las
+            if (i !== 0) {
+                y -= lines[i - 1].height;
+            }
+            line.y = y;
+            for (var j = line.words.length - 1; j >= 0; j--) {
+                for (var k = line.words[j].chars.length - 1; k >= 0; k--) {
+                    if (k == line.words[j].chars.length - 1 && j == line.words.length - 1) {
+                        line.words[j].chars[k].x = this._width - line.words[j].chars[k].width;
+                        line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    if (k == line.words[j].chars.length - 1) {
+                        line.words[j].chars[k].x = line.words[j + 1].chars[0].x - line.words[j].chars[k].vwidth;
+                        line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    line.words[j].chars[k].x = line.words[j].chars[k + 1].x - line.words[j].chars[k].vwidth;
+                    line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                }
+            }
+            y -= this._spaceBetweenLines;
+        }
+    }
+    /**
+    * Align on the center starting from the bottom left going right then up
+    *
+    * @param lines Array of lines to be repositioned {Array}
+    */
+    @Private _centerAlignLRDU(lines) {
+        var y = this._height;
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            //subtrai ao y o tamanho das linhas para alinha-las
+            if (i !== 0) {
+                y -= lines[i - 1].height;
+            }
+            line.y = y;
+            for (var j = 0; j < lines[i].words.length; j++) {
+                for (var k = 0; k < lines[i].words[j].chars.length; k++) {
+                    if (k === 0 && j === 0) {
+                        lines[i].words[j].chars[k].x = this._width / 2 - lines[i].width / 2;
+                        lines[i].words[j].chars[k].y = y - line.height + ((line.height - lines[i].words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    if (k === 0) {
+                        lines[i].words[j].chars[k].x = lines[i].words[j - 1].chars[lines[i].words[j - 1].chars.length - 1].x + lines[i].words[j - 1].chars[lines[i].words[j - 1].chars.length - 1].vwidth;
+                        lines[i].words[j].chars[k].y = y - line.height + ((line.height - lines[i].words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    lines[i].words[j].chars[k].x = lines[i].words[j].chars[k - 1].x + lines[i].words[j].chars[k - 1].vwidth;
+                    lines[i].words[j].chars[k].y = y - line.height + ((line.height - lines[i].words[j].chars[k].height) * 0.80);
+                }
+            }
+            y -= this._spaceBetweenLines;
+        }
+    }
+    /**
+    * Align justified starting from the bottom left going right then up
+    *
+    * @param lines Array of lines to be repositioned {Array}
+    */
+    @Private _justifyAlignLRDU(lines) {
+
+        var y = this._height;
+        if (lines.length > 1) {
+            for (var i = 0; i < lines.length - 1; i++) {
+                var line = lines[i];
+                //subtrai ao y o tamanho das linhas para alinha-las
+                if (i !== 0) {
+                    y -= lines[i - 1].height;
+                }
+                line.y = y;
+                var difEspacoLinha = (this._width - line.width) / (line.words.length - 1);
+                for (var j = 0; j < line.words.length; j++) {
+                    //se for mais de uma palavra e for a ultima palavra alinha na direita
+                    if (line.words.length != 1) {
+                        if (j == line.words.length - 1) {
+                            for (var k = line.words[j].chars.length - 1; k >= 0; k--) {
+                                if (k == line.words[j].chars.length - 1) {
+                                    line.words[j].chars[k].x = this._width - line.words[j].chars[k].width;
+                                    line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                                    continue;
+                                }
+                                line.words[j].chars[k].x = line.words[j].chars[k + 1].x - line.words[j].chars[k].vwidth;
+                                line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                            }
+                            break;
+                        }
+                    }
+                    for (var k = 0; k < line.words[j].chars.length; k++) {
+                        if (k === 0 && j === 0) {
+                            line.words[j].chars[k].x = 0;
+                            line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                            continue;
+                        }
+                        if (k === 0) {
+                            line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x + line.words[j - 1].chars[line.words[j - 1].chars.length - 1].vwidth + difEspacoLinha;
+                            line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                            continue;
+                        }
+                        line.words[j].chars[k].x = line.words[j].chars[k - 1].x + line.words[j].chars[k - 1].vwidth;
+                        line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                }
+                y -= this._spaceBetweenLines;
+            }
+            y -= lines[lines.length - 2].height;
+        }
+        var line = lines[lines.length - 1];
+        for (var j = 0; j < line.words.length; j++) {
+            for (var k = 0; k < line.words[j].chars.length; k++) {
+                if (j === 0 && k === 0) {
+                    line.words[j].chars[k].x = 0;
+                    line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    continue;
+                }
+                if (k === 0) {
+                    line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x + line.words[j - 1].chars[line.words[j - 1].chars.length - 1].vwidth;
+                    line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    continue;
+                }
+                line.words[j].chars[k].x = line.words[j].chars[k - 1].x + line.words[j].chars[k - 1].vwidth;
+                line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                continue;
+            }
+        }
+    }
+    //FIM justify
+    //
+    //
+    //iniciando RLDU  (direita esquerda começando da base)
+    //
+    //
+    /**
+    * Align on the left starting from the bottom right going left then up
+    *
+    * @param lines Array of lines to be repositioned {Array}
+    */
+    @Private _leftAlignRLDU(lines) {
+
+        var y = this._height;
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            //subtrai ao y o tamanho das linhas para alinha-las
+            if (i !== 0) {
+                y -= lines[i - 1].height;
+            }
+            line.y = y;
+            for (var j = line.words.length - 1; j >= 0; j--) {
+                for (var k = line.words[j].chars.length - 1; k >= 0; k--) {
+                    if (k == line.words[j].chars.length - 1 && j == line.words.length - 1) {
+                        line.words[j].chars[k].x = 0;
+                        line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    if (k == line.words[j].chars.length - 1) {
+                        line.words[j].chars[k].x = line.words[j + 1].chars[0].x + line.words[j + 1].chars[0].vwidth;
+                        line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    line.words[j].chars[k].x = line.words[j].chars[k + 1].x + line.words[j].chars[k + 1].vwidth;
+                    line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                }
+            }
+            y -= this._spaceBetweenLines;
+        }
+    };
+    /**
+    * Align on the center starting from the bottom right going left then up
+    *
+    * @param lines Array of lines to be repositioned {Array}
+    */
+
+    @Private _centerAlignRLDU(lines) {
+
+        var y = this._height;
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            //subtrai ao y o tamanho das linhas para alinha-las
+            if (i !== 0) {
+                y -= lines[i - 1].height;
+            }
+            line.y = y;
+            for (var j = 0; j < lines[i].words.length; j++) {
+                for (var k = 0; k < lines[i].words[j].chars.length; k++) {
+                    if (k === 0 && j === 0) {
+                        lines[i].words[j].chars[k].x = this._width / 2 + lines[i].width / 2 - lines[i].words[j].chars[k].width;
+                        lines[i].words[j].chars[k].y = y - line.height + ((line.height - lines[i].words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    if (k === 0) {
+                        lines[i].words[j].chars[k].x = lines[i].words[j - 1].chars[lines[i].words[j - 1].chars.length - 1].x - lines[i].words[j].chars[k].vwidth;
+                        lines[i].words[j].chars[k].y = y - line.height + ((line.height - lines[i].words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    lines[i].words[j].chars[k].x = lines[i].words[j].chars[k - 1].x - lines[i].words[j].chars[k].vwidth;
+                    lines[i].words[j].chars[k].y = y - line.height + ((line.height - lines[i].words[j].chars[k].height) * 0.80);
+                }
+            }
+            y -= this._spaceBetweenLines;
+        }
+    };
+    /**
+    * Align on the right starting from the bottom right going left then up
+    *
+    * @param lines Array of lines to be repositioned {Array}
+    */
+    @Private _rightAlignRLDU(lines) {
+
+        var y = this._height;
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            //subtrai ao y o tamanho das linhas para alinha-las
+            if (i !== 0) {
+                y -= lines[i - 1].height;
+            }
+            line.y = y;
+            for (var j = 0; j < line.words.length; j++) {
+                for (var k = 0; k < line.words[j].chars.length; k++) {
+                    if (j === 0 && k === 0) {
+                        line.words[j].chars[k].x = this._width - line.words[j].chars[k].width;
+                        line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    if (k === 0) {
+                        line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x - line.words[j].chars[k].vwidth;
+                        line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                    line.words[j].chars[k].x = line.words[j].chars[k - 1].x - line.words[j].chars[k].vwidth;
+                    line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    continue;
+                }
+            }
+            y -= this._spaceBetweenLines;
+        }
+    };
+    /**
+    * Align justified starting from the bottom right going left then up
+    *
+    * @param lines Array of lines to be repositioned {Array}
+    */
+    @Private _justifyAlignRLDU(lines) {
+
+        var y = this._height;
+        if (lines.length > 1) {
+            for (var i = 0; i < lines.length - 1; i++) {
+                var line = lines[i];
+                //subtrai ao y o tamanho das linhas para alinha-las
+                if (i !== 0) {
+                    y -= lines[i - 1].height;
+                }
+                line.y = y;
+                var difEspacoLinha = (this._width - line.width) / (line.words.length - 1);
+                for (var j = 0; j < line.words.length; j++) {
+                    //se for mais de uma palavra e for a ultima palavra alinha na esquerda
+                    if (line.words.length != 1) {
+                        if (j == line.words.length - 1) {
+                            for (var k = line.words[j].chars.length - 1; k >= 0; k--) {
+                                if (k === line.words[j].chars.length - 1) {
+                                    line.words[j].chars[k].x = 0;
+                                    line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                                    continue;
+                                }
+                                line.words[j].chars[k].x = line.words[j].chars[k + 1].x + line.words[j].chars[k + 1].vwidth;
+                                line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                            }
+                            break;
+                        }
+                    }
+                    //se n for a ultima palavra alinha da direita
+                    // if (k === 0 && j === 0) {
+                    //     line.words[j].chars[k].x = 0;
+                    //     line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    //     continue;
+                    // }
+                    // if (k === 0) {
+                    //     line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x + line.words[j - 1].chars[line.words[j - 1].chars.length - 1].width + difEspacoLinha;
+                    //     line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    //     continue;
+                    // }
+                    //
+                    //
+                    // line.words[j].chars[k].x = line.words[j].chars[k - 1].x + line.words[j].chars[k - 1].width;
+                    // line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    // continue;
+                    for (var k = 0; k < line.words[j].chars.length; k++) {
+                        if (j === 0 && k === 0) {
+                            line.words[j].chars[k].x = this._width - line.words[j].chars[k].width;
+                            line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                            continue;
+                        }
+                        if (k === 0) {
+                            line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x - line.words[j].chars[k].vwidth - difEspacoLinha;
+                            line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                            continue;
+                        }
+                        line.words[j].chars[k].x = line.words[j].chars[k - 1].x - line.words[j].chars[k].vwidth;
+                        line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                        continue;
+                    }
+                }
+                y -= this._spaceBetweenLines;
+            }
+            y -= lines[lines.length - 2].height;
+        }
+        var line = lines[lines.length - 1];
+        for (var j = 0; j < line.words.length; j++) {
+            for (var k = 0; k < line.words[j].chars.length; k++) {
+                if (j === 0 && k === 0) {
+                    line.words[j].chars[k].x = this._width - line.words[j].chars[k].width;
+                    line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    continue;
+                }
+                if (k === 0) {
+                    line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x - line.words[j].chars[k].vwidth;
+                    line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                    continue;
+                }
+                line.words[j].chars[k].x = line.words[j].chars[k - 1].x - line.words[j].chars[k].vwidth;
+                line.words[j].chars[k].y = y - line.height + ((line.height - line.words[j].chars[k].height) * 0.80);
+                continue;
+            }
+        }
+    };
+    //FIM do justify
+    ////// fim do alinhamento
 }
 
 export default HorizontalModule;
