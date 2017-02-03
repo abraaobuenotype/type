@@ -82,12 +82,6 @@ Type for PIXI is a powerfull tool for working with texts on HTML 5 canvas.
 	}
 </script>
 ```
-
-[view simple tag example here](http://www.studiokori.com.br/typeExample/example/);
-[view all simple aligns here](http://www.studiokori.com.br/typeExample/example2/);
-[view Tween here](http://www.studiokori.com.br/typeExample3);
-[view Custom Align here](http://www.studiokori.com.br/typeExample4);
-
 ####NPM install
 
 ```
@@ -114,7 +108,14 @@ var loader = new type.Loader();
 
 #### More Examples
 
-For more Examples download the project and open the examples folder
+For more Examples download the project and open the examples folder or click this links:  
+
+
+[view simple tag example here](http://www.studiokori.com.br/typeExample/example/);  
+[view all simple aligns here](http://www.studiokori.com.br/typeExample/example2/);  
+[view Tween example here](http://www.studiokori.com.br/typeExample3);  
+[view Custom Align example here](http://www.studiokori.com.br/typeExample4);  
+
 
 -------------
 
@@ -140,20 +141,21 @@ Then, to build the source, run:
 
 ####Plans
 
-- More Aligns
 - Input
 - More customizations
 - Softkeyboard
+- Cursos
+- Text Selection
 
 -------------
 
 ####Special thanks
 
->PIXI.js - goodboy
->font.js - Pomax
->opentype.js - nodebox
->jsdiff - kpdecker
->eventemmiter3 - primus
+PIXI.js - goodboy  
+font.js - Pomax  
+opentype.js - nodebox  
+jsdiff - kpdecker  
+eventemmiter3 - primus  
 
 > - https://github.com/pixijs/pixi.js
 > - https://github.com/Pomax/Font.js
