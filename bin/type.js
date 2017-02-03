@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 67);
+/******/ 	return __webpack_require__(__webpack_require__.s = 69);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1117,7 +1117,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _class, _class2, _temp;
 
-var _opentype = __webpack_require__(52);
+var _opentype = __webpack_require__(53);
 
 var _opentype2 = _interopRequireDefault(_opentype);
 
@@ -3894,7 +3894,7 @@ exports.BoundingBox = BoundingBox;
 
 
 var check = __webpack_require__(1);
-var draw = __webpack_require__(49);
+var draw = __webpack_require__(50);
 var path = __webpack_require__(6);
 
 function getPathDefinition(glyph, path) {
@@ -7435,7 +7435,7 @@ exports.checkArgument = function(expression, message) {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(61).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(62).Buffer))
 
 /***/ }),
 /* 31 */
@@ -7631,7 +7631,7 @@ var _eventemitter = __webpack_require__(15);
 
 var _eventemitter2 = _interopRequireDefault(_eventemitter);
 
-var _Font = __webpack_require__(35);
+var _Font = __webpack_require__(36);
 
 var _Font2 = _interopRequireDefault(_Font);
 
@@ -7728,13 +7728,17 @@ var _Char = __webpack_require__(12);
 
 var _Char2 = _interopRequireDefault(_Char);
 
-var _HorizontalModule = __webpack_require__(65);
+var _HorizontalModule = __webpack_require__(67);
 
 var _HorizontalModule2 = _interopRequireDefault(_HorizontalModule);
 
-var _VerticalModule = __webpack_require__(66);
+var _VerticalModule = __webpack_require__(68);
 
 var _VerticalModule2 = _interopRequireDefault(_VerticalModule);
+
+var _CustomModule = __webpack_require__(66);
+
+var _CustomModule2 = _interopRequireDefault(_CustomModule);
 
 var _Metrics = __webpack_require__(5);
 
@@ -7750,7 +7754,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var JsDiff = __webpack_require__(44);
+var JsDiff = __webpack_require__(45);
 
 var _width = new WeakMap();
 
@@ -7789,6 +7793,8 @@ var _textSupport = new WeakMap();
 var _horizontalModule = new WeakMap();
 
 var _verticalModule = new WeakMap();
+
+var _customModule = new WeakMap();
 
 var _getMap = new WeakMap();
 
@@ -7852,6 +7858,8 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
         _horizontalModule.set(_this, null);
 
         _verticalModule.set(_this, null);
+
+        _customModule.set(_this, null);
 
         _getMap.set(_this, function (nodes) {
             var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ["text"];
@@ -7942,8 +7950,13 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
             if (_text.get(this) == "") return;
 
             if (_customAlign.get(this)) {
-                // customModule._align(this.children);
-                // this.blurinessFix();
+                if (_customModule.get(this) === null) {
+                    _customModule.set(this, new _CustomModule2.default());
+                }
+
+                _customModule.get(this).typeAlign = this._typeAlign;
+                _customModule.get(this).align(this.children);
+                _blurinessFix.get(this)();
                 return;
             }
 
@@ -8108,10 +8121,11 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
     }, {
         key: 'typeAlign',
         get: function get() {
-            return customModule.typeAlign;
+            return this._typeAlign;
         },
         set: function set(value) {
-            this.customModule.typeAlign = value;
+            this._typeAlign = value;
+            _relocate.get(this)();
         }
     }, {
         key: 'align',
@@ -8153,6 +8167,173 @@ exports.default = TextField;
 
 /***/ }),
 /* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _autobindDecorator = __webpack_require__(3);
+
+var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
+
+var _Metrics = __webpack_require__(5);
+
+var _Metrics2 = _interopRequireDefault(_Metrics);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Used to Define a custom aligment for the chars in the textfield
+ *
+ * @class
+ * @memberof type.text
+ *
+ * @example
+ * var typeAlign = new type.text.TypeAlign();
+ * typeAlign.startingX = 50;
+ * typeAlign.startingY = 250;
+ *typeAlign.steps = [{
+ *     "x": 20,
+ *     "y": 70,
+ *     "rotation": 90
+ *}, {
+ *     "x": 15,
+ *     "y": -20
+ *}, {
+ *     "x": 15,
+ *     "y": +20,
+ *     "rotation": 45
+ *}, {
+ *     "x": 15,
+ *     "y": -70
+ *},
+ *{
+ *     "x": 20,
+ *     "y": -70,
+ *     "rotation": 45
+ *}, {
+ *     "x": 15,
+ *     "y": +20
+ *}, {
+ *     "x": 15,
+ *     "y": -20
+ *}, {
+ *     "x": 15,
+ *     "y": +70
+ * }];
+ *
+ *
+ *txField.typeAlign = typeAlign;
+ *
+ *txField.customAlign = true;
+ */
+
+var _startingX = new WeakMap();
+
+var _startingY = new WeakMap();
+
+var _steps = new WeakMap();
+
+var TypeAlign = (0, _autobindDecorator2.default)(_class = function () {
+    function TypeAlign() {
+        _classCallCheck(this, TypeAlign);
+
+        _startingX.set(this, 0);
+
+        _startingY.set(this, false);
+
+        _steps.set(this, []);
+    }
+
+    /*
+     * Starting x point of the chars
+     *
+     * @member {number}
+     * @memberof type.text.TypeAlign#
+     */
+
+    /*
+     * Starting y point of the chars
+     *
+     * @member {number}
+     * @memberof type.text.TypeAlign#
+     */
+
+    /*
+     * steps to follow after the starting point to align the chars each object inside must contain x, y and rotation
+     *
+     * @member {Array}
+     * @memberof type.text.TypeAlign#
+     */
+
+
+    _createClass(TypeAlign, [{
+        key: 'startingX',
+
+
+        /**
+         * Starting x point of the chars
+         *
+         * @member {number}
+         * @memberof type.text.TypeAlign#
+         */
+        get: function get() {
+            return _startingX.get(this);
+        },
+        set: function set(value) {
+            _startingX.set(this, value);
+        }
+
+        /**
+         * Starting y point of the chars
+         *
+         * @member {number}
+         * @memberof type.text.TypeAlign#
+         */
+
+    }, {
+        key: 'startingY',
+        get: function get() {
+            return _startingY.get(this);
+        },
+        set: function set(value) {
+            _startingY.set(this, value);
+        }
+        /**
+         * steps to follow after the starting point to align the chars each object inside must contain x, y and rotation
+         *
+         * @member {Array}
+         * @memberof type.text.TypeAlign#
+         */
+
+    }, {
+        key: 'steps',
+        get: function get() {
+            return _steps.get(this);
+        },
+        set: function set(value) {
+            _steps.set(this, value);
+        }
+    }]);
+
+    return TypeAlign;
+}()) || _class;
+
+exports.default = TypeAlign;
+
+
+/***/ }),
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -8976,7 +9157,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9007,7 +9188,7 @@ function convertChangesToDMP(changes) {
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9049,7 +9230,7 @@ function escapeHTML(s) {
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9078,7 +9259,7 @@ function diffArrays(oldArr, newArr, callback) {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9103,7 +9284,7 @@ function diffChars(oldStr, newStr, callback) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9132,7 +9313,7 @@ function diffCss(oldStr, newStr, callback) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9248,7 +9429,7 @@ function canonicalize(obj, stack, replacementStack) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9277,7 +9458,7 @@ function diffSentences(oldStr, newStr, callback) {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9354,7 +9535,7 @@ function diffWordsWithSpace(oldStr, newStr, callback) {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9369,29 +9550,29 @@ var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore en
 var _base2 = _interopRequireDefault(_base);
 
 /*istanbul ignore end*/
-var /*istanbul ignore start*/_character = __webpack_require__(39) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_character = __webpack_require__(40) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_word = __webpack_require__(43) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_word = __webpack_require__(44) /*istanbul ignore end*/;
 
 var /*istanbul ignore start*/_line = __webpack_require__(9) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_sentence = __webpack_require__(42) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_sentence = __webpack_require__(43) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_css = __webpack_require__(40) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_css = __webpack_require__(41) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_json = __webpack_require__(41) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_json = __webpack_require__(42) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_array = __webpack_require__(38) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_array = __webpack_require__(39) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_apply = __webpack_require__(45) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_apply = __webpack_require__(46) /*istanbul ignore end*/;
 
 var /*istanbul ignore start*/_parse = __webpack_require__(13) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_create = __webpack_require__(46) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_create = __webpack_require__(47) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_dmp = __webpack_require__(36) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_dmp = __webpack_require__(37) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_xml = __webpack_require__(37) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_xml = __webpack_require__(38) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -9434,7 +9615,7 @@ exports. /*istanbul ignore end*/Diff = _base2['default'];
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9446,7 +9627,7 @@ exports. /*istanbul ignore end*/applyPatch = applyPatch;
 
 var /*istanbul ignore start*/_parse = __webpack_require__(13) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_distanceIterator = __webpack_require__(47) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_distanceIterator = __webpack_require__(48) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 var _distanceIterator2 = _interopRequireDefault(_distanceIterator);
@@ -9618,7 +9799,7 @@ function applyPatches(uniDiff, options) {
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9781,7 +9962,7 @@ function createPatch(fileName, oldStr, newStr, oldHeader, newHeader, options) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9835,7 +10016,7 @@ exports["default"] = /*istanbul ignore end*/function (start, minLine, maxLine) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports) {
 
 var TINF_OK = 0;
@@ -10216,7 +10397,7 @@ module.exports = tinf_uncompress;
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10236,7 +10417,7 @@ exports.line = line;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10245,10 +10426,10 @@ exports.line = line;
 
 
 var path = __webpack_require__(6);
-var sfnt = __webpack_require__(59);
+var sfnt = __webpack_require__(60);
 var encoding = __webpack_require__(7);
 var glyphset = __webpack_require__(10);
-var Substitution = __webpack_require__(53);
+var Substitution = __webpack_require__(54);
 var util = __webpack_require__(30);
 
 /**
@@ -10771,7 +10952,7 @@ exports.Font = Font;
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11060,7 +11241,7 @@ module.exports = Layout;
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11073,10 +11254,10 @@ module.exports = Layout;
 
 
 
-var inflate = __webpack_require__(48);
+var inflate = __webpack_require__(49);
 
 var encoding = __webpack_require__(7);
-var _font = __webpack_require__(50);
+var _font = __webpack_require__(51);
 var glyph = __webpack_require__(17);
 var parse = __webpack_require__(0);
 var bbox = __webpack_require__(16);
@@ -11085,16 +11266,16 @@ var util = __webpack_require__(30);
 
 var cmap = __webpack_require__(19);
 var cff = __webpack_require__(18);
-var fvar = __webpack_require__(54);
-var glyf = __webpack_require__(55);
-var gpos = __webpack_require__(56);
+var fvar = __webpack_require__(55);
+var glyf = __webpack_require__(56);
+var gpos = __webpack_require__(57);
 var gsub = __webpack_require__(20);
 var head = __webpack_require__(21);
 var hhea = __webpack_require__(22);
 var hmtx = __webpack_require__(23);
-var kern = __webpack_require__(57);
+var kern = __webpack_require__(58);
 var ltag = __webpack_require__(24);
-var loca = __webpack_require__(58);
+var loca = __webpack_require__(59);
 var maxp = __webpack_require__(25);
 var _name = __webpack_require__(27);
 var os2 = __webpack_require__(28);
@@ -11457,7 +11638,7 @@ exports.loadSync = loadSync;
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11467,7 +11648,7 @@ exports.loadSync = loadSync;
 
 
 var check = __webpack_require__(1);
-var Layout = __webpack_require__(51);
+var Layout = __webpack_require__(52);
 
 /**
  * @exports opentype.Substitution
@@ -11765,7 +11946,7 @@ module.exports = Substitution;
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11911,7 +12092,7 @@ exports.parse = parseFvarTable;
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12253,7 +12434,7 @@ exports.parse = parseGlyfTable;
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12497,7 +12678,7 @@ exports.parse = parseGposTable;
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12575,7 +12756,7 @@ exports.parse = parseKernTable;
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12615,7 +12796,7 @@ exports.parse = parseLocaTable;
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12964,7 +13145,7 @@ exports.fontToTable = fontToSfntTable;
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports) {
 
 var g;
@@ -12991,7 +13172,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13005,9 +13186,9 @@ module.exports = g;
 
 
 
-var base64 = __webpack_require__(62)
-var ieee754 = __webpack_require__(63)
-var isArray = __webpack_require__(64)
+var base64 = __webpack_require__(63)
+var ieee754 = __webpack_require__(64)
+var isArray = __webpack_require__(65)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -14785,10 +14966,10 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(60)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(61)))
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14909,7 +15090,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -14999,7 +15180,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -15010,7 +15191,110 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 65 */
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _autobindDecorator = __webpack_require__(3);
+
+var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
+
+var _Metrics = __webpack_require__(5);
+
+var _Metrics2 = _interopRequireDefault(_Metrics);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var _typeAlign = new WeakMap();
+
+var _useRotation = new WeakMap();
+
+var CustomModule = (0, _autobindDecorator2.default)(_class = function () {
+    function CustomModule() {
+        _classCallCheck(this, CustomModule);
+
+        _typeAlign.set(this, null);
+
+        _useRotation.set(this, false);
+    }
+
+    /*
+     * Type Align Object, object that have the properties of aligment
+     *
+     * @member {Object | TypeALign}
+     * @memberof type.text.CustomModule#
+     */
+
+    /*
+     * define the use of rotation or not on the custom align
+     *
+     * @member {Boolean}
+     * @default false
+     */
+
+
+    _createClass(CustomModule, [{
+        key: 'align',
+
+
+        /**
+        *  position the Chars on the screen
+        *
+        *  @param chars [chars to be positioned] {Array}
+        */
+        value: function align(chars) {
+            chars[0].x = _typeAlign.get(this).startingX;
+            chars[0].y = _typeAlign.get(this).startingY;
+            var stepCount = 0;
+            for (var i = 1; i < chars.length; i++) {
+                if (stepCount == _typeAlign.get(this).steps.length) {
+                    stepCount = 0;
+                }
+                chars[i].x = chars[i - 1].x + _typeAlign.get(this).steps[stepCount].x;
+                chars[i].y = chars[i - 1].y + _typeAlign.get(this).steps[stepCount].y;
+                if (_typeAlign.get(this).steps[stepCount].rotation !== undefined) chars[i].rotation = Math.PI / 180 * _typeAlign.get(this).steps[stepCount].rotation;
+                stepCount++;
+            }
+        }
+    }, {
+        key: 'typeAlign',
+
+
+        /**
+         * Type Align Object, object that have the properties of aligment
+         *
+         * @member {Object | TypeALign}
+         * @memberof type.text.CustomModule#
+         */
+
+        get: function get() {
+            return _typeAlign.get(this);
+        },
+        set: function set(value) {
+            _typeAlign.set(this, value);
+        }
+    }]);
+
+    return CustomModule;
+}()) || _class;
+
+exports.default = CustomModule;
+
+
+/***/ }),
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16113,7 +16397,7 @@ exports.default = HorizontalModule;
 
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16210,7 +16494,7 @@ var VerticalModule = (0, _autobindDecorator2.default)(_class = function () {
             if (line.words.length == 1) {
                 if (line.height + charHeight > _height.get(this)) {
                     _lines.get(this).push(new _Phrase2.default());
-                    novaWord = new _Word2.default();
+                    var novaWord = new _Word2.default();
                     novaWord.indexWord = 0;
                     _lines.get(this)[_lines.get(this).length - 1].words.push(novaWord);
                 }
@@ -17150,7 +17434,7 @@ exports.default = VerticalModule;
 
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17184,6 +17468,10 @@ var _TextField = __webpack_require__(34);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
+var _TypeAlign = __webpack_require__(35);
+
+var _TypeAlign2 = _interopRequireDefault(_TypeAlign);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -17199,7 +17487,9 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
         this.Metrics = _Metrics2.default;
         this.text = {
             Char: _Char2.default,
-            TextField: _TextField2.default
+            TextField: _TextField2.default,
+            TypeAlign: _TypeAlign2.default
+
         };
 
         _instance.set(this, null);

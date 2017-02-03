@@ -83,7 +83,10 @@ Type for PIXI is a powerfull tool for working with texts on HTML 5 canvas.
 </script>
 ```
 
-[view example here](http://www.studiokori.com.br/typeExample);
+[view simple tag example here](http://www.studiokori.com.br/typeExample/example/);
+[view all simple aligns here](http://www.studiokori.com.br/typeExample/example2/);
+[view Tween here](http://www.studiokori.com.br/typeExample3);
+[view Custom Align here](http://www.studiokori.com.br/typeExample4);
 
 ####NPM install
 

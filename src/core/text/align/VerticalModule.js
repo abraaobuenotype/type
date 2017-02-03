@@ -165,7 +165,7 @@ class VerticalModule {
         if (line.words.length == 1) {
             if (line.height + charHeight > this._height) {
                 this._lines.push(new Phrase());
-                novaWord = new Word();
+                var novaWord = new Word();
                 novaWord.indexWord = 0;
                 this._lines[this._lines.length - 1].words.push(novaWord);
             }

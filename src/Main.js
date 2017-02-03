@@ -3,6 +3,7 @@ import Loader from './core/Loader';
 import Metrics from './core/Metrics';
 import Char from './core/text/Char';
 import TextField from './core/text/TextField';
+import TypeAlign from './core/text/align/TypeAlign';
 
 @autobind
 class type{
@@ -14,7 +15,9 @@ class type{
     Metrics = Metrics;
     text = {
         Char: Char,
-        TextField: TextField
+        TextField: TextField,
+        TypeAlign: TypeAlign
+
     };
 
     constructor(){
