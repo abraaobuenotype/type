@@ -11,7 +11,6 @@
 
 <body>
     <script>
-
         var fontLibrary = [{
             name: 'arcena',
             url: 'fonts/arcena.ttf'
@@ -45,7 +44,6 @@
             });
             document.body.appendChild(renderer.view);
             var dom = renderer.view;
-            dom.style.border = "1px solid red";
 
             var stage = new PIXI.Container();
 
@@ -56,212 +54,221 @@
             typeAlign.startingX = 250;
             typeAlign.startingY = 100;
 
-             typeAlign.steps = [{
-                "x": 12,
-                "y": 0
-            }, {
-                "x": 12,
-                "y": 0
-            }, {
-                "x": 12,
-                "y": 0
-            }, {
-                "x": 12,
-                "y": 0
-            }, {
-                "x": 12,
-                "y": 0
-            },
-            {
-                "x": 10,
-                "y": -13,
-                "rotation": -30
-            }, {
-                "x": 10,
-                "y": -13,
-                "rotation": -30
-            }, {
-                "x": 10,
-                "y": -13,
-                "rotation": -30
-            }, {
-                "x": 10,
-                "y": -13,
-                "rotation": -30
-            }, {
-                "x": 10,
-                "y": -13,
-                "rotation": -30
-            },{
-                "x": 20,
-                "y": +13,
-                "rotation": +30
-            },{
-                "x": 10,
-                "y": +13,
-                "rotation": +30
-            },{
-                "x": 10,
-                "y": +13,
-                "rotation": +30
-            },{
-                "x": 10,
-                "y": +13,
-                "rotation": +30
-            },{
-                "x": 10,
-                "y": +13,
-                "rotation": +30
-            },{
-                "x": 12,
-                "y": 0
-            }, {
-                "x": 12,
-                "y": 0
-            }, {
-                "x": 12,
-                "y": 0
-            }, {
-                "x": 12,
-                "y": 0
-            }, {
-                "x": 12,
-                "y": 0
-            },
+            typeAlign.steps = [{
+                    "x": 12,
+                    "y": 0
+                }, {
+                    "x": 12,
+                    "y": 0
+                }, {
+                    "x": 12,
+                    "y": 0
+                }, {
+                    "x": 12,
+                    "y": 0
+                }, {
+                    "x": 12,
+                    "y": 0
+                },
 
-            {
-                "x": 20,
-                "y": +23,
-                "rotation": +120
-            },{
-                "x": -10,
-                "y": +13,
-                "rotation": +120
-            },{
-                "x": -10,
-                "y": +13,
-                "rotation": +120
-            },{
-                "x": -10,
-                "y": +13,
-                "rotation": +120
-            },{
-                "x": -10,
-                "y": +13,
-                "rotation": +120
-            }
+                {
+                    "x": 10,
+                    "y": -13,
+                    "rotation": -30
+                }, {
+                    "x": 10,
+                    "y": -13,
+                    "rotation": -30
+                }, {
+                    "x": 10,
+                    "y": -13,
+                    "rotation": -30
+                }, {
+                    "x": 10,
+                    "y": -13,
+                    "rotation": -30
+                }, {
+                    "x": 10,
+                    "y": -13,
+                    "rotation": -30
+                },
 
-            ,{
-                "x": 0,
-                "y": +10,
-                "rotation": +70
-            },{
-                "x": 10,
-                "y": +13,
-                "rotation": +70
-            },{
-                "x": 10,
-                "y": +13,
-                "rotation": +70
-            },{
-                "x": 10,
-                "y": +13,
-                "rotation": +70
-            },{
-                "x": 10,
-                "y": +13,
-                "rotation": +90
-            },
 
-            {
-                "x": -50,
-                "y": 10,
-                "rotation": +260
-            },
-            {
-                "x": -20,
-                "y": -13,
-                "rotation": +190
-            },{
-                "x": -20,
-                "y": -13,
-                "rotation": +190
-            },{
-                "x": -20,
-                "y": -13,
-                "rotation": +190
-            },{
-                "x": -20,
-                "y": -13,
-                "rotation": +190
-            },
+                 {
+                    "x": 20,
+                    "y": +13,
+                    "rotation": +30
+                }, {
+                    "x": 10,
+                    "y": +13,
+                    "rotation": +30
+                }, {
+                    "x": 10,
+                    "y": +13,
+                    "rotation": +30
+                }, {
+                    "x": 10,
+                    "y": +13,
+                    "rotation": +30
+                }, {
+                    "x": 10,
+                    "y": +13,
+                    "rotation": +30
+                },
 
-            {
-                "x": -20,
-                "y": +10,
-                "rotation": +260
-            },
-            {
-                "x": -20,
-                "y": +13,
-                "rotation": +190
-            },{
-                "x": -20,
-                "y": +13,
-                "rotation": +190
-            },{
-                "x": -20,
-                "y": +13,
-                "rotation": +190
-            },{
-                "x": -20,
-                "y": +13,
-                "rotation": +190
-            }
 
-            ,{
-                "x": -20,
-                "y": -35,
-                "rotation": -50
-            },{
-                "x": +10,
-                "y": -18,
-                "rotation": -50
-            },{
-                "x": +10,
-                "y": -18,
-                "rotation": -50
-            },{
-                "x": +10,
-                "y": -18,
-                "rotation": -50
-            },{
-                "x": +10,
-                "y": -18,
-                "rotation": -50
-            },
+                {
+                    "x": 12,
+                    "y": 0
+                }, {
+                    "x": 12,
+                    "y": 0
+                }, {
+                    "x": 12,
+                    "y": 0
+                }, {
+                    "x": 12,
+                    "y": 0
+                }, {
+                    "x": 12,
+                    "y": 0
+                },
 
-            {
-                "x": -0,
-                "y": -8,
-                "rotation": 30
-            },{
-                "x": -10,
-                "y": -8,
-                "rotation": 30
-            },{
-                "x": -10,
-                "y": -8,
-                "rotation": 30
-            },{
-                "x": -10,
-                "y": -8,
-                "rotation": 30
-            },{
-                "x": -10,
-                "y": -8,
-                "rotation": 30
-            }];
+                {
+                    "x": 20,
+                    "y": +23,
+                    "rotation": +120
+                }, {
+                    "x": -10,
+                    "y": +13,
+                    "rotation": +120
+                }, {
+                    "x": -10,
+                    "y": +13,
+                    "rotation": +120
+                }, {
+                    "x": -10,
+                    "y": +13,
+                    "rotation": +120
+                }, {
+                    "x": -10,
+                    "y": +13,
+                    "rotation": +120
+                }
+
+                , {
+                    "x": 0,
+                    "y": +10,
+                    "rotation": +70
+                }, {
+                    "x": 10,
+                    "y": +13,
+                    "rotation": +70
+                }, {
+                    "x": 10,
+                    "y": +13,
+                    "rotation": +70
+                }, {
+                    "x": 10,
+                    "y": +13,
+                    "rotation": +70
+                }, {
+                    "x": 10,
+                    "y": +13,
+                    "rotation": +70
+                },
+
+                {
+                    "x": -50,
+                    "y": 10,
+                    "rotation": +190
+                },
+                {
+                    "x": -20,
+                    "y": -13,
+                    "rotation": +190
+                }, {
+                    "x": -20,
+                    "y": -13,
+                    "rotation": +190
+                }, {
+                    "x": -20,
+                    "y": -13,
+                    "rotation": +190
+                }, {
+                    "x": -20,
+                    "y": -13,
+                    "rotation": +190
+                },
+
+
+                {
+                    "x": -20,
+                    "y": +10,
+                    "rotation": +150
+                },
+                {
+                    "x": -20,
+                    "y": +13,
+                    "rotation": +150
+                }, {
+                    "x": -20,
+                    "y": +13,
+                    "rotation": +150
+                }, {
+                    "x": -20,
+                    "y": +13,
+                    "rotation": +150
+                }, {
+                    "x": -20,
+                    "y": +13,
+                    "rotation": +150
+                }
+
+                , {
+                    "x": -20,
+                    "y": -35,
+                    "rotation": -50
+                }, {
+                    "x": +10,
+                    "y": -18,
+                    "rotation": -50
+                }, {
+                    "x": +10,
+                    "y": -18,
+                    "rotation": -50
+                }, {
+                    "x": +10,
+                    "y": -18,
+                    "rotation": -50
+                }, {
+                    "x": +10,
+                    "y": -18,
+                    "rotation": -50
+                },
+
+                {
+                    "x": -0,
+                    "y": -8,
+                    "rotation": 30
+                }, {
+                    "x": -10,
+                    "y": -8,
+                    "rotation": 30
+                }, {
+                    "x": -10,
+                    "y": -8,
+                    "rotation": 30
+                }, {
+                    "x": -10,
+                    "y": -8,
+                    "rotation": 30
+                }, {
+                    "x": -10,
+                    "y": -8,
+                    "rotation": 30
+                }
+            ];
 
 
             txField.typeAlign = typeAlign;
@@ -269,7 +276,11 @@
             txField.x += 50;
             txField.y += 50;
 
-            txField.setText("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+            txField.setText("<a>zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ</a>", {
+                a: {
+                    fontFamily: "century"
+                }
+            });
 
             txField.customAlign = true;
 

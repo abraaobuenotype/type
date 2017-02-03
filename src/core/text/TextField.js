@@ -3,6 +3,7 @@ import autobind from 'autobind-decorator';
 import Char from './Char';
 import HorizontalModule from './align/HorizontalModule';
 import VerticalModule from './align/VerticalModule';
+import CustomModule from './align/CustomModule'
 import Metrics from '../Metrics';
 
 @autobind
@@ -36,6 +37,7 @@ class TextField extends PIXI.Container {
 
     @Private horizontalModule = null;
     @Private verticalModule = null;
+    @Private customModule = null;
 
     constructor(width = 2048, height = 1152) {
         super();
@@ -82,11 +84,12 @@ class TextField extends PIXI.Container {
     }
 
     get typeAlign() {
-        return customModule.typeAlign;
+        return this._typeAlign;
     }
 
     set typeAlign(value) {
-        this.customModule.typeAlign = value;
+        this._typeAlign = value;
+        this.relocate();
     }
 
     get align() {
@@ -246,8 +249,13 @@ class TextField extends PIXI.Container {
 
 
         if (this._customAlign) {
-            // customModule._align(this.children);
-            // this.blurinessFix();
+            if (this.customModule === null) {
+                this.customModule = new CustomModule();
+            }
+
+            this.customModule.typeAlign = this._typeAlign;
+            this.customModule.align(this.children);
+            this.blurinessFix();
             return;
         }
 
