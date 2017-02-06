@@ -111,7 +111,7 @@ var loader = new type.Loader();
 For more Examples download the project and open the examples folder or click this links:  
 
 
-[view simple tag example here](http://www.studiokori.com.br/typeExample/example/);  
+[view simple tag example here](http://www.studiokori.com.br/typeExample/example1/);  
 [view all simple aligns here](http://www.studiokori.com.br/typeExample/example2/);  
 [view Tween example here](http://www.studiokori.com.br/typeExample3);  
 [view Custom Align example here](http://www.studiokori.com.br/typeExample4);  
