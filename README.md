@@ -36,6 +36,7 @@ Type for PIXI is a powerfull tool for working with texts on HTML 5 canvas.
 		var loader = new type.Loader();
 		//.add(fontFamilyName, url)
 		loader.add('century', 'fonts/century.ttf');
+		loader.add('playtime', 'fonts/playtime-webfont.ttf');
 		loader.once('loadComplete', init);
 		loader.load();
 
@@ -135,7 +136,7 @@ After that you can the install the project modules at the project root file:
 
 Then, to build the source, run:
 
-    grunt browserify
+    grunt build
 
 -------------
 
@@ -144,7 +145,7 @@ Then, to build the source, run:
 - Input
 - More customizations
 - Softkeyboard
-- Cursos
+- Cursor
 - Text Selection
 
 -------------

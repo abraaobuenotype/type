@@ -49,6 +49,7 @@ class Char extends PIXI.Container{
         else{
             this._vwidth = this._textObject.width;
         }
+
         this.createDebug();
     }
 

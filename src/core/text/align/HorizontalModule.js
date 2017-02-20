@@ -22,6 +22,10 @@ class HorizontalModule {
 
     constructor() {}
 
+    get lines(){
+        return this._lines;
+    }
+
     relocate(defaultText, chars, width, height) {
         this._width = width;
         this._height = height;

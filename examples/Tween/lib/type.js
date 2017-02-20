@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 69);
+/******/ 	return __webpack_require__(__webpack_require__.s = 70);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1117,7 +1117,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _class, _class2, _temp;
 
-var _opentype = __webpack_require__(53);
+var _opentype = __webpack_require__(54);
 
 var _opentype2 = _interopRequireDefault(_opentype);
 
@@ -1125,7 +1125,7 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _eventemitter = __webpack_require__(15);
+var _eventemitter = __webpack_require__(16);
 
 var _eventemitter2 = _interopRequireDefault(_eventemitter);
 
@@ -1281,7 +1281,7 @@ exports.default = Metrics;
 
 
 
-var bbox = __webpack_require__(16);
+var bbox = __webpack_require__(17);
 
 /**
  * A bézier path containing a set of path commands similar to a SVG path.
@@ -2760,211 +2760,6 @@ exports.sizeOf = sizeOf;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/*istanbul ignore start*/
-
-exports.__esModule = true;
-exports.lineDiff = undefined;
-exports. /*istanbul ignore end*/diffLines = diffLines;
-/*istanbul ignore start*/exports. /*istanbul ignore end*/diffTrimmedLines = diffTrimmedLines;
-
-var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore end*/;
-
-/*istanbul ignore start*/
-var _base2 = _interopRequireDefault(_base);
-
-/*istanbul ignore end*/
-var /*istanbul ignore start*/_params = __webpack_require__(14) /*istanbul ignore end*/;
-
-/*istanbul ignore start*/
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/*istanbul ignore end*/var lineDiff = /*istanbul ignore start*/exports. /*istanbul ignore end*/lineDiff = new /*istanbul ignore start*/_base2['default']() /*istanbul ignore end*/;
-lineDiff.tokenize = function (value) {
-  var retLines = [],
-      linesAndNewlines = value.split(/(\n|\r\n)/);
-
-  // Ignore the final empty token that occurs if the string ends with a new line
-  if (!linesAndNewlines[linesAndNewlines.length - 1]) {
-    linesAndNewlines.pop();
-  }
-
-  // Merge the content and line separators into single tokens
-  for (var i = 0; i < linesAndNewlines.length; i++) {
-    var line = linesAndNewlines[i];
-
-    if (i % 2 && !this.options.newlineIsToken) {
-      retLines[retLines.length - 1] += line;
-    } else {
-      if (this.options.ignoreWhitespace) {
-        line = line.trim();
-      }
-      retLines.push(line);
-    }
-  }
-
-  return retLines;
-};
-
-function diffLines(oldStr, newStr, callback) {
-  return lineDiff.diff(oldStr, newStr, callback);
-}
-function diffTrimmedLines(oldStr, newStr, callback) {
-  var options = /*istanbul ignore start*/(0, _params.generateOptions) /*istanbul ignore end*/(callback, { ignoreWhitespace: true });
-  return lineDiff.diff(oldStr, newStr, options);
-}
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2xpbmUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztnQ0E4QmdCLFMsR0FBQSxTO3lEQUNBLGdCLEdBQUEsZ0I7O0FBL0JoQixJLHlCQUFBLHlCLHdCQUFBOzs7Ozs7QUFDQSxJLHlCQUFBLG1DLHdCQUFBOzs7Ozt1QkFFTyxJQUFNLFcseUJBQUEsUSx3QkFBQSxXQUFXLEkseUJBQUEsbUIsd0JBQWpCO0FBQ1AsU0FBUyxRQUFULEdBQW9CLFVBQVMsS0FBVCxFQUFnQjtBQUNsQyxNQUFJLFdBQVcsRUFBZjtBQUFBLE1BQ0ksbUJBQW1CLE1BQU0sS0FBTixDQUFZLFdBQVosQ0FEdkI7OztBQUlBLE1BQUksQ0FBQyxpQkFBaUIsaUJBQWlCLE1BQWpCLEdBQTBCLENBQTNDLENBQUwsRUFBb0Q7QUFDbEQscUJBQWlCLEdBQWpCO0FBQ0Q7OztBQUdELE9BQUssSUFBSSxJQUFJLENBQWIsRUFBZ0IsSUFBSSxpQkFBaUIsTUFBckMsRUFBNkMsR0FBN0MsRUFBa0Q7QUFDaEQsUUFBSSxPQUFPLGlCQUFpQixDQUFqQixDQUFYOztBQUVBLFFBQUksSUFBSSxDQUFKLElBQVMsQ0FBQyxLQUFLLE9BQUwsQ0FBYSxjQUEzQixFQUEyQztBQUN6QyxlQUFTLFNBQVMsTUFBVCxHQUFrQixDQUEzQixLQUFpQyxJQUFqQztBQUNELEtBRkQsTUFFTztBQUNMLFVBQUksS0FBSyxPQUFMLENBQWEsZ0JBQWpCLEVBQW1DO0FBQ2pDLGVBQU8sS0FBSyxJQUFMLEVBQVA7QUFDRDtBQUNELGVBQVMsSUFBVCxDQUFjLElBQWQ7QUFDRDtBQUNGOztBQUVELFNBQU8sUUFBUDtBQUNELENBeEJEOztBQTBCTyxTQUFTLFNBQVQsQ0FBbUIsTUFBbkIsRUFBMkIsTUFBM0IsRUFBbUMsUUFBbkMsRUFBNkM7QUFBRSxTQUFPLFNBQVMsSUFBVCxDQUFjLE1BQWQsRUFBc0IsTUFBdEIsRUFBOEIsUUFBOUIsQ0FBUDtBQUFpRDtBQUNoRyxTQUFTLGdCQUFULENBQTBCLE1BQTFCLEVBQWtDLE1BQWxDLEVBQTBDLFFBQTFDLEVBQW9EO0FBQ3pELE1BQUksVSx5QkFBVSw0Qix3QkFBQSxDQUFnQixRQUFoQixFQUEwQixFQUFDLGtCQUFrQixJQUFuQixFQUExQixDQUFkO0FBQ0EsU0FBTyxTQUFTLElBQVQsQ0FBYyxNQUFkLEVBQXNCLE1BQXRCLEVBQThCLE9BQTlCLENBQVA7QUFDRCIsImZpbGUiOiJsaW5lLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IERpZmYgZnJvbSAnLi9iYXNlJztcbmltcG9ydCB7Z2VuZXJhdGVPcHRpb25zfSBmcm9tICcuLi91dGlsL3BhcmFtcyc7XG5cbmV4cG9ydCBjb25zdCBsaW5lRGlmZiA9IG5ldyBEaWZmKCk7XG5saW5lRGlmZi50b2tlbml6ZSA9IGZ1bmN0aW9uKHZhbHVlKSB7XG4gIGxldCByZXRMaW5lcyA9IFtdLFxuICAgICAgbGluZXNBbmROZXdsaW5lcyA9IHZhbHVlLnNwbGl0KC8oXFxufFxcclxcbikvKTtcblxuICAvLyBJZ25vcmUgdGhlIGZpbmFsIGVtcHR5IHRva2VuIHRoYXQgb2NjdXJzIGlmIHRoZSBzdHJpbmcgZW5kcyB3aXRoIGEgbmV3IGxpbmVcbiAgaWYgKCFsaW5lc0FuZE5ld2xpbmVzW2xpbmVzQW5kTmV3bGluZXMubGVuZ3RoIC0gMV0pIHtcbiAgICBsaW5lc0FuZE5ld2xpbmVzLnBvcCgpO1xuICB9XG5cbiAgLy8gTWVyZ2UgdGhlIGNvbnRlbnQgYW5kIGxpbmUgc2VwYXJhdG9ycyBpbnRvIHNpbmdsZSB0b2tlbnNcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBsaW5lc0FuZE5ld2xpbmVzLmxlbmd0aDsgaSsrKSB7XG4gICAgbGV0IGxpbmUgPSBsaW5lc0FuZE5ld2xpbmVzW2ldO1xuXG4gICAgaWYgKGkgJSAyICYmICF0aGlzLm9wdGlvbnMubmV3bGluZUlzVG9rZW4pIHtcbiAgICAgIHJldExpbmVzW3JldExpbmVzLmxlbmd0aCAtIDFdICs9IGxpbmU7XG4gICAgfSBlbHNlIHtcbiAgICAgIGlmICh0aGlzLm9wdGlvbnMuaWdub3JlV2hpdGVzcGFjZSkge1xuICAgICAgICBsaW5lID0gbGluZS50cmltKCk7XG4gICAgICB9XG4gICAgICByZXRMaW5lcy5wdXNoKGxpbmUpO1xuICAgIH1cbiAgfVxuXG4gIHJldHVybiByZXRMaW5lcztcbn07XG5cbmV4cG9ydCBmdW5jdGlvbiBkaWZmTGluZXMob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7IHJldHVybiBsaW5lRGlmZi5kaWZmKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjayk7IH1cbmV4cG9ydCBmdW5jdGlvbiBkaWZmVHJpbW1lZExpbmVzKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjaykge1xuICBsZXQgb3B0aW9ucyA9IGdlbmVyYXRlT3B0aW9ucyhjYWxsYmFjaywge2lnbm9yZVdoaXRlc3BhY2U6IHRydWV9KTtcbiAgcmV0dXJuIGxpbmVEaWZmLmRpZmYob2xkU3RyLCBuZXdTdHIsIG9wdGlvbnMpO1xufVxuIl19
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// The GlyphSet object
-
-
-
-var _glyph = __webpack_require__(17);
-
-// Define a property on the glyph that depends on the path being loaded.
-function defineDependentProperty(glyph, externalName, internalName) {
-    Object.defineProperty(glyph, externalName, {
-        get: function() {
-            // Request the path property to make sure the path is loaded.
-            glyph.path; // jshint ignore:line
-            return glyph[internalName];
-        },
-        set: function(newValue) {
-            glyph[internalName] = newValue;
-        },
-        enumerable: true,
-        configurable: true
-    });
-}
-
-/**
- * A GlyphSet represents all glyphs available in the font, but modelled using
- * a deferred glyph loader, for retrieving glyphs only once they are absolutely
- * necessary, to keep the memory footprint down.
- * @exports opentype.GlyphSet
- * @class
- * @param {opentype.Font}
- * @param {Array}
- */
-function GlyphSet(font, glyphs) {
-    this.font = font;
-    this.glyphs = {};
-    if (Array.isArray(glyphs)) {
-        for (var i = 0; i < glyphs.length; i++) {
-            this.glyphs[i] = glyphs[i];
-        }
-    }
-
-    this.length = (glyphs && glyphs.length) || 0;
-}
-
-/**
- * @param  {number} index
- * @return {opentype.Glyph}
- */
-GlyphSet.prototype.get = function(index) {
-    if (typeof this.glyphs[index] === 'function') {
-        this.glyphs[index] = this.glyphs[index]();
-    }
-
-    return this.glyphs[index];
-};
-
-/**
- * @param  {number} index
- * @param  {Object}
- */
-GlyphSet.prototype.push = function(index, loader) {
-    this.glyphs[index] = loader;
-    this.length++;
-};
-
-/**
- * @alias opentype.glyphLoader
- * @param  {opentype.Font} font
- * @param  {number} index
- * @return {opentype.Glyph}
- */
-function glyphLoader(font, index) {
-    return new _glyph.Glyph({index: index, font: font});
-}
-
-/**
- * Generate a stub glyph that can be filled with all metadata *except*
- * the "points" and "path" properties, which must be loaded only once
- * the glyph's path is actually requested for text shaping.
- * @alias opentype.ttfGlyphLoader
- * @param  {opentype.Font} font
- * @param  {number} index
- * @param  {Function} parseGlyph
- * @param  {Object} data
- * @param  {number} position
- * @param  {Function} buildPath
- * @return {opentype.Glyph}
- */
-function ttfGlyphLoader(font, index, parseGlyph, data, position, buildPath) {
-    return function() {
-        var glyph = new _glyph.Glyph({index: index, font: font});
-
-        glyph.path = function() {
-            parseGlyph(glyph, data, position);
-            var path = buildPath(font.glyphs, glyph);
-            path.unitsPerEm = font.unitsPerEm;
-            return path;
-        };
-
-        defineDependentProperty(glyph, 'xMin', '_xMin');
-        defineDependentProperty(glyph, 'xMax', '_xMax');
-        defineDependentProperty(glyph, 'yMin', '_yMin');
-        defineDependentProperty(glyph, 'yMax', '_yMax');
-
-        return glyph;
-    };
-}
-/**
- * @alias opentype.cffGlyphLoader
- * @param  {opentype.Font} font
- * @param  {number} index
- * @param  {Function} parseCFFCharstring
- * @param  {string} charstring
- * @return {opentype.Glyph}
- */
-function cffGlyphLoader(font, index, parseCFFCharstring, charstring) {
-    return function() {
-        var glyph = new _glyph.Glyph({index: index, font: font});
-
-        glyph.path = function() {
-            var path = parseCFFCharstring(font, glyph, charstring);
-            path.unitsPerEm = font.unitsPerEm;
-            return path;
-        };
-
-        return glyph;
-    };
-}
-
-exports.GlyphSet = GlyphSet;
-exports.glyphLoader = glyphLoader;
-exports.ttfGlyphLoader = ttfGlyphLoader;
-exports.cffGlyphLoader = cffGlyphLoader;
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -3184,6 +2979,7 @@ var Char = function (_PIXI$Container) {
             } else {
                 _vwidth.set(this, _textObject.get(this).width);
             }
+
             _createDebug.get(this)();
         }
     }, {
@@ -3225,7 +3021,762 @@ exports.default = Char;
 
 
 /***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*istanbul ignore start*/
+
+exports.__esModule = true;
+exports.lineDiff = undefined;
+exports. /*istanbul ignore end*/diffLines = diffLines;
+/*istanbul ignore start*/exports. /*istanbul ignore end*/diffTrimmedLines = diffTrimmedLines;
+
+var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore end*/;
+
+/*istanbul ignore start*/
+var _base2 = _interopRequireDefault(_base);
+
+/*istanbul ignore end*/
+var /*istanbul ignore start*/_params = __webpack_require__(15) /*istanbul ignore end*/;
+
+/*istanbul ignore start*/
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+/*istanbul ignore end*/var lineDiff = /*istanbul ignore start*/exports. /*istanbul ignore end*/lineDiff = new /*istanbul ignore start*/_base2['default']() /*istanbul ignore end*/;
+lineDiff.tokenize = function (value) {
+  var retLines = [],
+      linesAndNewlines = value.split(/(\n|\r\n)/);
+
+  // Ignore the final empty token that occurs if the string ends with a new line
+  if (!linesAndNewlines[linesAndNewlines.length - 1]) {
+    linesAndNewlines.pop();
+  }
+
+  // Merge the content and line separators into single tokens
+  for (var i = 0; i < linesAndNewlines.length; i++) {
+    var line = linesAndNewlines[i];
+
+    if (i % 2 && !this.options.newlineIsToken) {
+      retLines[retLines.length - 1] += line;
+    } else {
+      if (this.options.ignoreWhitespace) {
+        line = line.trim();
+      }
+      retLines.push(line);
+    }
+  }
+
+  return retLines;
+};
+
+function diffLines(oldStr, newStr, callback) {
+  return lineDiff.diff(oldStr, newStr, callback);
+}
+function diffTrimmedLines(oldStr, newStr, callback) {
+  var options = /*istanbul ignore start*/(0, _params.generateOptions) /*istanbul ignore end*/(callback, { ignoreWhitespace: true });
+  return lineDiff.diff(oldStr, newStr, options);
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2xpbmUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztnQ0E4QmdCLFMsR0FBQSxTO3lEQUNBLGdCLEdBQUEsZ0I7O0FBL0JoQixJLHlCQUFBLHlCLHdCQUFBOzs7Ozs7QUFDQSxJLHlCQUFBLG1DLHdCQUFBOzs7Ozt1QkFFTyxJQUFNLFcseUJBQUEsUSx3QkFBQSxXQUFXLEkseUJBQUEsbUIsd0JBQWpCO0FBQ1AsU0FBUyxRQUFULEdBQW9CLFVBQVMsS0FBVCxFQUFnQjtBQUNsQyxNQUFJLFdBQVcsRUFBZjtBQUFBLE1BQ0ksbUJBQW1CLE1BQU0sS0FBTixDQUFZLFdBQVosQ0FEdkI7OztBQUlBLE1BQUksQ0FBQyxpQkFBaUIsaUJBQWlCLE1BQWpCLEdBQTBCLENBQTNDLENBQUwsRUFBb0Q7QUFDbEQscUJBQWlCLEdBQWpCO0FBQ0Q7OztBQUdELE9BQUssSUFBSSxJQUFJLENBQWIsRUFBZ0IsSUFBSSxpQkFBaUIsTUFBckMsRUFBNkMsR0FBN0MsRUFBa0Q7QUFDaEQsUUFBSSxPQUFPLGlCQUFpQixDQUFqQixDQUFYOztBQUVBLFFBQUksSUFBSSxDQUFKLElBQVMsQ0FBQyxLQUFLLE9BQUwsQ0FBYSxjQUEzQixFQUEyQztBQUN6QyxlQUFTLFNBQVMsTUFBVCxHQUFrQixDQUEzQixLQUFpQyxJQUFqQztBQUNELEtBRkQsTUFFTztBQUNMLFVBQUksS0FBSyxPQUFMLENBQWEsZ0JBQWpCLEVBQW1DO0FBQ2pDLGVBQU8sS0FBSyxJQUFMLEVBQVA7QUFDRDtBQUNELGVBQVMsSUFBVCxDQUFjLElBQWQ7QUFDRDtBQUNGOztBQUVELFNBQU8sUUFBUDtBQUNELENBeEJEOztBQTBCTyxTQUFTLFNBQVQsQ0FBbUIsTUFBbkIsRUFBMkIsTUFBM0IsRUFBbUMsUUFBbkMsRUFBNkM7QUFBRSxTQUFPLFNBQVMsSUFBVCxDQUFjLE1BQWQsRUFBc0IsTUFBdEIsRUFBOEIsUUFBOUIsQ0FBUDtBQUFpRDtBQUNoRyxTQUFTLGdCQUFULENBQTBCLE1BQTFCLEVBQWtDLE1BQWxDLEVBQTBDLFFBQTFDLEVBQW9EO0FBQ3pELE1BQUksVSx5QkFBVSw0Qix3QkFBQSxDQUFnQixRQUFoQixFQUEwQixFQUFDLGtCQUFrQixJQUFuQixFQUExQixDQUFkO0FBQ0EsU0FBTyxTQUFTLElBQVQsQ0FBYyxNQUFkLEVBQXNCLE1BQXRCLEVBQThCLE9BQTlCLENBQVA7QUFDRCIsImZpbGUiOiJsaW5lLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IERpZmYgZnJvbSAnLi9iYXNlJztcbmltcG9ydCB7Z2VuZXJhdGVPcHRpb25zfSBmcm9tICcuLi91dGlsL3BhcmFtcyc7XG5cbmV4cG9ydCBjb25zdCBsaW5lRGlmZiA9IG5ldyBEaWZmKCk7XG5saW5lRGlmZi50b2tlbml6ZSA9IGZ1bmN0aW9uKHZhbHVlKSB7XG4gIGxldCByZXRMaW5lcyA9IFtdLFxuICAgICAgbGluZXNBbmROZXdsaW5lcyA9IHZhbHVlLnNwbGl0KC8oXFxufFxcclxcbikvKTtcblxuICAvLyBJZ25vcmUgdGhlIGZpbmFsIGVtcHR5IHRva2VuIHRoYXQgb2NjdXJzIGlmIHRoZSBzdHJpbmcgZW5kcyB3aXRoIGEgbmV3IGxpbmVcbiAgaWYgKCFsaW5lc0FuZE5ld2xpbmVzW2xpbmVzQW5kTmV3bGluZXMubGVuZ3RoIC0gMV0pIHtcbiAgICBsaW5lc0FuZE5ld2xpbmVzLnBvcCgpO1xuICB9XG5cbiAgLy8gTWVyZ2UgdGhlIGNvbnRlbnQgYW5kIGxpbmUgc2VwYXJhdG9ycyBpbnRvIHNpbmdsZSB0b2tlbnNcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBsaW5lc0FuZE5ld2xpbmVzLmxlbmd0aDsgaSsrKSB7XG4gICAgbGV0IGxpbmUgPSBsaW5lc0FuZE5ld2xpbmVzW2ldO1xuXG4gICAgaWYgKGkgJSAyICYmICF0aGlzLm9wdGlvbnMubmV3bGluZUlzVG9rZW4pIHtcbiAgICAgIHJldExpbmVzW3JldExpbmVzLmxlbmd0aCAtIDFdICs9IGxpbmU7XG4gICAgfSBlbHNlIHtcbiAgICAgIGlmICh0aGlzLm9wdGlvbnMuaWdub3JlV2hpdGVzcGFjZSkge1xuICAgICAgICBsaW5lID0gbGluZS50cmltKCk7XG4gICAgICB9XG4gICAgICByZXRMaW5lcy5wdXNoKGxpbmUpO1xuICAgIH1cbiAgfVxuXG4gIHJldHVybiByZXRMaW5lcztcbn07XG5cbmV4cG9ydCBmdW5jdGlvbiBkaWZmTGluZXMob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7IHJldHVybiBsaW5lRGlmZi5kaWZmKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjayk7IH1cbmV4cG9ydCBmdW5jdGlvbiBkaWZmVHJpbW1lZExpbmVzKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjaykge1xuICBsZXQgb3B0aW9ucyA9IGdlbmVyYXRlT3B0aW9ucyhjYWxsYmFjaywge2lnbm9yZVdoaXRlc3BhY2U6IHRydWV9KTtcbiAgcmV0dXJuIGxpbmVEaWZmLmRpZmYob2xkU3RyLCBuZXdTdHIsIG9wdGlvbnMpO1xufVxuIl19
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// The GlyphSet object
+
+
+
+var _glyph = __webpack_require__(18);
+
+// Define a property on the glyph that depends on the path being loaded.
+function defineDependentProperty(glyph, externalName, internalName) {
+    Object.defineProperty(glyph, externalName, {
+        get: function() {
+            // Request the path property to make sure the path is loaded.
+            glyph.path; // jshint ignore:line
+            return glyph[internalName];
+        },
+        set: function(newValue) {
+            glyph[internalName] = newValue;
+        },
+        enumerable: true,
+        configurable: true
+    });
+}
+
+/**
+ * A GlyphSet represents all glyphs available in the font, but modelled using
+ * a deferred glyph loader, for retrieving glyphs only once they are absolutely
+ * necessary, to keep the memory footprint down.
+ * @exports opentype.GlyphSet
+ * @class
+ * @param {opentype.Font}
+ * @param {Array}
+ */
+function GlyphSet(font, glyphs) {
+    this.font = font;
+    this.glyphs = {};
+    if (Array.isArray(glyphs)) {
+        for (var i = 0; i < glyphs.length; i++) {
+            this.glyphs[i] = glyphs[i];
+        }
+    }
+
+    this.length = (glyphs && glyphs.length) || 0;
+}
+
+/**
+ * @param  {number} index
+ * @return {opentype.Glyph}
+ */
+GlyphSet.prototype.get = function(index) {
+    if (typeof this.glyphs[index] === 'function') {
+        this.glyphs[index] = this.glyphs[index]();
+    }
+
+    return this.glyphs[index];
+};
+
+/**
+ * @param  {number} index
+ * @param  {Object}
+ */
+GlyphSet.prototype.push = function(index, loader) {
+    this.glyphs[index] = loader;
+    this.length++;
+};
+
+/**
+ * @alias opentype.glyphLoader
+ * @param  {opentype.Font} font
+ * @param  {number} index
+ * @return {opentype.Glyph}
+ */
+function glyphLoader(font, index) {
+    return new _glyph.Glyph({index: index, font: font});
+}
+
+/**
+ * Generate a stub glyph that can be filled with all metadata *except*
+ * the "points" and "path" properties, which must be loaded only once
+ * the glyph's path is actually requested for text shaping.
+ * @alias opentype.ttfGlyphLoader
+ * @param  {opentype.Font} font
+ * @param  {number} index
+ * @param  {Function} parseGlyph
+ * @param  {Object} data
+ * @param  {number} position
+ * @param  {Function} buildPath
+ * @return {opentype.Glyph}
+ */
+function ttfGlyphLoader(font, index, parseGlyph, data, position, buildPath) {
+    return function() {
+        var glyph = new _glyph.Glyph({index: index, font: font});
+
+        glyph.path = function() {
+            parseGlyph(glyph, data, position);
+            var path = buildPath(font.glyphs, glyph);
+            path.unitsPerEm = font.unitsPerEm;
+            return path;
+        };
+
+        defineDependentProperty(glyph, 'xMin', '_xMin');
+        defineDependentProperty(glyph, 'xMax', '_xMax');
+        defineDependentProperty(glyph, 'yMin', '_yMin');
+        defineDependentProperty(glyph, 'yMax', '_yMax');
+
+        return glyph;
+    };
+}
+/**
+ * @alias opentype.cffGlyphLoader
+ * @param  {opentype.Font} font
+ * @param  {number} index
+ * @param  {Function} parseCFFCharstring
+ * @param  {string} charstring
+ * @return {opentype.Glyph}
+ */
+function cffGlyphLoader(font, index, parseCFFCharstring, charstring) {
+    return function() {
+        var glyph = new _glyph.Glyph({index: index, font: font});
+
+        glyph.path = function() {
+            var path = parseCFFCharstring(font, glyph, charstring);
+            path.unitsPerEm = font.unitsPerEm;
+            return path;
+        };
+
+        return glyph;
+    };
+}
+
+exports.GlyphSet = GlyphSet;
+exports.glyphLoader = glyphLoader;
+exports.ttfGlyphLoader = ttfGlyphLoader;
+exports.cffGlyphLoader = cffGlyphLoader;
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
 /* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _autobindDecorator = __webpack_require__(3);
+
+var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
+
+var _Char = __webpack_require__(9);
+
+var _Char2 = _interopRequireDefault(_Char);
+
+var _HorizontalModule = __webpack_require__(68);
+
+var _HorizontalModule2 = _interopRequireDefault(_HorizontalModule);
+
+var _VerticalModule = __webpack_require__(69);
+
+var _VerticalModule2 = _interopRequireDefault(_VerticalModule);
+
+var _CustomModule = __webpack_require__(67);
+
+var _CustomModule2 = _interopRequireDefault(_CustomModule);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var JsDiff = __webpack_require__(46);
+
+var _width = new WeakMap();
+
+var _height = new WeakMap();
+
+var _hitArea = new WeakMap();
+
+var _box = new WeakMap();
+
+var _text = new WeakMap();
+
+var _map = new WeakMap();
+
+var _customAlign = new WeakMap();
+
+var _spaceBetweenLines = new WeakMap();
+
+var _spaceBetweenWords = new WeakMap();
+
+var _textAlign = new WeakMap();
+
+var _textLeftToRight = new WeakMap();
+
+var _textTopToBottom = new WeakMap();
+
+var _alignHorizontalPriority = new WeakMap();
+
+var _defaultStyle = new WeakMap();
+
+var _mapStyle = new WeakMap();
+
+var _customStyle = new WeakMap();
+
+var _textSupport = new WeakMap();
+
+var _horizontalModule = new WeakMap();
+
+var _verticalModule = new WeakMap();
+
+var _customModule = new WeakMap();
+
+var _getMap = new WeakMap();
+
+var _change = new WeakMap();
+
+var _buildStyle = new WeakMap();
+
+var _relocate = new WeakMap();
+
+var _blurinessFix = new WeakMap();
+
+var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container) {
+    _inherits(TextField, _PIXI$Container);
+
+    function TextField() {
+        var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 2048;
+        var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1152;
+
+        _classCallCheck(this, TextField);
+
+        var _this = _possibleConstructorReturn(this, (TextField.__proto__ || Object.getPrototypeOf(TextField)).call(this));
+
+        _width.set(_this, 0);
+
+        _height.set(_this, 0);
+
+        _hitArea.set(_this, null);
+
+        _box.set(_this, null);
+
+        _text.set(_this, "");
+
+        _map.set(_this, {});
+
+        _customAlign.set(_this, false);
+
+        _spaceBetweenLines.set(_this, 0);
+
+        _spaceBetweenWords.set(_this, -1);
+
+        _textAlign.set(_this, "left");
+
+        _textLeftToRight.set(_this, true);
+
+        _textTopToBottom.set(_this, true);
+
+        _alignHorizontalPriority.set(_this, true);
+
+        _defaultStyle.set(_this, {
+            fontFamily: 'Arial',
+            fontSize: 20,
+            fill: '#000000'
+        });
+
+        _mapStyle.set(_this, []);
+
+        _customStyle.set(_this, {});
+
+        _textSupport.set(_this, document.createElement('div'));
+
+        _horizontalModule.set(_this, null);
+
+        _verticalModule.set(_this, null);
+
+        _customModule.set(_this, null);
+
+        _getMap.set(_this, function (nodes) {
+            var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ["text"];
+
+            for (var i = 0; i < nodes.length; i++) {
+                var _n = nodes[i];
+                if (_n.nodeName == "#text") {
+                    for (var j = 0; j < _n.length; j++) {
+                        _mapStyle.get(this).push({ char: _n.nodeValue[j], style: parent });
+                    }
+                } else {
+                    var arr = [];
+                    if (parent[0] == "text") {
+                        arr[0] = _n.nodeName.toLowerCase();
+                    } else {
+                        arr = parent.concat([]);
+                        arr.push(_n.nodeName.toLowerCase());
+                    }
+                    _getMap.get(this)(_n.childNodes, arr);
+                }
+            }
+        }.bind(_this));
+
+        _change.set(_this, function (diff) {
+            var count = 0;
+
+            for (var i = 0; i < diff.length; i++) {
+                if (diff[i][0] === 0) {
+                    for (var zi = 0; zi < diff[i][1].length; zi++) {
+
+                        if (_mapStyle.get(this)[count] == "text") {
+                            count++;
+                            continue;
+                        }
+                        this.children[count].setStyle(_customStyle.get(this)[_mapStyle.get(this)[count]]);
+                        count++;
+                    }
+                }
+
+                if (diff[i][0] == 1) {
+                    for (var zj = 0; zj < diff[i][1].length; zj++) {
+                        var st = _mapStyle.get(this)[count].style;
+                        var style = _buildStyle.get(this)(st);
+
+                        var char = new _Char2.default(diff[i][1].charAt(zj), style);
+
+                        this.addChildAt(char, count);
+                        count++;
+                    }
+                }
+
+                if (diff[i][0] == -1) {
+                    for (var k = 0; k < diff[i][1].length; k++) {
+                        var c = this.children[count];
+                        this.removeChild(c);
+                        c.destroy(true);
+                        c = null;
+                    }
+                }
+            }
+
+            _relocate.get(this)();
+        }.bind(_this));
+
+        _buildStyle.set(_this, function (styleRefs) {
+            var temp = {};
+
+            for (var j in _defaultStyle.get(this)) {
+                temp[j] = _defaultStyle.get(this)[j];
+            }
+
+            for (var i = 0; i < styleRefs.length; i++) {
+                if (styleRefs[i] === "text") {
+                    continue;
+                } else {
+                    var st = _customStyle.get(this)[styleRefs[i]];
+                    for (var k in st) {
+                        temp[k] = st[k];
+                    }
+                }
+            }
+
+            return temp;
+        }.bind(_this));
+
+        _relocate.set(_this, function () {
+
+            if (_text.get(this) == "") return;
+
+            if (_customAlign.get(this)) {
+                if (_customModule.get(this) === null) {
+                    _customModule.set(this, new _CustomModule2.default());
+                }
+
+                _customModule.get(this).typeAlign = this._typeAlign;
+                _customModule.get(this).align(this.children);
+                _blurinessFix.get(this)();
+                return;
+            }
+
+            if (isNaN(parseInt(_spaceBetweenWords.get(this)))) {
+                _spaceBetweenWords.set(this, -1);
+            }
+
+            if (isNaN(parseInt(_spaceBetweenLines.get(this)))) {
+                _spaceBetweenLines.set(this, -1);
+            }
+
+            if (_alignHorizontalPriority.get(this)) {
+                var _textAlign$get, _textLeftToRight$get, _textTopToBottom$get, _spaceBetweenLines$ge, _spaceBetweenWords$ge;
+
+                if (_horizontalModule.get(this) === null) {
+                    _horizontalModule.set(this, new _HorizontalModule2.default());
+                }
+
+                _horizontalModule.get(this)._textAlign = (_textAlign$get = _textAlign.get(this), _objectDestructuringEmpty(_textAlign$get), _textAlign$get);
+                _horizontalModule.get(this)._textLeftToRight = (_textLeftToRight$get = _textLeftToRight.get(this), _objectDestructuringEmpty(_textLeftToRight$get), _textLeftToRight$get);
+                _horizontalModule.get(this)._textTopToBottom = (_textTopToBottom$get = _textTopToBottom.get(this), _objectDestructuringEmpty(_textTopToBottom$get), _textTopToBottom$get);
+                _horizontalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge), _spaceBetweenLines$ge);
+                _horizontalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge), _spaceBetweenWords$ge);
+
+                _horizontalModule.get(this).relocate(_text.get(this), this.children, _width.get(this), _height.get(this));
+
+                if (this.children.length > 0) {
+                    this.emit('textupdated', this.children[this.children.length - 1]);
+                } else {
+                    this.emit('textupdated', null);
+                }
+                _blurinessFix.get(this)();
+                return;
+            }
+
+            if (!_alignHorizontalPriority.get(this)) {
+                var _textAlign$get2, _textLeftToRight$get2, _textTopToBottom$get2, _spaceBetweenLines$ge2, _spaceBetweenWords$ge2;
+
+                if (_verticalModule.get(this) === null) {
+                    _verticalModule.set(this, new _VerticalModule2.default());
+                }
+
+                _verticalModule.get(this)._textAlign = (_textAlign$get2 = _textAlign.get(this), _objectDestructuringEmpty(_textAlign$get2), _textAlign$get2);
+                _verticalModule.get(this)._textLeftToRight = (_textLeftToRight$get2 = _textLeftToRight.get(this), _objectDestructuringEmpty(_textLeftToRight$get2), _textLeftToRight$get2);
+                _verticalModule.get(this)._textTopToBottom = (_textTopToBottom$get2 = _textTopToBottom.get(this), _objectDestructuringEmpty(_textTopToBottom$get2), _textTopToBottom$get2);
+                _verticalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge2 = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge2), _spaceBetweenLines$ge2);
+                _verticalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge2 = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge2), _spaceBetweenWords$ge2);
+
+                _verticalModule.get(this).relocate(_text.get(this), this.children, _width.get(this), _height.get(this));
+
+                if (this.children.length > 0) {
+                    this.emit('textupdated', this.children[this.children.length - 1]);
+                } else {
+                    this.emit('textupdated', null);
+                }
+
+                _blurinessFix.get(this)();
+                return;
+            }
+        }.bind(_this));
+
+        _blurinessFix.set(_this, function () {
+            for (var i = 0; i < this.children.length; i++) {
+                this.children[i].x = Math.round(this.children[i].x);
+                this.children[i].y = Math.round(this.children[i].y);
+            }
+        }.bind(_this));
+
+        _width.set(_this, width);
+
+        _height.set(_this, height);
+
+        _hitArea.set(_this, new PIXI.Rectangle(0, 0, _width.get(_this), _height.get(_this)));
+
+        return _this;
+    }
+
+    _createClass(TextField, [{
+        key: 'setText',
+        value: function setText(text) {
+            var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            _customStyle.set(this, style);
+
+            if (_customStyle.get(this).align) {
+                _textAlign.set(this, _customStyle.get(this).align);
+            }
+
+            if (_customStyle.get(this).spaceBetweenWords) {
+                _spaceBetweenWords.set(this, _customStyle.get(this).spaceBetweenWords);
+            }
+
+            if (_customStyle.get(this).spaceBetweenLines) {
+                _spaceBetweenLines.set(this, _customStyle.get(this).spaceBetweenLines);
+            }
+
+            if (_customStyle.get(this).leftToRight) {
+                _textLeftToRight.set(this, _customStyle.get(this).leftToRight);
+            }
+
+            if (_customStyle.get(this).topToBottom) {
+                _textTopToBottom.set(this, _customStyle.get(this).topToBottom);
+            }
+
+            if (_customStyle.get(this).horizontalPriority) {
+                _alignHorizontalPriority.set(this, _customStyle.get(this).horizontalPriority);
+            }
+
+            _textSupport.get(this).innerHTML = text;
+
+            _mapStyle.get(this).splice(0, _mapStyle.get(this).length);
+
+            _getMap.get(this)(_textSupport.get(this).childNodes);
+
+            var oldText = _text.get(this);
+
+            _text.set(this, _textSupport.get(this).innerText);
+
+            var diff = JsDiff.diffChars(oldText, _text.get(this));
+            _change.get(this)(JsDiff.convertChangesToDMP(diff));
+        }
+    }, {
+        key: 'getCharAt',
+        value: function getCharAt(x, y) {
+            var position = this.toLocal({ x: x, y: y });
+            for (var i = 0; i < this.children.length; i++) {
+                if (this.children[i].x < position.x && this.children[i].x + this.children[i].width > position.x && this.children[i].y < position.y && this.children[i].y + this.children[i].height > position.y) {
+                    return i;
+                }
+            }
+        }
+    }, {
+        key: 'getSelectionCoordinates',
+        value: function getSelectionCoordinates(charinicial, charfinal) {
+            var coordinates = [];
+            var iniCoord = {};
+            var endCoord = {};
+
+            var letraIni = null;
+            var letraFinal = null;
+
+            var lines = _horizontalModule.get(this).lines;
+
+            console.log(lines);
+
+            if (charinicial < charfinal) {
+                letraIni = this.children[charinicial];
+                letraFinal = this.children[charfinal];
+            } else {
+                letraIni = this.children[charfinal];
+                letraFinal = this.children[charinicial];
+            }
+            //coordenadas iniciais
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i];
+                if (letraIni.y >= line.y && letraIni.y < line.y + line.height) {
+                    iniCoord = {
+                        x: letraIni.x,
+                        up: line.y,
+                        down: line.height,
+                        lineIndex: i
+                    };
+                    break;
+                }
+            }
+            //coordenadas finais
+            for (i = 0; i < lines.length; i++) {
+                var line = lines[i];
+                if (letraFinal.y >= line.y && letraFinal.y < line.y + line.height) {
+                    endCoord = {
+                        x: letraFinal.x + letraFinal.width,
+                        up: line.y,
+                        down: line.height,
+                        lineIndex: i
+                    };
+                    break;
+                }
+            }
+            //se for uma seleção na mesma linha desenha um retangulo
+            if (iniCoord.lineIndex == endCoord.lineIndex) {
+                coordinates.push({
+                    x: iniCoord.x,
+                    y: iniCoord.up,
+                    width: endCoord.x - iniCoord.x,
+                    height: endCoord.down
+                });
+                return coordinates;
+            }
+            //se for uma seleção de duas linhas desenha 2 retangulos
+            if (iniCoord.lineIndex == endCoord.lineIndex - 1) {
+                coordinates.push({
+                    x: iniCoord.x,
+                    y: iniCoord.up,
+                    width: self._width - iniCoord.x,
+                    height: iniCoord.down
+                });
+                coordinates.push({ x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down });
+                return coordinates;
+            }
+            //se for uma seleção de mais de duas linhas desenha 3 retangulos
+            coordinates.push({
+                x: iniCoord.x,
+                y: iniCoord.up,
+                width: self._width - iniCoord.x,
+                height: iniCoord.down
+            });
+            coordinates.push({
+                x: 0,
+                y: iniCoord.up + iniCoord.down,
+                width: self._width,
+                height: endCoord.up - iniCoord.up - iniCoord.down
+            });
+            coordinates.push({ x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down });
+            return coordinates;
+        }
+    }, {
+        key: 'textLeftToRight',
+        get: function get() {
+            return _textLeftToRight.get(this);
+        },
+        set: function set(value) {
+            _textLeftToRight.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'textTopToBottom',
+        get: function get() {
+            return _textTopToBottom.get(this);
+        },
+        set: function set(value) {
+            _textTopToBottom.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'alignHorizontalPriority',
+        get: function get() {
+            return _alignHorizontalPriority.get(this);
+        },
+        set: function set(value) {
+            _alignHorizontalPriority.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'customAlign',
+        get: function get() {
+            return _customAlign.get(this);
+        },
+        set: function set(value) {
+            _customAlign.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'typeAlign',
+        get: function get() {
+            return this._typeAlign;
+        },
+        set: function set(value) {
+            this._typeAlign = value;
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'align',
+        get: function get() {
+            return _textAlign.get(this);
+        },
+        set: function set(value) {
+            _textAlign.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'spaceBetweenLines',
+        get: function get() {
+            return _spaceBetweenLines.get(this);
+        },
+        set: function set(value) {
+            _spaceBetweenLines.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'spaceBetweenWords',
+        get: function get() {
+            return _spaceBetweenWords.get(this);
+        },
+        set: function set(value) {
+            _spaceBetweenWords.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }]);
+
+    return TextField;
+}(PIXI.Container)) || _class;
+
+exports.default = TextField;
+
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3375,7 +3926,7 @@ function parsePatch(uniDiff) {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3400,7 +3951,7 @@ function generateOptions(options, defaults) {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3718,7 +4269,7 @@ if (true) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3885,7 +4436,7 @@ exports.BoundingBox = BoundingBox;
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3894,7 +4445,7 @@ exports.BoundingBox = BoundingBox;
 
 
 var check = __webpack_require__(1);
-var draw = __webpack_require__(50);
+var draw = __webpack_require__(51);
 var path = __webpack_require__(6);
 
 function getPathDefinition(glyph, path) {
@@ -4233,7 +4784,7 @@ exports.Glyph = Glyph;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4245,7 +4796,7 @@ exports.Glyph = Glyph;
 
 
 var encoding = __webpack_require__(7);
-var glyphset = __webpack_require__(10);
+var glyphset = __webpack_require__(11);
 var parse = __webpack_require__(0);
 var path = __webpack_require__(6);
 var table = __webpack_require__(2);
@@ -5352,7 +5903,7 @@ exports.make = makeCFFTable;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5581,7 +6132,7 @@ exports.make = makeCmapTable;
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5846,7 +6397,7 @@ exports.make = makeGsubTable;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5919,7 +6470,7 @@ exports.make = makeHeadTable;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5979,7 +6530,7 @@ exports.make = makeHheaTable;
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6028,7 +6579,7 @@ exports.make = makeHmtxTable;
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6096,7 +6647,7 @@ exports.parse = parseLtagTable;
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6146,7 +6697,7 @@ exports.make = makeMaxpTable;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6214,7 +6765,7 @@ exports.make = makeMetaTable;
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7056,7 +7607,7 @@ exports.make = makeNameTable;
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7317,7 +7868,7 @@ exports.make = makeOS2Table;
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7395,7 +7946,7 @@ exports.make = makePostTable;
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7435,10 +7986,10 @@ exports.checkArgument = function(expression, message) {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(62).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(63).Buffer))
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7522,7 +8073,7 @@ exports.default = Phrase;
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7609,7 +8160,7 @@ exports.default = Word;
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7627,11 +8178,11 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _eventemitter = __webpack_require__(15);
+var _eventemitter = __webpack_require__(16);
 
 var _eventemitter2 = _interopRequireDefault(_eventemitter);
 
-var _Font = __webpack_require__(36);
+var _Font = __webpack_require__(37);
 
 var _Font2 = _interopRequireDefault(_Font);
 
@@ -7706,7 +8257,7 @@ exports.default = Loader;
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7724,29 +8275,15 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _Char = __webpack_require__(12);
+var _TextField = __webpack_require__(13);
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+var _Char = __webpack_require__(9);
 
 var _Char2 = _interopRequireDefault(_Char);
 
-var _HorizontalModule = __webpack_require__(67);
-
-var _HorizontalModule2 = _interopRequireDefault(_HorizontalModule);
-
-var _VerticalModule = __webpack_require__(68);
-
-var _VerticalModule2 = _interopRequireDefault(_VerticalModule);
-
-var _CustomModule = __webpack_require__(66);
-
-var _CustomModule2 = _interopRequireDefault(_CustomModule);
-
-var _Metrics = __webpack_require__(5);
-
-var _Metrics2 = _interopRequireDefault(_Metrics);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7754,419 +8291,303 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var JsDiff = __webpack_require__(45);
+var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container) {
+    _inherits(Input, _PIXI$Container);
 
-var _width = new WeakMap();
+    function Input(_width, _height, align, maxChars) {
+        _classCallCheck(this, Input);
 
-var _height = new WeakMap();
+        var _this = _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this));
 
-var _hitArea = new WeakMap();
-
-var _box = new WeakMap();
-
-var _text = new WeakMap();
-
-var _map = new WeakMap();
-
-var _customAlign = new WeakMap();
-
-var _spaceBetweenLines = new WeakMap();
-
-var _spaceBetweenWords = new WeakMap();
-
-var _textAlign = new WeakMap();
-
-var _textLeftToRight = new WeakMap();
-
-var _textTopToBottom = new WeakMap();
-
-var _alignHorizontalPriority = new WeakMap();
-
-var _defaultStyle = new WeakMap();
-
-var _mapStyle = new WeakMap();
-
-var _customStyle = new WeakMap();
-
-var _textSupport = new WeakMap();
-
-var _horizontalModule = new WeakMap();
-
-var _verticalModule = new WeakMap();
-
-var _customModule = new WeakMap();
-
-var _getMap = new WeakMap();
-
-var _change = new WeakMap();
-
-var _buildStyle = new WeakMap();
-
-var _relocate = new WeakMap();
-
-var _blurinessFix = new WeakMap();
-
-var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container) {
-    _inherits(TextField, _PIXI$Container);
-
-    function TextField() {
-        var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 2048;
-        var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1152;
-
-        _classCallCheck(this, TextField);
-
-        var _this = _possibleConstructorReturn(this, (TextField.__proto__ || Object.getPrototypeOf(TextField)).call(this));
-
-        _width.set(_this, 0);
-
-        _height.set(_this, 0);
-
-        _hitArea.set(_this, null);
-
-        _box.set(_this, null);
-
-        _text.set(_this, "");
-
-        _map.set(_this, {});
-
-        _customAlign.set(_this, false);
-
-        _spaceBetweenLines.set(_this, 0);
-
-        _spaceBetweenWords.set(_this, -1);
-
-        _textAlign.set(_this, "left");
-
-        _textLeftToRight.set(_this, true);
-
-        _textTopToBottom.set(_this, true);
-
-        _alignHorizontalPriority.set(_this, true);
-
-        _defaultStyle.set(_this, {
-            fontFamily: 'Arial',
+        _this._width = _width || 2048;
+        _this._height = _height || 1152;
+        _this.hitArea = new PIXI.Rectangle(0, 0, _this._width, _this._height);
+        _this.debug = false;
+        _this.maxChars = maxChars || 0;
+        _this.field = new _TextField2.default(_width, _height);
+        _this.field.align = align;
+        _this.addChild(_this.field);
+        _this.cursorStyle = {
+            fontFamily: 'arial',
             fontSize: 20,
-            fill: '#000000'
+            fill: "#000000"
+        };
+        //configurando o cursor
+        _this.cursor = new _Char2.default("I", _this.cursorStyle);
+        _this.addChild(_this.cursor);
+        _this.cursor.alpha = 0;
+        switch (align) {
+            case "center":
+                _this.cursor.x = (_this.x + _this._width) / 2;
+                break;
+            case "right":
+                _this.cursor.x = _this.x + _this._width;
+                break;
+            case "justify":
+                _this.cursor.x = (_this.x + _this._width) / 2;
+                break;
+            default:
+                _this.cursor.x = _this.x;
+        }
+        _this.selectionGraphics = new PIXI.Graphics();
+        _this.addChild(_this.selectionGraphics);
+        _this.field.on("textUpdated", function (char) {
+            this.positionCursor(char);
         });
-
-        _mapStyle.set(_this, []);
-
-        _customStyle.set(_this, {});
-
-        _textSupport.set(_this, document.createElement('div'));
-
-        _horizontalModule.set(_this, null);
-
-        _verticalModule.set(_this, null);
-
-        _customModule.set(_this, null);
-
-        _getMap.set(_this, function (nodes) {
-            var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ["text"];
-
-            for (var i = 0; i < nodes.length; i++) {
-                var _n = nodes[i];
-                if (_n.nodeName == "#text") {
-                    for (var j = 0; j < _n.length; j++) {
-                        _mapStyle.get(this).push({ char: _n.nodeValue[j], style: parent });
-                    }
-                } else {
-                    var arr = [];
-                    if (parent[0] == "text") {
-                        arr[0] = _n.nodeName.toLowerCase();
-                    } else {
-                        arr = parent.concat([]);
-                        arr.push(_n.nodeName.toLowerCase());
-                    }
-                    _getMap.get(this)(_n.childNodes, arr);
-                }
-            }
-        }.bind(_this));
-
-        _change.set(_this, function (diff) {
-            var count = 0;
-
-            for (var i = 0; i < diff.length; i++) {
-                if (diff[i][0] === 0) {
-                    for (var zi = 0; zi < diff[i][1].length; zi++) {
-
-                        if (_mapStyle.get(this)[count] == "text") {
-                            count++;
-                            continue;
-                        }
-                        this.children[count].setStyle(_customStyle.get(this)[_mapStyle.get(this)[count]]);
-                        count++;
-                    }
-                }
-
-                if (diff[i][0] == 1) {
-                    for (var zj = 0; zj < diff[i][1].length; zj++) {
-                        var st = _mapStyle.get(this)[count].style;
-                        var style = _buildStyle.get(this)(st);
-
-                        var char = new _Char2.default(diff[i][1].charAt(zj), style);
-
-                        this.addChildAt(char, count);
-                        count++;
-                    }
-                }
-
-                if (diff[i][0] == -1) {
-                    for (var k = 0; k < diff[i][1].length; k++) {
-                        var c = this.children[count];
-                        this.removeChild(c);
-                        c.destroy(true);
-                        c = null;
-                    }
-                }
-            }
-
-            _relocate.get(this)();
-        }.bind(_this));
-
-        _buildStyle.set(_this, function (styleRefs) {
-            var temp = {};
-
-            for (var j in _defaultStyle.get(this)) {
-                temp[j] = _defaultStyle.get(this)[j];
-            }
-
-            for (var i = 0; i < styleRefs.length; i++) {
-                if (styleRefs[i] === "text") {
-                    continue;
-                } else {
-                    var st = _customStyle.get(this)[styleRefs[i]];
-                    for (var k in st) {
-                        temp[k] = st[k];
-                    }
-                }
-            }
-
-            return temp;
-        }.bind(_this));
-
-        _relocate.set(_this, function () {
-
-            if (_text.get(this) == "") return;
-
-            if (_customAlign.get(this)) {
-                if (_customModule.get(this) === null) {
-                    _customModule.set(this, new _CustomModule2.default());
-                }
-
-                _customModule.get(this).typeAlign = this._typeAlign;
-                _customModule.get(this).align(this.children);
-                _blurinessFix.get(this)();
-                return;
-            }
-
-            if (isNaN(parseInt(_spaceBetweenWords.get(this)))) {
-                _spaceBetweenWords.set(this, -1);
-            }
-
-            if (isNaN(parseInt(_spaceBetweenLines.get(this)))) {
-                _spaceBetweenLines.set(this, -1);
-            }
-
-            if (_alignHorizontalPriority.get(this)) {
-                var _textAlign$get, _textLeftToRight$get, _textTopToBottom$get, _spaceBetweenLines$ge, _spaceBetweenWords$ge;
-
-                if (_horizontalModule.get(this) === null) {
-                    _horizontalModule.set(this, new _HorizontalModule2.default());
-                }
-
-                _horizontalModule.get(this)._textAlign = (_textAlign$get = _textAlign.get(this), _objectDestructuringEmpty(_textAlign$get), _textAlign$get);
-                _horizontalModule.get(this)._textLeftToRight = (_textLeftToRight$get = _textLeftToRight.get(this), _objectDestructuringEmpty(_textLeftToRight$get), _textLeftToRight$get);
-                _horizontalModule.get(this)._textTopToBottom = (_textTopToBottom$get = _textTopToBottom.get(this), _objectDestructuringEmpty(_textTopToBottom$get), _textTopToBottom$get);
-                _horizontalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge), _spaceBetweenLines$ge);
-                _horizontalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge), _spaceBetweenWords$ge);
-
-                _horizontalModule.get(this).relocate(_text.get(this), this.children, _width.get(this), _height.get(this));
-
-                if (this.children.length > 0) {
-                    this.emit('textupdated', this.children[this.children.length - 1]);
-                } else {
-                    this.emit('textupdated', null);
-                }
-                _blurinessFix.get(this)();
-                return;
-            }
-
-            if (!_alignHorizontalPriority.get(this)) {
-                var _textAlign$get2, _textLeftToRight$get2, _textTopToBottom$get2, _spaceBetweenLines$ge2, _spaceBetweenWords$ge2;
-
-                if (_verticalModule.get(this) === null) {
-                    _verticalModule.set(this, new _VerticalModule2.default());
-                }
-
-                _verticalModule.get(this)._textAlign = (_textAlign$get2 = _textAlign.get(this), _objectDestructuringEmpty(_textAlign$get2), _textAlign$get2);
-                _verticalModule.get(this)._textLeftToRight = (_textLeftToRight$get2 = _textLeftToRight.get(this), _objectDestructuringEmpty(_textLeftToRight$get2), _textLeftToRight$get2);
-                _verticalModule.get(this)._textTopToBottom = (_textTopToBottom$get2 = _textTopToBottom.get(this), _objectDestructuringEmpty(_textTopToBottom$get2), _textTopToBottom$get2);
-                _verticalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge2 = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge2), _spaceBetweenLines$ge2);
-                _verticalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge2 = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge2), _spaceBetweenWords$ge2);
-
-                _verticalModule.get(this).relocate(_text.get(this), this.children, _width.get(this), _height.get(this));
-
-                if (this.children.length > 0) {
-                    this.emit('textupdated', this.children[this.children.length - 1]);
-                } else {
-                    this.emit('textupdated', null);
-                }
-
-                _blurinessFix.get(this)();
-                return;
-            }
-        }.bind(_this));
-
-        _blurinessFix.set(_this, function () {
-            for (var i = 0; i < this.children.length; i++) {
-                this.children[i].x = Math.round(this.children[i].x);
-                this.children[i].y = Math.round(this.children[i].y);
-            }
-        }.bind(_this));
-
-        _width.set(_this, width);
-
-        _height.set(_this, height);
-
-        _hitArea.set(_this, new PIXI.Rectangle(0, 0, _width.get(_this), _height.get(_this)));
-
         return _this;
     }
 
-    _createClass(TextField, [{
+    _createClass(Input, [{
+        key: 'animateCursor',
+        value: function animateCursor() {
+            TweenMax.to(this.cursor, 0.5, {
+                alpha: 0,
+                yoyo: true,
+                repeat: -1
+            }, this);
+        }
+    }, {
         key: 'setText',
-        value: function setText(text) {
-            var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-            _customStyle.set(this, style);
-
-            if (_customStyle.get(this).align) {
-                _textAlign.set(this, _customStyle.get(this).align);
+        value: function setText(text, style) {
+            this.field.setText(text, style);
+        }
+    }, {
+        key: 'cursorSize',
+        value: function cursorSize(size) {
+            this.cursor.setStyle({ fontSize: size });
+        }
+    }, {
+        key: 'focus',
+        value: function focus(size) {
+            this.emit("focus");
+        }
+    }, {
+        key: 'hideCursor',
+        value: function hideCursor(size) {
+            this.interactive = false;
+            TweenMax.killTweensOf(this.cursor);
+            this.cursor.alpha = 0;
+        }
+    }, {
+        key: 'addEvents',
+        value: function addEvents() {
+            this.interactive = true;
+            this.on('mousedown', this.focus, this);
+            this.on('touchstart', this.focus, this);
+            this.on('mouseup', this.stopSelecting, this);
+            this.on('touchend', this.stopSelecting, this);
+            this.on('mousemove', this.select, this);
+            this.on('touchmove', this.select, this);
+            this.on('mouseupoutside', this.stopSelecting, this);
+            this.on('touchendoutside', this.stopSelecting, this);
+        }
+    }, {
+        key: 'removeEvents',
+        value: function removeEvents() {
+            this.interactive = false;
+            this.removeListener('mousedown');
+            this.removeListener('touchstart');
+            this.removeListener('mouseup');
+            this.removeListener('touchend');
+            this.removeListener('mousemove');
+            this.removeListener('touchmove');
+            this.removeListener('mouseupoutside');
+            this.removeListener('touchendoutside');
+        }
+    }, {
+        key: 'focus',
+        value: function focus(e) {
+            this.selectionStarted = true;
+            this.initialChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
+        }
+    }, {
+        key: 'select',
+        value: function select(e) {
+            if (this.selectionStarted) {
+                this.finalChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
+                if (this.initialChar !== undefined && this.finalChar !== undefined && this.initialChar != this.finalChar) {
+                    this.drawSelection(this.field.getSelectionCoordinates(this.initialChar, this.finalChar));
+                }
             }
-
-            if (_customStyle.get(this).spaceBetweenWords) {
-                _spaceBetweenWords.set(this, _customStyle.get(this).spaceBetweenWords);
+        }
+    }, {
+        key: 'stopSelecting',
+        value: function stopSelecting(e) {
+            if (this.selectionStarted) {
+                this.selectionStarted = false;
+                this.finalChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
+                if (this.initialChar !== undefined && this.finalChar !== undefined && this.initialChar != this.finalChar) {
+                    this.drawSelection(this.field.getSelectionCoordinates(this.initialChar, this.finalChar));
+                }
             }
-
-            if (_customStyle.get(this).spaceBetweenLines) {
-                _spaceBetweenLines.set(this, _customStyle.get(this).spaceBetweenLines);
+            if (this.initialChar == this.finalChar) {
+                this.selectionGraphics.clear();
+                this.positionCursor(this.field.children[this.finalChar]);
             }
-
-            if (_customStyle.get(this).leftToRight) {
-                _textLeftToRight.set(this, _customStyle.get(this).leftToRight);
+        }
+    }, {
+        key: 'drawSelection',
+        value: function drawSelection(coords) {
+            this.selectionGraphics.clear();
+            for (var i = 0; i < coords.length; i++) {
+                this.selectionGraphics.beginFill(0x0000ff, 0.1);
+                this.selectionGraphics.drawRect(coords[i].x, coords[i].y, coords[i].width, coords[i].height);
+                this.selectionGraphics.endFill();
             }
+        }
+    }, {
+        key: 'showCursor',
+        value: function showCursor() {
+            this.positionCursor(this.field.children[this.field.children.length - 1]);
+            this.cursorDirection = 1;
+            this.cursorAnimation();
+        }
+    }, {
+        key: 'cursorAnimation',
+        value: function cursorAnimation() {
+            this.cursor.alpha = 1;
+            var cursor = this.cursor;
 
-            if (_customStyle.get(this).topToBottom) {
-                _textTopToBottom.set(this, _customStyle.get(this).topToBottom);
+            this.showCursor = setInterval(function () {
+                if (this.cursorDirection == 1) {
+                    cursor.alpha += 0.3;
+                } else {
+                    cursor.alpha -= 0.3;
+                }
+                if (cursor.alpha >= 1) {
+                    this.cursorDirection = 0;
+                }
+                if (cursor.alpha <= 0) {
+                    this.cursorDirection = 1;
+                }
+            }, 130);
+        }
+    }, {
+        key: 'setWordStyle',
+        value: function setWordStyle(word, style) {
+            this.field.setWordStyle(word, style);
+        }
+    }, {
+        key: 'setStyle',
+        value: function setStyle(style) {
+            this.field.setStyle(style);
+        }
+    }, {
+        key: 'hideCursor',
+        value: function hideCursor() {
+            clearInterval(this.showCursor);
+            this.cursor.alpha = 0;
+        }
+    }, {
+        key: 'positionCursor',
+        value: function positionCursor(character) {
+            if (character === undefined) {
+                character = null;
             }
-
-            if (_customStyle.get(this).horizontalPriority) {
-                _alignHorizontalPriority.set(this, _customStyle.get(this).horizontalPriority);
+            if (character === null) {
+                if (this.field.align == "left" || this.field.align == "justify") {
+                    this.cursor.x = 2;
+                    this.cursor.y = 0;
+                }
+                if (this.field.align == "center") {
+                    this.cursor.x = this._width / 2;
+                    this.cursor.y = 0;
+                }
+                if (this.field.align == "right") {
+                    this.cursor.x = this.width - 3;
+                    this.cursor.y = 0;
+                }
+            } else {
+                this.cursor.setStyle({ fontSize: character.style.fontSize });
+                this.cursor.x = Math.round(character.x + character.vwidth - character.style.fontSize / 10);
+                this.cursor.y = character.y;
             }
+        }
+    }, {
+        key: 'text',
+        get: function get() {
+            return this.field._text;
+        },
+        set: function set(text) {
+            this.field.setText(text);
+        }
 
-            _textSupport.get(this).innerHTML = text;
+        //TODO
 
-            _mapStyle.get(this).splice(0, _mapStyle.get(this).length);
+    }, {
+        key: 'textStyle',
+        get: function get() {
+            return this.field._text;
+        },
+        set: function set(text) {
+            this.field.setText(text);
+        }
+        //TODO
 
-            _getMap.get(this)(_textSupport.get(this).childNodes);
-
-            var oldText = _text.get(this);
-
-            _text.set(this, _textSupport.get(this).innerText);
-
-            var diff = JsDiff.diffChars(oldText, _text.get(this));
-            _change.get(this)(JsDiff.convertChangesToDMP(diff));
+    }, {
+        key: 'align',
+        get: function get() {
+            return this.field.align;
+        },
+        set: function set(value) {
+            this.field.align = value;
+        }
+    }, {
+        key: 'width',
+        get: function get() {
+            return this._width;
+        },
+        set: function set(value) {
+            var width = this.getLocalBounds().width;
+            if (width !== 0) {
+                this.scale.x = value / width;
+            } else {
+                this.scale.x = 1;
+            }
+            this._width = value;
         }
     }, {
         key: 'textLeftToRight',
         get: function get() {
-            return _textLeftToRight.get(this);
+            return this.field.textLeftToRight;
         },
         set: function set(value) {
-            _textLeftToRight.set(this, value);
-
-            _relocate.get(this)();
+            this.field.textLeftToRight = value;
         }
     }, {
         key: 'textTopToBottom',
         get: function get() {
-            return _textTopToBottom.get(this);
+            return this.field.textTopToBottom;
         },
         set: function set(value) {
-            _textTopToBottom.set(this, value);
-
-            _relocate.get(this)();
+            this.field.textTopToBottom = value;
         }
     }, {
         key: 'alignHorizontalPriority',
         get: function get() {
-            return _alignHorizontalPriority.get(this);
+            return this.field._alignHorizontalPriority;
         },
         set: function set(value) {
-            _alignHorizontalPriority.set(this, value);
-
-            _relocate.get(this)();
+            this.field._alignHorizontalPriority = value;
         }
     }, {
         key: 'customAlign',
         get: function get() {
-            return _customAlign.get(this);
+            return this.field._customAlign;
         },
         set: function set(value) {
-            _customAlign.set(this, value);
-
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'typeAlign',
-        get: function get() {
-            return this._typeAlign;
-        },
-        set: function set(value) {
-            this._typeAlign = value;
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'align',
-        get: function get() {
-            return _textAlign.get(this);
-        },
-        set: function set(value) {
-            _textAlign.set(this, value);
-
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'spaceBetweenLines',
-        get: function get() {
-            return _spaceBetweenLines.get(this);
-        },
-        set: function set(value) {
-            _spaceBetweenLines.set(this, value);
-
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'spaceBetweenWords',
-        get: function get() {
-            return _spaceBetweenWords.get(this);
-        },
-        set: function set(value) {
-            _spaceBetweenWords.set(this, value);
-
-            _relocate.get(this)();
+            this.field._customAlign = value;
         }
     }]);
 
-    return TextField;
+    return Input;
 }(PIXI.Container)) || _class;
 
-exports.default = TextField;
+exports.default = Input;
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8333,7 +8754,7 @@ exports.default = TypeAlign;
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -9157,7 +9578,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9188,7 +9609,7 @@ function convertChangesToDMP(changes) {
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9230,7 +9651,7 @@ function escapeHTML(s) {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9259,7 +9680,7 @@ function diffArrays(oldArr, newArr, callback) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9284,7 +9705,7 @@ function diffChars(oldStr, newStr, callback) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9313,7 +9734,7 @@ function diffCss(oldStr, newStr, callback) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9333,7 +9754,7 @@ var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore en
 var _base2 = _interopRequireDefault(_base);
 
 /*istanbul ignore end*/
-var /*istanbul ignore start*/_line = __webpack_require__(9) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_line = __webpack_require__(10) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -9429,7 +9850,7 @@ function canonicalize(obj, stack, replacementStack) {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9458,7 +9879,7 @@ function diffSentences(oldStr, newStr, callback) {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9475,7 +9896,7 @@ var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore en
 var _base2 = _interopRequireDefault(_base);
 
 /*istanbul ignore end*/
-var /*istanbul ignore start*/_params = __webpack_require__(14) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_params = __webpack_require__(15) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -9535,7 +9956,7 @@ function diffWordsWithSpace(oldStr, newStr, callback) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9550,29 +9971,29 @@ var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore en
 var _base2 = _interopRequireDefault(_base);
 
 /*istanbul ignore end*/
-var /*istanbul ignore start*/_character = __webpack_require__(40) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_character = __webpack_require__(41) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_word = __webpack_require__(44) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_word = __webpack_require__(45) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_line = __webpack_require__(9) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_line = __webpack_require__(10) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_sentence = __webpack_require__(43) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_sentence = __webpack_require__(44) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_css = __webpack_require__(41) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_css = __webpack_require__(42) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_json = __webpack_require__(42) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_json = __webpack_require__(43) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_array = __webpack_require__(39) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_array = __webpack_require__(40) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_apply = __webpack_require__(46) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_apply = __webpack_require__(47) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_parse = __webpack_require__(13) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_parse = __webpack_require__(14) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_create = __webpack_require__(47) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_create = __webpack_require__(48) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_dmp = __webpack_require__(37) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_dmp = __webpack_require__(38) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_xml = __webpack_require__(38) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_xml = __webpack_require__(39) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -9615,7 +10036,7 @@ exports. /*istanbul ignore end*/Diff = _base2['default'];
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9625,9 +10046,9 @@ exports.__esModule = true;
 exports. /*istanbul ignore end*/applyPatch = applyPatch;
 /*istanbul ignore start*/exports. /*istanbul ignore end*/applyPatches = applyPatches;
 
-var /*istanbul ignore start*/_parse = __webpack_require__(13) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_parse = __webpack_require__(14) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_distanceIterator = __webpack_require__(48) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_distanceIterator = __webpack_require__(49) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 var _distanceIterator2 = _interopRequireDefault(_distanceIterator);
@@ -9799,7 +10220,7 @@ function applyPatches(uniDiff, options) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9810,7 +10231,7 @@ exports. /*istanbul ignore end*/structuredPatch = structuredPatch;
 /*istanbul ignore start*/exports. /*istanbul ignore end*/createTwoFilesPatch = createTwoFilesPatch;
 /*istanbul ignore start*/exports. /*istanbul ignore end*/createPatch = createPatch;
 
-var /*istanbul ignore start*/_line = __webpack_require__(9) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_line = __webpack_require__(10) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -9962,7 +10383,7 @@ function createPatch(fileName, oldStr, newStr, oldHeader, newHeader, options) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10016,7 +10437,7 @@ exports["default"] = /*istanbul ignore end*/function (start, minLine, maxLine) {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports) {
 
 var TINF_OK = 0;
@@ -10397,7 +10818,7 @@ module.exports = tinf_uncompress;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10417,7 +10838,7 @@ exports.line = line;
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10426,11 +10847,11 @@ exports.line = line;
 
 
 var path = __webpack_require__(6);
-var sfnt = __webpack_require__(60);
+var sfnt = __webpack_require__(61);
 var encoding = __webpack_require__(7);
-var glyphset = __webpack_require__(10);
-var Substitution = __webpack_require__(54);
-var util = __webpack_require__(30);
+var glyphset = __webpack_require__(11);
+var Substitution = __webpack_require__(55);
+var util = __webpack_require__(31);
 
 /**
  * @typedef FontOptions
@@ -10897,7 +11318,7 @@ Font.prototype.download = function(fileName) {
             throw new Error(err.name + ': ' + err.message);
         });
     } else {
-        var fs = __webpack_require__(11);
+        var fs = __webpack_require__(12);
         var buffer = util.arrayBufferToNodeBuffer(arrayBuffer);
         fs.writeFileSync(fileName, buffer);
     }
@@ -10952,7 +11373,7 @@ exports.Font = Font;
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11241,7 +11662,7 @@ module.exports = Layout;
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11254,33 +11675,33 @@ module.exports = Layout;
 
 
 
-var inflate = __webpack_require__(49);
+var inflate = __webpack_require__(50);
 
 var encoding = __webpack_require__(7);
-var _font = __webpack_require__(51);
-var glyph = __webpack_require__(17);
+var _font = __webpack_require__(52);
+var glyph = __webpack_require__(18);
 var parse = __webpack_require__(0);
-var bbox = __webpack_require__(16);
+var bbox = __webpack_require__(17);
 var path = __webpack_require__(6);
-var util = __webpack_require__(30);
+var util = __webpack_require__(31);
 
-var cmap = __webpack_require__(19);
-var cff = __webpack_require__(18);
-var fvar = __webpack_require__(55);
-var glyf = __webpack_require__(56);
-var gpos = __webpack_require__(57);
-var gsub = __webpack_require__(20);
-var head = __webpack_require__(21);
-var hhea = __webpack_require__(22);
-var hmtx = __webpack_require__(23);
-var kern = __webpack_require__(58);
-var ltag = __webpack_require__(24);
-var loca = __webpack_require__(59);
-var maxp = __webpack_require__(25);
-var _name = __webpack_require__(27);
-var os2 = __webpack_require__(28);
-var post = __webpack_require__(29);
-var meta = __webpack_require__(26);
+var cmap = __webpack_require__(20);
+var cff = __webpack_require__(19);
+var fvar = __webpack_require__(56);
+var glyf = __webpack_require__(57);
+var gpos = __webpack_require__(58);
+var gsub = __webpack_require__(21);
+var head = __webpack_require__(22);
+var hhea = __webpack_require__(23);
+var hmtx = __webpack_require__(24);
+var kern = __webpack_require__(59);
+var ltag = __webpack_require__(25);
+var loca = __webpack_require__(60);
+var maxp = __webpack_require__(26);
+var _name = __webpack_require__(28);
+var os2 = __webpack_require__(29);
+var post = __webpack_require__(30);
+var meta = __webpack_require__(27);
 
 /**
  * The opentype library.
@@ -11295,7 +11716,7 @@ var meta = __webpack_require__(26);
  * @param  {Function} callback - The function to call when the font load completes
  */
 function loadFromFile(path, callback) {
-    var fs = __webpack_require__(11);
+    var fs = __webpack_require__(12);
     fs.readFile(path, function(err, buffer) {
         if (err) {
             return callback(err.message);
@@ -11622,7 +12043,7 @@ function load(url, callback) {
  * @return {opentype.Font}
  */
 function loadSync(url) {
-    var fs = __webpack_require__(11);
+    var fs = __webpack_require__(12);
     var buffer = fs.readFileSync(url);
     return parseBuffer(util.nodeBufferToArrayBuffer(buffer));
 }
@@ -11638,7 +12059,7 @@ exports.loadSync = loadSync;
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11648,7 +12069,7 @@ exports.loadSync = loadSync;
 
 
 var check = __webpack_require__(1);
-var Layout = __webpack_require__(52);
+var Layout = __webpack_require__(53);
 
 /**
  * @exports opentype.Substitution
@@ -11946,7 +12367,7 @@ module.exports = Substitution;
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12092,7 +12513,7 @@ exports.parse = parseFvarTable;
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12102,7 +12523,7 @@ exports.parse = parseFvarTable;
 
 
 var check = __webpack_require__(1);
-var glyphset = __webpack_require__(10);
+var glyphset = __webpack_require__(11);
 var parse = __webpack_require__(0);
 var path = __webpack_require__(6);
 
@@ -12434,7 +12855,7 @@ exports.parse = parseGlyfTable;
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12678,7 +13099,7 @@ exports.parse = parseGposTable;
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12756,7 +13177,7 @@ exports.parse = parseKernTable;
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12796,7 +13217,7 @@ exports.parse = parseLocaTable;
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12811,18 +13232,18 @@ exports.parse = parseLocaTable;
 var check = __webpack_require__(1);
 var table = __webpack_require__(2);
 
-var cmap = __webpack_require__(19);
-var cff = __webpack_require__(18);
-var head = __webpack_require__(21);
-var hhea = __webpack_require__(22);
-var hmtx = __webpack_require__(23);
-var ltag = __webpack_require__(24);
-var maxp = __webpack_require__(25);
-var _name = __webpack_require__(27);
-var os2 = __webpack_require__(28);
-var post = __webpack_require__(29);
-var gsub = __webpack_require__(20);
-var meta = __webpack_require__(26);
+var cmap = __webpack_require__(20);
+var cff = __webpack_require__(19);
+var head = __webpack_require__(22);
+var hhea = __webpack_require__(23);
+var hmtx = __webpack_require__(24);
+var ltag = __webpack_require__(25);
+var maxp = __webpack_require__(26);
+var _name = __webpack_require__(28);
+var os2 = __webpack_require__(29);
+var post = __webpack_require__(30);
+var gsub = __webpack_require__(21);
+var meta = __webpack_require__(27);
 
 function log2(v) {
     return Math.log(v) / Math.log(2) | 0;
@@ -13145,7 +13566,7 @@ exports.fontToTable = fontToSfntTable;
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports) {
 
 var g;
@@ -13172,7 +13593,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13186,9 +13607,9 @@ module.exports = g;
 
 
 
-var base64 = __webpack_require__(63)
-var ieee754 = __webpack_require__(64)
-var isArray = __webpack_require__(65)
+var base64 = __webpack_require__(64)
+var ieee754 = __webpack_require__(65)
+var isArray = __webpack_require__(66)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -14966,10 +15387,10 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(61)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(62)))
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15090,7 +15511,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -15180,7 +15601,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -15191,7 +15612,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15294,7 +15715,7 @@ exports.default = CustomModule;
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15312,11 +15733,11 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _Phrase = __webpack_require__(31);
+var _Phrase = __webpack_require__(32);
 
 var _Phrase2 = _interopRequireDefault(_Phrase);
 
-var _Word = __webpack_require__(32);
+var _Word = __webpack_require__(33);
 
 var _Word2 = _interopRequireDefault(_Word);
 
@@ -16388,6 +16809,11 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
         * @param lines Array of lines to be repositioned {Array}
         */
 
+    }, {
+        key: 'lines',
+        get: function get() {
+            return _lines.get(this);
+        }
     }]);
 
     return HorizontalModule;
@@ -16397,7 +16823,7 @@ exports.default = HorizontalModule;
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16415,11 +16841,11 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _Phrase = __webpack_require__(31);
+var _Phrase = __webpack_require__(32);
 
 var _Phrase2 = _interopRequireDefault(_Phrase);
 
-var _Word = __webpack_require__(32);
+var _Word = __webpack_require__(33);
 
 var _Word2 = _interopRequireDefault(_Word);
 
@@ -17434,7 +17860,7 @@ exports.default = VerticalModule;
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17452,7 +17878,7 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _Loader = __webpack_require__(33);
+var _Loader = __webpack_require__(34);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
@@ -17460,17 +17886,21 @@ var _Metrics = __webpack_require__(5);
 
 var _Metrics2 = _interopRequireDefault(_Metrics);
 
-var _Char = __webpack_require__(12);
+var _Char = __webpack_require__(9);
 
 var _Char2 = _interopRequireDefault(_Char);
 
-var _TextField = __webpack_require__(34);
+var _TextField = __webpack_require__(13);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
-var _TypeAlign = __webpack_require__(35);
+var _TypeAlign = __webpack_require__(36);
 
 var _TypeAlign2 = _interopRequireDefault(_TypeAlign);
+
+var _Input = __webpack_require__(35);
+
+var _Input2 = _interopRequireDefault(_Input);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17482,13 +17912,14 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.2.6';
+        this.version = '1.2.12';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
             Char: _Char2.default,
             TextField: _TextField2.default,
-            TypeAlign: _TypeAlign2.default
+            TypeAlign: _TypeAlign2.default,
+            Input: _Input2.default
 
         };
 

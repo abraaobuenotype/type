@@ -5,6 +5,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-webpack');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     var path = 'bin/';
     var lib = '../lib/';
@@ -44,6 +45,41 @@ module.exports = function(grunt) {
             }
         },
 
+        copy: {
+            target: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'bin/',
+                        src: ["type.js"],
+                        dest: 'examples/Align/lib',
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'bin/',
+                        src: ["type.js"],
+                        dest: 'examples/CustomAlign/lib',
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'bin/',
+                        src: ["type.js"],
+                        dest: 'examples/Input/lib',
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'bin/',
+                        src: ["type.js"],
+                        dest: 'examples/Tween/lib',
+                        filter: 'isFile'
+                    }
+                ]
+            }
+        },
+
         clean: {
             temp: ['temp']
         },
@@ -51,7 +87,7 @@ module.exports = function(grunt) {
         chokidar: {
             scripts: {
                 files: ['src/**/*.js'],
-                tasks: 'build'
+                tasks: ['build', 'copy']
             }
         },
 
@@ -85,7 +121,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['chokidar']);
     grunt.registerTask('build', ['babel', 'webpack', 'version', 'uglify', 'clean']);
 
-    grunt.registerTask('version', 'adiciona a versão pelo package', function(){
+    grunt.registerTask('version', 'adiciona a versão pelo package', function() {
         var pkg = grunt.file.readJSON('package.json');
         var main = grunt.file.read('bin/type.js');
         main = main.replace('__VERSION__', pkg.version);

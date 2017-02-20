@@ -4,7 +4,6 @@ import Char from './Char';
 import HorizontalModule from './align/HorizontalModule';
 import VerticalModule from './align/VerticalModule';
 import CustomModule from './align/CustomModule'
-import Metrics from '../Metrics';
 
 @autobind
 class TextField extends PIXI.Container {
@@ -118,7 +117,6 @@ class TextField extends PIXI.Container {
         this._spaceBetweenWords = value;
         this.relocate();
     }
-
 
     setText(text, style = {}) {
         this._customStyle = style;
@@ -245,8 +243,8 @@ class TextField extends PIXI.Container {
 
     @Private relocate() {
 
-        if (this._text == "") return;
-
+        if (this._text == "")
+            return;
 
         if (this._customAlign) {
             if (this.customModule === null) {
@@ -258,7 +256,6 @@ class TextField extends PIXI.Container {
             this.blurinessFix();
             return;
         }
-
 
         if (isNaN(parseInt(this._spaceBetweenWords))) {
             this._spaceBetweenWords = -1;
@@ -314,12 +311,104 @@ class TextField extends PIXI.Container {
         }
     }
 
-    @Private blurinessFix(){
+    @Private blurinessFix() {
         for (var i = 0; i < this.children.length; i++) {
             this.children[i].x = Math.round(this.children[i].x);
             this.children[i].y = Math.round(this.children[i].y);
         }
     }
+
+    getCharAt(x, y) {
+        var position = this.toLocal({x: x, y: y});
+        for (var i = 0; i < this.children.length; i++) {
+            if (this.children[i].x < position.x && this.children[i].x + this.children[i].width > position.x && this.children[i].y < position.y && this.children[i].y + this.children[i].height > position.y) {
+                return i;
+            }
+        }
+    }
+
+    getSelectionCoordinates(charinicial, charfinal) {
+        var coordinates = [];
+        var iniCoord = {};
+        var endCoord = {};
+
+        var letraIni = null;
+        var letraFinal = null;
+
+        var lines = this.horizontalModule.lines
+
+        console.log(lines);
+
+        if (charinicial < charfinal) {
+            letraIni = this.children[charinicial];
+            letraFinal = this.children[charfinal];
+        } else {
+            letraIni = this.children[charfinal];
+            letraFinal = this.children[charinicial];
+        }
+        //coordenadas iniciais
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            if (letraIni.y >= line.y && letraIni.y < line.y + line.height) {
+                iniCoord = {
+                    x: letraIni.x,
+                    up: line.y,
+                    down: line.height,
+                    lineIndex: i
+                };
+                break;
+            }
+        }
+        //coordenadas finais
+        for (i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            if (letraFinal.y >= line.y && letraFinal.y < line.y + line.height) {
+                endCoord = {
+                    x: letraFinal.x + letraFinal.width,
+                    up: line.y,
+                    down: line.height,
+                    lineIndex: i
+                };
+                break;
+            }
+        }
+        //se for uma seleção na mesma linha desenha um retangulo
+        if (iniCoord.lineIndex == endCoord.lineIndex) {
+            coordinates.push({
+                x: iniCoord.x,
+                y: iniCoord.up,
+                width: endCoord.x - iniCoord.x,
+                height: endCoord.down
+            });
+            return coordinates;
+        }
+        //se for uma seleção de duas linhas desenha 2 retangulos
+        if (iniCoord.lineIndex == endCoord.lineIndex - 1) {
+            coordinates.push({
+                x: iniCoord.x,
+                y: iniCoord.up,
+                width: self._width - iniCoord.x,
+                height: iniCoord.down
+            });
+            coordinates.push({x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down});
+            return coordinates;
+        }
+        //se for uma seleção de mais de duas linhas desenha 3 retangulos
+        coordinates.push({
+            x: iniCoord.x,
+            y: iniCoord.up,
+            width: self._width - iniCoord.x,
+            height: iniCoord.down
+        });
+        coordinates.push({
+            x: 0,
+            y: iniCoord.up + iniCoord.down,
+            width: self._width,
+            height: endCoord.up - iniCoord.up - iniCoord.down
+        });
+        coordinates.push({x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down});
+        return coordinates;
+    };
 }
 
 export default TextField;
