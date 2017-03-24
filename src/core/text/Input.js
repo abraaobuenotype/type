@@ -1,6 +1,7 @@
 import autobind from 'autobind-decorator';
 import TextField from './TextField';
 import Char from './Char';
+import KeyboardHandler from '../KeyboardHandler';
 
 @autobind
 class Input extends PIXI.Container{
@@ -132,10 +133,6 @@ class Input extends PIXI.Container{
         this.cursor.setStyle({fontSize: size});
     }
 
-    focus(size){
-        this.emit("focus");
-    }
-
     hideCursor(size){
         this.interactive = false;
         TweenMax.killTweensOf(this.cursor);
@@ -167,8 +164,13 @@ class Input extends PIXI.Container{
     }
 
     focus(e){
+
         this.selectionStarted = true;
+        
         this.initialChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
+
+        this.keyboardHandler = KeyboardHandler.getInstance();
+
     }
 
     select(e){

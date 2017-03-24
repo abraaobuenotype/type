@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 70);
+/******/ 	return __webpack_require__(__webpack_require__.s = 71);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1125,7 +1125,7 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _eventemitter = __webpack_require__(16);
+var _eventemitter = __webpack_require__(12);
 
 var _eventemitter2 = _interopRequireDefault(_eventemitter);
 
@@ -3025,211 +3025,6 @@ exports.default = Char;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/*istanbul ignore start*/
-
-exports.__esModule = true;
-exports.lineDiff = undefined;
-exports. /*istanbul ignore end*/diffLines = diffLines;
-/*istanbul ignore start*/exports. /*istanbul ignore end*/diffTrimmedLines = diffTrimmedLines;
-
-var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore end*/;
-
-/*istanbul ignore start*/
-var _base2 = _interopRequireDefault(_base);
-
-/*istanbul ignore end*/
-var /*istanbul ignore start*/_params = __webpack_require__(15) /*istanbul ignore end*/;
-
-/*istanbul ignore start*/
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/*istanbul ignore end*/var lineDiff = /*istanbul ignore start*/exports. /*istanbul ignore end*/lineDiff = new /*istanbul ignore start*/_base2['default']() /*istanbul ignore end*/;
-lineDiff.tokenize = function (value) {
-  var retLines = [],
-      linesAndNewlines = value.split(/(\n|\r\n)/);
-
-  // Ignore the final empty token that occurs if the string ends with a new line
-  if (!linesAndNewlines[linesAndNewlines.length - 1]) {
-    linesAndNewlines.pop();
-  }
-
-  // Merge the content and line separators into single tokens
-  for (var i = 0; i < linesAndNewlines.length; i++) {
-    var line = linesAndNewlines[i];
-
-    if (i % 2 && !this.options.newlineIsToken) {
-      retLines[retLines.length - 1] += line;
-    } else {
-      if (this.options.ignoreWhitespace) {
-        line = line.trim();
-      }
-      retLines.push(line);
-    }
-  }
-
-  return retLines;
-};
-
-function diffLines(oldStr, newStr, callback) {
-  return lineDiff.diff(oldStr, newStr, callback);
-}
-function diffTrimmedLines(oldStr, newStr, callback) {
-  var options = /*istanbul ignore start*/(0, _params.generateOptions) /*istanbul ignore end*/(callback, { ignoreWhitespace: true });
-  return lineDiff.diff(oldStr, newStr, options);
-}
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2xpbmUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztnQ0E4QmdCLFMsR0FBQSxTO3lEQUNBLGdCLEdBQUEsZ0I7O0FBL0JoQixJLHlCQUFBLHlCLHdCQUFBOzs7Ozs7QUFDQSxJLHlCQUFBLG1DLHdCQUFBOzs7Ozt1QkFFTyxJQUFNLFcseUJBQUEsUSx3QkFBQSxXQUFXLEkseUJBQUEsbUIsd0JBQWpCO0FBQ1AsU0FBUyxRQUFULEdBQW9CLFVBQVMsS0FBVCxFQUFnQjtBQUNsQyxNQUFJLFdBQVcsRUFBZjtBQUFBLE1BQ0ksbUJBQW1CLE1BQU0sS0FBTixDQUFZLFdBQVosQ0FEdkI7OztBQUlBLE1BQUksQ0FBQyxpQkFBaUIsaUJBQWlCLE1BQWpCLEdBQTBCLENBQTNDLENBQUwsRUFBb0Q7QUFDbEQscUJBQWlCLEdBQWpCO0FBQ0Q7OztBQUdELE9BQUssSUFBSSxJQUFJLENBQWIsRUFBZ0IsSUFBSSxpQkFBaUIsTUFBckMsRUFBNkMsR0FBN0MsRUFBa0Q7QUFDaEQsUUFBSSxPQUFPLGlCQUFpQixDQUFqQixDQUFYOztBQUVBLFFBQUksSUFBSSxDQUFKLElBQVMsQ0FBQyxLQUFLLE9BQUwsQ0FBYSxjQUEzQixFQUEyQztBQUN6QyxlQUFTLFNBQVMsTUFBVCxHQUFrQixDQUEzQixLQUFpQyxJQUFqQztBQUNELEtBRkQsTUFFTztBQUNMLFVBQUksS0FBSyxPQUFMLENBQWEsZ0JBQWpCLEVBQW1DO0FBQ2pDLGVBQU8sS0FBSyxJQUFMLEVBQVA7QUFDRDtBQUNELGVBQVMsSUFBVCxDQUFjLElBQWQ7QUFDRDtBQUNGOztBQUVELFNBQU8sUUFBUDtBQUNELENBeEJEOztBQTBCTyxTQUFTLFNBQVQsQ0FBbUIsTUFBbkIsRUFBMkIsTUFBM0IsRUFBbUMsUUFBbkMsRUFBNkM7QUFBRSxTQUFPLFNBQVMsSUFBVCxDQUFjLE1BQWQsRUFBc0IsTUFBdEIsRUFBOEIsUUFBOUIsQ0FBUDtBQUFpRDtBQUNoRyxTQUFTLGdCQUFULENBQTBCLE1BQTFCLEVBQWtDLE1BQWxDLEVBQTBDLFFBQTFDLEVBQW9EO0FBQ3pELE1BQUksVSx5QkFBVSw0Qix3QkFBQSxDQUFnQixRQUFoQixFQUEwQixFQUFDLGtCQUFrQixJQUFuQixFQUExQixDQUFkO0FBQ0EsU0FBTyxTQUFTLElBQVQsQ0FBYyxNQUFkLEVBQXNCLE1BQXRCLEVBQThCLE9BQTlCLENBQVA7QUFDRCIsImZpbGUiOiJsaW5lLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IERpZmYgZnJvbSAnLi9iYXNlJztcbmltcG9ydCB7Z2VuZXJhdGVPcHRpb25zfSBmcm9tICcuLi91dGlsL3BhcmFtcyc7XG5cbmV4cG9ydCBjb25zdCBsaW5lRGlmZiA9IG5ldyBEaWZmKCk7XG5saW5lRGlmZi50b2tlbml6ZSA9IGZ1bmN0aW9uKHZhbHVlKSB7XG4gIGxldCByZXRMaW5lcyA9IFtdLFxuICAgICAgbGluZXNBbmROZXdsaW5lcyA9IHZhbHVlLnNwbGl0KC8oXFxufFxcclxcbikvKTtcblxuICAvLyBJZ25vcmUgdGhlIGZpbmFsIGVtcHR5IHRva2VuIHRoYXQgb2NjdXJzIGlmIHRoZSBzdHJpbmcgZW5kcyB3aXRoIGEgbmV3IGxpbmVcbiAgaWYgKCFsaW5lc0FuZE5ld2xpbmVzW2xpbmVzQW5kTmV3bGluZXMubGVuZ3RoIC0gMV0pIHtcbiAgICBsaW5lc0FuZE5ld2xpbmVzLnBvcCgpO1xuICB9XG5cbiAgLy8gTWVyZ2UgdGhlIGNvbnRlbnQgYW5kIGxpbmUgc2VwYXJhdG9ycyBpbnRvIHNpbmdsZSB0b2tlbnNcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBsaW5lc0FuZE5ld2xpbmVzLmxlbmd0aDsgaSsrKSB7XG4gICAgbGV0IGxpbmUgPSBsaW5lc0FuZE5ld2xpbmVzW2ldO1xuXG4gICAgaWYgKGkgJSAyICYmICF0aGlzLm9wdGlvbnMubmV3bGluZUlzVG9rZW4pIHtcbiAgICAgIHJldExpbmVzW3JldExpbmVzLmxlbmd0aCAtIDFdICs9IGxpbmU7XG4gICAgfSBlbHNlIHtcbiAgICAgIGlmICh0aGlzLm9wdGlvbnMuaWdub3JlV2hpdGVzcGFjZSkge1xuICAgICAgICBsaW5lID0gbGluZS50cmltKCk7XG4gICAgICB9XG4gICAgICByZXRMaW5lcy5wdXNoKGxpbmUpO1xuICAgIH1cbiAgfVxuXG4gIHJldHVybiByZXRMaW5lcztcbn07XG5cbmV4cG9ydCBmdW5jdGlvbiBkaWZmTGluZXMob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7IHJldHVybiBsaW5lRGlmZi5kaWZmKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjayk7IH1cbmV4cG9ydCBmdW5jdGlvbiBkaWZmVHJpbW1lZExpbmVzKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjaykge1xuICBsZXQgb3B0aW9ucyA9IGdlbmVyYXRlT3B0aW9ucyhjYWxsYmFjaywge2lnbm9yZVdoaXRlc3BhY2U6IHRydWV9KTtcbiAgcmV0dXJuIGxpbmVEaWZmLmRpZmYob2xkU3RyLCBuZXdTdHIsIG9wdGlvbnMpO1xufVxuIl19
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// The GlyphSet object
-
-
-
-var _glyph = __webpack_require__(18);
-
-// Define a property on the glyph that depends on the path being loaded.
-function defineDependentProperty(glyph, externalName, internalName) {
-    Object.defineProperty(glyph, externalName, {
-        get: function() {
-            // Request the path property to make sure the path is loaded.
-            glyph.path; // jshint ignore:line
-            return glyph[internalName];
-        },
-        set: function(newValue) {
-            glyph[internalName] = newValue;
-        },
-        enumerable: true,
-        configurable: true
-    });
-}
-
-/**
- * A GlyphSet represents all glyphs available in the font, but modelled using
- * a deferred glyph loader, for retrieving glyphs only once they are absolutely
- * necessary, to keep the memory footprint down.
- * @exports opentype.GlyphSet
- * @class
- * @param {opentype.Font}
- * @param {Array}
- */
-function GlyphSet(font, glyphs) {
-    this.font = font;
-    this.glyphs = {};
-    if (Array.isArray(glyphs)) {
-        for (var i = 0; i < glyphs.length; i++) {
-            this.glyphs[i] = glyphs[i];
-        }
-    }
-
-    this.length = (glyphs && glyphs.length) || 0;
-}
-
-/**
- * @param  {number} index
- * @return {opentype.Glyph}
- */
-GlyphSet.prototype.get = function(index) {
-    if (typeof this.glyphs[index] === 'function') {
-        this.glyphs[index] = this.glyphs[index]();
-    }
-
-    return this.glyphs[index];
-};
-
-/**
- * @param  {number} index
- * @param  {Object}
- */
-GlyphSet.prototype.push = function(index, loader) {
-    this.glyphs[index] = loader;
-    this.length++;
-};
-
-/**
- * @alias opentype.glyphLoader
- * @param  {opentype.Font} font
- * @param  {number} index
- * @return {opentype.Glyph}
- */
-function glyphLoader(font, index) {
-    return new _glyph.Glyph({index: index, font: font});
-}
-
-/**
- * Generate a stub glyph that can be filled with all metadata *except*
- * the "points" and "path" properties, which must be loaded only once
- * the glyph's path is actually requested for text shaping.
- * @alias opentype.ttfGlyphLoader
- * @param  {opentype.Font} font
- * @param  {number} index
- * @param  {Function} parseGlyph
- * @param  {Object} data
- * @param  {number} position
- * @param  {Function} buildPath
- * @return {opentype.Glyph}
- */
-function ttfGlyphLoader(font, index, parseGlyph, data, position, buildPath) {
-    return function() {
-        var glyph = new _glyph.Glyph({index: index, font: font});
-
-        glyph.path = function() {
-            parseGlyph(glyph, data, position);
-            var path = buildPath(font.glyphs, glyph);
-            path.unitsPerEm = font.unitsPerEm;
-            return path;
-        };
-
-        defineDependentProperty(glyph, 'xMin', '_xMin');
-        defineDependentProperty(glyph, 'xMax', '_xMax');
-        defineDependentProperty(glyph, 'yMin', '_yMin');
-        defineDependentProperty(glyph, 'yMax', '_yMax');
-
-        return glyph;
-    };
-}
-/**
- * @alias opentype.cffGlyphLoader
- * @param  {opentype.Font} font
- * @param  {number} index
- * @param  {Function} parseCFFCharstring
- * @param  {string} charstring
- * @return {opentype.Glyph}
- */
-function cffGlyphLoader(font, index, parseCFFCharstring, charstring) {
-    return function() {
-        var glyph = new _glyph.Glyph({index: index, font: font});
-
-        glyph.path = function() {
-            var path = parseCFFCharstring(font, glyph, charstring);
-            path.unitsPerEm = font.unitsPerEm;
-            return path;
-        };
-
-        return glyph;
-    };
-}
-
-exports.GlyphSet = GlyphSet;
-exports.glyphLoader = glyphLoader;
-exports.ttfGlyphLoader = ttfGlyphLoader;
-exports.cffGlyphLoader = cffGlyphLoader;
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -3248,15 +3043,15 @@ var _Char = __webpack_require__(9);
 
 var _Char2 = _interopRequireDefault(_Char);
 
-var _HorizontalModule = __webpack_require__(68);
+var _HorizontalModule = __webpack_require__(69);
 
 var _HorizontalModule2 = _interopRequireDefault(_HorizontalModule);
 
-var _VerticalModule = __webpack_require__(69);
+var _VerticalModule = __webpack_require__(70);
 
 var _VerticalModule2 = _interopRequireDefault(_VerticalModule);
 
-var _CustomModule = __webpack_require__(67);
+var _CustomModule = __webpack_require__(68);
 
 var _CustomModule2 = _interopRequireDefault(_CustomModule);
 
@@ -3616,8 +3411,6 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
 
             var lines = _horizontalModule.get(this).lines;
 
-            console.log(lines);
-
             if (charinicial < charfinal) {
                 letraIni = this.children[charinicial];
                 letraFinal = this.children[charfinal];
@@ -3776,182 +3569,67 @@ exports.default = TextField;
 
 
 /***/ }),
-/* 14 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /*istanbul ignore start*/
 
 exports.__esModule = true;
-exports. /*istanbul ignore end*/parsePatch = parsePatch;
-function parsePatch(uniDiff) {
-  /*istanbul ignore start*/var /*istanbul ignore end*/options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+exports.lineDiff = undefined;
+exports. /*istanbul ignore end*/diffLines = diffLines;
+/*istanbul ignore start*/exports. /*istanbul ignore end*/diffTrimmedLines = diffTrimmedLines;
 
-  var diffstr = uniDiff.split(/\r\n|[\n\v\f\r\x85]/),
-      delimiters = uniDiff.match(/\r\n|[\n\v\f\r\x85]/g) || [],
-      list = [],
-      i = 0;
+var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore end*/;
 
-  function parseIndex() {
-    var index = {};
-    list.push(index);
-
-    // Parse diff metadata
-    while (i < diffstr.length) {
-      var line = diffstr[i];
-
-      // File header found, end parsing diff metadata
-      if (/^(\-\-\-|\+\+\+|@@)\s/.test(line)) {
-        break;
-      }
-
-      // Diff index
-      var header = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(line);
-      if (header) {
-        index.index = header[1];
-      }
-
-      i++;
-    }
-
-    // Parse file headers if they are defined. Unified diff requires them, but
-    // there's no technical issues to have an isolated hunk without file header
-    parseFileHeader(index);
-    parseFileHeader(index);
-
-    // Parse hunks
-    index.hunks = [];
-
-    while (i < diffstr.length) {
-      var _line = diffstr[i];
-
-      if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(_line)) {
-        break;
-      } else if (/^@@/.test(_line)) {
-        index.hunks.push(parseHunk());
-      } else if (_line && options.strict) {
-        // Ignore unexpected content unless in strict mode
-        throw new Error('Unknown line ' + (i + 1) + ' ' + JSON.stringify(_line));
-      } else {
-        i++;
-      }
-    }
-  }
-
-  // Parses the --- and +++ headers, if none are found, no lines
-  // are consumed.
-  function parseFileHeader(index) {
-    var headerPattern = /^(---|\+\+\+)\s+([\S ]*)(?:\t(.*?)\s*)?$/;
-    var fileHeader = headerPattern.exec(diffstr[i]);
-    if (fileHeader) {
-      var keyPrefix = fileHeader[1] === '---' ? 'old' : 'new';
-      index[keyPrefix + 'FileName'] = fileHeader[2];
-      index[keyPrefix + 'Header'] = fileHeader[3];
-
-      i++;
-    }
-  }
-
-  // Parses a hunk
-  // This assumes that we are at the start of a hunk.
-  function parseHunk() {
-    var chunkHeaderIndex = i,
-        chunkHeaderLine = diffstr[i++],
-        chunkHeader = chunkHeaderLine.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/);
-
-    var hunk = {
-      oldStart: +chunkHeader[1],
-      oldLines: +chunkHeader[2] || 1,
-      newStart: +chunkHeader[3],
-      newLines: +chunkHeader[4] || 1,
-      lines: [],
-      linedelimiters: []
-    };
-
-    var addCount = 0,
-        removeCount = 0;
-    for (; i < diffstr.length; i++) {
-      // Lines starting with '---' could be mistaken for the "remove line" operation
-      // But they could be the header for the next file. Therefore prune such cases out.
-      if (diffstr[i].indexOf('--- ') === 0 && i + 2 < diffstr.length && diffstr[i + 1].indexOf('+++ ') === 0 && diffstr[i + 2].indexOf('@@') === 0) {
-        break;
-      }
-      var operation = diffstr[i][0];
-
-      if (operation === '+' || operation === '-' || operation === ' ' || operation === '\\') {
-        hunk.lines.push(diffstr[i]);
-        hunk.linedelimiters.push(delimiters[i] || '\n');
-
-        if (operation === '+') {
-          addCount++;
-        } else if (operation === '-') {
-          removeCount++;
-        } else if (operation === ' ') {
-          addCount++;
-          removeCount++;
-        }
-      } else {
-        break;
-      }
-    }
-
-    // Handle the empty block count case
-    if (!addCount && hunk.newLines === 1) {
-      hunk.newLines = 0;
-    }
-    if (!removeCount && hunk.oldLines === 1) {
-      hunk.oldLines = 0;
-    }
-
-    // Perform optional sanity checking
-    if (options.strict) {
-      if (addCount !== hunk.newLines) {
-        throw new Error('Added line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
-      }
-      if (removeCount !== hunk.oldLines) {
-        throw new Error('Removed line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
-      }
-    }
-
-    return hunk;
-  }
-
-  while (i < diffstr.length) {
-    parseIndex();
-  }
-
-  return list;
-}
-//# sourceMappingURL=data:application/json;base64,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LEtBQUosQ0FBVSx3REFBd0QsbUJBQW1CLENBQTNFLENBQVYsQ0FBTjtBQUNEO0FBQ0Y7O0FBRUQsV0FBTyxJQUFQO0FBQ0Q7O0FBRUQsU0FBTyxJQUFJLFFBQVEsTUFBbkIsRUFBMkI7QUFDekI7QUFDRDs7QUFFRCxTQUFPLElBQVA7QUFDRCIsImZpbGUiOiJwYXJzZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBmdW5jdGlvbiBwYXJzZVBhdGNoKHVuaURpZmYsIG9wdGlvbnMgPSB7fSkge1xuICBsZXQgZGlmZnN0ciA9IHVuaURpZmYuc3BsaXQoL1xcclxcbnxbXFxuXFx2XFxmXFxyXFx4ODVdLyksXG4gICAgICBkZWxpbWl0ZXJzID0gdW5pRGlmZi5tYXRjaCgvXFxyXFxufFtcXG5cXHZcXGZcXHJcXHg4NV0vZykgfHwgW10sXG4gICAgICBsaXN0ID0gW10sXG4gICAgICBpID0gMDtcblxuICBmdW5jdGlvbiBwYXJzZUluZGV4KCkge1xuICAgIGxldCBpbmRleCA9IHt9O1xuICAgIGxpc3QucHVzaChpbmRleCk7XG5cbiAgICAvLyBQYXJzZSBkaWZmIG1ldGFkYXRhXG4gICAgd2hpbGUgKGkgPCBkaWZmc3RyLmxlbmd0aCkge1xuICAgICAgbGV0IGxpbmUgPSBkaWZmc3RyW2ldO1xuXG4gICAgICAvLyBGaWxlIGhlYWRlciBmb3VuZCwgZW5kIHBhcnNpbmcgZGlmZiBtZXRhZGF0YVxuICAgICAgaWYgKC9eKFxcLVxcLVxcLXxcXCtcXCtcXCt8QEApXFxzLy50ZXN0KGxpbmUpKSB7XG4gICAgICAgIGJyZWFrO1xuICAgICAgfVxuXG4gICAgICAvLyBEaWZmIGluZGV4XG4gICAgICBsZXQgaGVhZGVyID0gKC9eKD86SW5kZXg6fGRpZmYoPzogLXIgXFx3KykrKVxccysoLis/KVxccyokLykuZXhlYyhsaW5lKTtcbiAgICAgIGlmIChoZWFkZXIpIHtcbiAgICAgICAgaW5kZXguaW5kZXggPSBoZWFkZXJbMV07XG4gICAgICB9XG5cbiAgICAgIGkrKztcbiAgICB9XG5cbiAgICAvLyBQYXJzZSBmaWxlIGhlYWRlcnMgaWYgdGhleSBhcmUgZGVmaW5lZC4gVW5pZmllZCBkaWZmIHJlcXVpcmVzIHRoZW0sIGJ1dFxuICAgIC8vIHRoZXJlJ3Mgbm8gdGVjaG5pY2FsIGlzc3VlcyB0byBoYXZlIGFuIGlzb2xhdGVkIGh1bmsgd2l0aG91dCBmaWxlIGhlYWRlclxuICAgIHBhcnNlRmlsZUhlYWRlcihpbmRleCk7XG4gICAgcGFyc2VGaWxlSGVhZGVyKGluZGV4KTtcblxuICAgIC8vIFBhcnNlIGh1bmtzXG4gICAgaW5kZXguaHVua3MgPSBbXTtcblxuICAgIHdoaWxlIChpIDwgZGlmZnN0ci5sZW5ndGgpIHtcbiAgICAgIGxldCBsaW5lID0gZGlmZnN0cltpXTtcblxuICAgICAgaWYgKC9eKEluZGV4OnxkaWZmfFxcLVxcLVxcLXxcXCtcXCtcXCspXFxzLy50ZXN0KGxpbmUpKSB7XG4gICAgICAgIGJyZWFrO1xuICAgICAgfSBlbHNlIGlmICgvXkBALy50ZXN0KGxpbmUpKSB7XG4gICAgICAgIGluZGV4Lmh1bmtzLnB1c2gocGFyc2VIdW5rKCkpO1xuICAgICAgfSBlbHNlIGlmIChsaW5lICYmIG9wdGlvbnMuc3RyaWN0KSB7XG4gICAgICAgIC8vIElnbm9yZSB1bmV4cGVjdGVkIGNvbnRlbnQgdW5sZXNzIGluIHN0cmljdCBtb2RlXG4gICAgICAgIHRocm93IG5ldyBFcnJvcignVW5rbm93biBsaW5lICcgKyAoaSArIDEpICsgJyAnICsgSlNPTi5zdHJpbmdpZnkobGluZSkpO1xuICAgICAgfSBlbHNlIHtcbiAgICAgICAgaSsrO1xuICAgICAgfVxuICAgIH1cbiAgfVxuXG4gIC8vIFBhcnNlcyB0aGUgLS0tIGFuZCArKysgaGVhZGVycywgaWYgbm9uZSBhcmUgZm91bmQsIG5vIGxpbmVzXG4gIC8vIGFyZSBjb25zdW1lZC5cbiAgZnVuY3Rpb24gcGFyc2VGaWxlSGVhZGVyKGluZGV4KSB7XG4gICAgY29uc3QgaGVhZGVyUGF0dGVybiA9IC9eKC0tLXxcXCtcXCtcXCspXFxzKyhbXFxTIF0qKSg/OlxcdCguKj8pXFxzKik/JC87XG4gICAgY29uc3QgZmlsZUhlYWRlciA9IGhlYWRlclBhdHRlcm4uZXhlYyhkaWZmc3RyW2ldKTtcbiAgICBpZiAoZmlsZUhlYWRlcikge1xuICAgICAgbGV0IGtleVByZWZpeCA9IGZpbGVIZWFkZXJbMV0gPT09ICctLS0nID8gJ29sZCcgOiAnbmV3JztcbiAgICAgIGluZGV4W2tleVByZWZpeCArICdGaWxlTmFtZSddID0gZmlsZUhlYWRlclsyXTtcbiAgICAgIGluZGV4W2tleVByZWZpeCArICdIZWFkZXInXSA9IGZpbGVIZWFkZXJbM107XG5cbiAgICAgIGkrKztcbiAgICB9XG4gIH1cblxuICAvLyBQYXJzZXMgYSBodW5rXG4gIC8vIFRoaXMgYXNzdW1lcyB0aGF0IHdlIGFyZSBhdCB0aGUgc3RhcnQgb2YgYSBodW5rLlxuICBmdW5jdGlvbiBwYXJzZUh1bmsoKSB7XG4gICAgbGV0IGNodW5rSGVhZGVySW5kZXggPSBpLFxuICAgICAgICBjaHVua0hlYWRlckxpbmUgPSBkaWZmc3RyW2krK10sXG4gICAgICAgIGNodW5rSGVhZGVyID0gY2h1bmtIZWFkZXJMaW5lLnNwbGl0KC9AQCAtKFxcZCspKD86LChcXGQrKSk/IFxcKyhcXGQrKSg/OiwoXFxkKykpPyBAQC8pO1xuXG4gICAgbGV0IGh1bmsgPSB7XG4gICAgICBvbGRTdGFydDogK2NodW5rSGVhZGVyWzFdLFxuICAgICAgb2xkTGluZXM6ICtjaHVua0hlYWRlclsyXSB8fCAxLFxuICAgICAgbmV3U3RhcnQ6ICtjaHVua0hlYWRlclszXSxcbiAgICAgIG5ld0xpbmVzOiArY2h1bmtIZWFkZXJbNF0gfHwgMSxcbiAgICAgIGxpbmVzOiBbXSxcbiAgICAgIGxpbmVkZWxpbWl0ZXJzOiBbXVxuICAgIH07XG5cbiAgICBsZXQgYWRkQ291bnQgPSAwLFxuICAgICAgICByZW1vdmVDb3VudCA9IDA7XG4gICAgZm9yICg7IGkgPCBkaWZmc3RyLmxlbmd0aDsgaSsrKSB7XG4gICAgICAvLyBMaW5lcyBzdGFydGluZyB3aXRoICctLS0nIGNvdWxkIGJlIG1pc3Rha2VuIGZvciB0aGUgXCJyZW1vdmUgbGluZVwiIG9wZXJhdGlvblxuICAgICAgLy8gQnV0IHRoZXkgY291bGQgYmUgdGhlIGhlYWRlciBmb3IgdGhlIG5leHQgZmlsZS4gVGhlcmVmb3JlIHBydW5lIHN1Y2ggY2FzZXMgb3V0LlxuICAgICAgaWYgKGRpZmZzdHJbaV0uaW5kZXhPZignLS0tICcpID09PSAwXG4gICAgICAgICAgICAmJiAoaSArIDIgPCBkaWZmc3RyLmxlbmd0aClcbiAgICAgICAgICAgICYmIGRpZmZzdHJbaSArIDFdLmluZGV4T2YoJysrKyAnKSA9PT0gMFxuICAgICAgICAgICAgJiYgZGlmZnN0cltpICsgMl0uaW5kZXhPZignQEAnKSA9PT0gMCkge1xuICAgICAgICAgIGJyZWFrO1xuICAgICAgfVxuICAgICAgbGV0IG9wZXJhdGlvbiA9IGRpZmZzdHJbaV1bMF07XG5cbiAgICAgIGlmIChvcGVyYXRpb24gPT09ICcrJyB8fCBvcGVyYXRpb24gPT09ICctJyB8fCBvcGVyYXRpb24gPT09ICcgJyB8fCBvcGVyYXRpb24gPT09ICdcXFxcJykge1xuICAgICAgICBodW5rLmxpbmVzLnB1c2goZGlmZnN0cltpXSk7XG4gICAgICAgIGh1bmsubGluZWRlbGltaXRlcnMucHVzaChkZWxpbWl0ZXJzW2ldIHx8ICdcXG4nKTtcblxuICAgICAgICBpZiAob3BlcmF0aW9uID09PSAnKycpIHtcbiAgICAgICAgICBhZGRDb3VudCsrO1xuICAgICAgICB9IGVsc2UgaWYgKG9wZXJhdGlvbiA9PT0gJy0nKSB7XG4gICAgICAgICAgcmVtb3ZlQ291bnQrKztcbiAgICAgICAgfSBlbHNlIGlmIChvcGVyYXRpb24gPT09ICcgJykge1xuICAgICAgICAgIGFkZENvdW50Kys7XG4gICAgICAgICAgcmVtb3ZlQ291bnQrKztcbiAgICAgICAgfVxuICAgICAgfSBlbHNlIHtcbiAgICAgICAgYnJlYWs7XG4gICAgICB9XG4gICAgfVxuXG4gICAgLy8gSGFuZGxlIHRoZSBlbXB0eSBibG9jayBjb3VudCBjYXNlXG4gICAgaWYgKCFhZGRDb3VudCAmJiBodW5rLm5ld0xpbmVzID09PSAxKSB7XG4gICAgICBodW5rLm5ld0xpbmVzID0gMDtcbiAgICB9XG4gICAgaWYgKCFyZW1vdmVDb3VudCAmJiBodW5rLm9sZExpbmVzID09PSAxKSB7XG4gICAgICBodW5rLm9sZExpbmVzID0gMDtcbiAgICB9XG5cbiAgICAvLyBQZXJmb3JtIG9wdGlvbmFsIHNhbml0eSBjaGVja2luZ1xuICAgIGlmIChvcHRpb25zLnN0cmljdCkge1xuICAgICAgaWYgKGFkZENvdW50ICE9PSBodW5rLm5ld0xpbmVzKSB7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcignQWRkZWQgbGluZSBjb3VudCBkaWQgbm90IG1hdGNoIGZvciBodW5rIGF0IGxpbmUgJyArIChjaHVua0hlYWRlckluZGV4ICsgMSkpO1xuICAgICAgfVxuICAgICAgaWYgKHJlbW92ZUNvdW50ICE9PSBodW5rLm9sZExpbmVzKSB7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcignUmVtb3ZlZCBsaW5lIGNvdW50IGRpZCBub3QgbWF0Y2ggZm9yIGh1bmsgYXQgbGluZSAnICsgKGNodW5rSGVhZGVySW5kZXggKyAxKSk7XG4gICAgICB9XG4gICAgfVxuXG4gICAgcmV0dXJuIGh1bms7XG4gIH1cblxuICB3aGlsZSAoaSA8IGRpZmZzdHIubGVuZ3RoKSB7XG4gICAgcGFyc2VJbmRleCgpO1xuICB9XG5cbiAgcmV0dXJuIGxpc3Q7XG59XG4iXX0=
-
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 /*istanbul ignore start*/
+var _base2 = _interopRequireDefault(_base);
 
-exports.__esModule = true;
-exports. /*istanbul ignore end*/generateOptions = generateOptions;
-function generateOptions(options, defaults) {
-  if (typeof options === 'function') {
-    defaults.callback = options;
-  } else if (options) {
-    for (var name in options) {
-      /* istanbul ignore else */
-      if (options.hasOwnProperty(name)) {
-        defaults[name] = options[name];
+/*istanbul ignore end*/
+var /*istanbul ignore start*/_params = __webpack_require__(16) /*istanbul ignore end*/;
+
+/*istanbul ignore start*/
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+/*istanbul ignore end*/var lineDiff = /*istanbul ignore start*/exports. /*istanbul ignore end*/lineDiff = new /*istanbul ignore start*/_base2['default']() /*istanbul ignore end*/;
+lineDiff.tokenize = function (value) {
+  var retLines = [],
+      linesAndNewlines = value.split(/(\n|\r\n)/);
+
+  // Ignore the final empty token that occurs if the string ends with a new line
+  if (!linesAndNewlines[linesAndNewlines.length - 1]) {
+    linesAndNewlines.pop();
+  }
+
+  // Merge the content and line separators into single tokens
+  for (var i = 0; i < linesAndNewlines.length; i++) {
+    var line = linesAndNewlines[i];
+
+    if (i % 2 && !this.options.newlineIsToken) {
+      retLines[retLines.length - 1] += line;
+    } else {
+      if (this.options.ignoreWhitespace) {
+        line = line.trim();
       }
+      retLines.push(line);
     }
   }
-  return defaults;
+
+  return retLines;
+};
+
+function diffLines(oldStr, newStr, callback) {
+  return lineDiff.diff(oldStr, newStr, callback);
 }
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlsL3BhcmFtcy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Z0NBQWdCLGUsR0FBQSxlO0FBQVQsU0FBUyxlQUFULENBQXlCLE9BQXpCLEVBQWtDLFFBQWxDLEVBQTRDO0FBQ2pELE1BQUksT0FBTyxPQUFQLEtBQW1CLFVBQXZCLEVBQW1DO0FBQ2pDLGFBQVMsUUFBVCxHQUFvQixPQUFwQjtBQUNELEdBRkQsTUFFTyxJQUFJLE9BQUosRUFBYTtBQUNsQixTQUFLLElBQUksSUFBVCxJQUFpQixPQUFqQixFQUEwQjs7QUFFeEIsVUFBSSxRQUFRLGNBQVIsQ0FBdUIsSUFBdkIsQ0FBSixFQUFrQztBQUNoQyxpQkFBUyxJQUFULElBQWlCLFFBQVEsSUFBUixDQUFqQjtBQUNEO0FBQ0Y7QUFDRjtBQUNELFNBQU8sUUFBUDtBQUNEIiwiZmlsZSI6InBhcmFtcy5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBmdW5jdGlvbiBnZW5lcmF0ZU9wdGlvbnMob3B0aW9ucywgZGVmYXVsdHMpIHtcbiAgaWYgKHR5cGVvZiBvcHRpb25zID09PSAnZnVuY3Rpb24nKSB7XG4gICAgZGVmYXVsdHMuY2FsbGJhY2sgPSBvcHRpb25zO1xuICB9IGVsc2UgaWYgKG9wdGlvbnMpIHtcbiAgICBmb3IgKGxldCBuYW1lIGluIG9wdGlvbnMpIHtcbiAgICAgIC8qIGlzdGFuYnVsIGlnbm9yZSBlbHNlICovXG4gICAgICBpZiAob3B0aW9ucy5oYXNPd25Qcm9wZXJ0eShuYW1lKSkge1xuICAgICAgICBkZWZhdWx0c1tuYW1lXSA9IG9wdGlvbnNbbmFtZV07XG4gICAgICB9XG4gICAgfVxuICB9XG4gIHJldHVybiBkZWZhdWx0cztcbn1cbiJdfQ==
+function diffTrimmedLines(oldStr, newStr, callback) {
+  var options = /*istanbul ignore start*/(0, _params.generateOptions) /*istanbul ignore end*/(callback, { ignoreWhitespace: true });
+  return lineDiff.diff(oldStr, newStr, options);
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2xpbmUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztnQ0E4QmdCLFMsR0FBQSxTO3lEQUNBLGdCLEdBQUEsZ0I7O0FBL0JoQixJLHlCQUFBLHlCLHdCQUFBOzs7Ozs7QUFDQSxJLHlCQUFBLG1DLHdCQUFBOzs7Ozt1QkFFTyxJQUFNLFcseUJBQUEsUSx3QkFBQSxXQUFXLEkseUJBQUEsbUIsd0JBQWpCO0FBQ1AsU0FBUyxRQUFULEdBQW9CLFVBQVMsS0FBVCxFQUFnQjtBQUNsQyxNQUFJLFdBQVcsRUFBZjtBQUFBLE1BQ0ksbUJBQW1CLE1BQU0sS0FBTixDQUFZLFdBQVosQ0FEdkI7OztBQUlBLE1BQUksQ0FBQyxpQkFBaUIsaUJBQWlCLE1BQWpCLEdBQTBCLENBQTNDLENBQUwsRUFBb0Q7QUFDbEQscUJBQWlCLEdBQWpCO0FBQ0Q7OztBQUdELE9BQUssSUFBSSxJQUFJLENBQWIsRUFBZ0IsSUFBSSxpQkFBaUIsTUFBckMsRUFBNkMsR0FBN0MsRUFBa0Q7QUFDaEQsUUFBSSxPQUFPLGlCQUFpQixDQUFqQixDQUFYOztBQUVBLFFBQUksSUFBSSxDQUFKLElBQVMsQ0FBQyxLQUFLLE9BQUwsQ0FBYSxjQUEzQixFQUEyQztBQUN6QyxlQUFTLFNBQVMsTUFBVCxHQUFrQixDQUEzQixLQUFpQyxJQUFqQztBQUNELEtBRkQsTUFFTztBQUNMLFVBQUksS0FBSyxPQUFMLENBQWEsZ0JBQWpCLEVBQW1DO0FBQ2pDLGVBQU8sS0FBSyxJQUFMLEVBQVA7QUFDRDtBQUNELGVBQVMsSUFBVCxDQUFjLElBQWQ7QUFDRDtBQUNGOztBQUVELFNBQU8sUUFBUDtBQUNELENBeEJEOztBQTBCTyxTQUFTLFNBQVQsQ0FBbUIsTUFBbkIsRUFBMkIsTUFBM0IsRUFBbUMsUUFBbkMsRUFBNkM7QUFBRSxTQUFPLFNBQVMsSUFBVCxDQUFjLE1BQWQsRUFBc0IsTUFBdEIsRUFBOEIsUUFBOUIsQ0FBUDtBQUFpRDtBQUNoRyxTQUFTLGdCQUFULENBQTBCLE1BQTFCLEVBQWtDLE1BQWxDLEVBQTBDLFFBQTFDLEVBQW9EO0FBQ3pELE1BQUksVSx5QkFBVSw0Qix3QkFBQSxDQUFnQixRQUFoQixFQUEwQixFQUFDLGtCQUFrQixJQUFuQixFQUExQixDQUFkO0FBQ0EsU0FBTyxTQUFTLElBQVQsQ0FBYyxNQUFkLEVBQXNCLE1BQXRCLEVBQThCLE9BQTlCLENBQVA7QUFDRCIsImZpbGUiOiJsaW5lLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IERpZmYgZnJvbSAnLi9iYXNlJztcbmltcG9ydCB7Z2VuZXJhdGVPcHRpb25zfSBmcm9tICcuLi91dGlsL3BhcmFtcyc7XG5cbmV4cG9ydCBjb25zdCBsaW5lRGlmZiA9IG5ldyBEaWZmKCk7XG5saW5lRGlmZi50b2tlbml6ZSA9IGZ1bmN0aW9uKHZhbHVlKSB7XG4gIGxldCByZXRMaW5lcyA9IFtdLFxuICAgICAgbGluZXNBbmROZXdsaW5lcyA9IHZhbHVlLnNwbGl0KC8oXFxufFxcclxcbikvKTtcblxuICAvLyBJZ25vcmUgdGhlIGZpbmFsIGVtcHR5IHRva2VuIHRoYXQgb2NjdXJzIGlmIHRoZSBzdHJpbmcgZW5kcyB3aXRoIGEgbmV3IGxpbmVcbiAgaWYgKCFsaW5lc0FuZE5ld2xpbmVzW2xpbmVzQW5kTmV3bGluZXMubGVuZ3RoIC0gMV0pIHtcbiAgICBsaW5lc0FuZE5ld2xpbmVzLnBvcCgpO1xuICB9XG5cbiAgLy8gTWVyZ2UgdGhlIGNvbnRlbnQgYW5kIGxpbmUgc2VwYXJhdG9ycyBpbnRvIHNpbmdsZSB0b2tlbnNcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBsaW5lc0FuZE5ld2xpbmVzLmxlbmd0aDsgaSsrKSB7XG4gICAgbGV0IGxpbmUgPSBsaW5lc0FuZE5ld2xpbmVzW2ldO1xuXG4gICAgaWYgKGkgJSAyICYmICF0aGlzLm9wdGlvbnMubmV3bGluZUlzVG9rZW4pIHtcbiAgICAgIHJldExpbmVzW3JldExpbmVzLmxlbmd0aCAtIDFdICs9IGxpbmU7XG4gICAgfSBlbHNlIHtcbiAgICAgIGlmICh0aGlzLm9wdGlvbnMuaWdub3JlV2hpdGVzcGFjZSkge1xuICAgICAgICBsaW5lID0gbGluZS50cmltKCk7XG4gICAgICB9XG4gICAgICByZXRMaW5lcy5wdXNoKGxpbmUpO1xuICAgIH1cbiAgfVxuXG4gIHJldHVybiByZXRMaW5lcztcbn07XG5cbmV4cG9ydCBmdW5jdGlvbiBkaWZmTGluZXMob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7IHJldHVybiBsaW5lRGlmZi5kaWZmKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjayk7IH1cbmV4cG9ydCBmdW5jdGlvbiBkaWZmVHJpbW1lZExpbmVzKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjaykge1xuICBsZXQgb3B0aW9ucyA9IGdlbmVyYXRlT3B0aW9ucyhjYWxsYmFjaywge2lnbm9yZVdoaXRlc3BhY2U6IHRydWV9KTtcbiAgcmV0dXJuIGxpbmVEaWZmLmRpZmYob2xkU3RyLCBuZXdTdHIsIG9wdGlvbnMpO1xufVxuIl19
 
 
 /***/ }),
-/* 16 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4266,6 +3944,326 @@ EventEmitter.EventEmitter = EventEmitter;
 if (true) {
   module.exports = EventEmitter;
 }
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// The GlyphSet object
+
+
+
+var _glyph = __webpack_require__(18);
+
+// Define a property on the glyph that depends on the path being loaded.
+function defineDependentProperty(glyph, externalName, internalName) {
+    Object.defineProperty(glyph, externalName, {
+        get: function() {
+            // Request the path property to make sure the path is loaded.
+            glyph.path; // jshint ignore:line
+            return glyph[internalName];
+        },
+        set: function(newValue) {
+            glyph[internalName] = newValue;
+        },
+        enumerable: true,
+        configurable: true
+    });
+}
+
+/**
+ * A GlyphSet represents all glyphs available in the font, but modelled using
+ * a deferred glyph loader, for retrieving glyphs only once they are absolutely
+ * necessary, to keep the memory footprint down.
+ * @exports opentype.GlyphSet
+ * @class
+ * @param {opentype.Font}
+ * @param {Array}
+ */
+function GlyphSet(font, glyphs) {
+    this.font = font;
+    this.glyphs = {};
+    if (Array.isArray(glyphs)) {
+        for (var i = 0; i < glyphs.length; i++) {
+            this.glyphs[i] = glyphs[i];
+        }
+    }
+
+    this.length = (glyphs && glyphs.length) || 0;
+}
+
+/**
+ * @param  {number} index
+ * @return {opentype.Glyph}
+ */
+GlyphSet.prototype.get = function(index) {
+    if (typeof this.glyphs[index] === 'function') {
+        this.glyphs[index] = this.glyphs[index]();
+    }
+
+    return this.glyphs[index];
+};
+
+/**
+ * @param  {number} index
+ * @param  {Object}
+ */
+GlyphSet.prototype.push = function(index, loader) {
+    this.glyphs[index] = loader;
+    this.length++;
+};
+
+/**
+ * @alias opentype.glyphLoader
+ * @param  {opentype.Font} font
+ * @param  {number} index
+ * @return {opentype.Glyph}
+ */
+function glyphLoader(font, index) {
+    return new _glyph.Glyph({index: index, font: font});
+}
+
+/**
+ * Generate a stub glyph that can be filled with all metadata *except*
+ * the "points" and "path" properties, which must be loaded only once
+ * the glyph's path is actually requested for text shaping.
+ * @alias opentype.ttfGlyphLoader
+ * @param  {opentype.Font} font
+ * @param  {number} index
+ * @param  {Function} parseGlyph
+ * @param  {Object} data
+ * @param  {number} position
+ * @param  {Function} buildPath
+ * @return {opentype.Glyph}
+ */
+function ttfGlyphLoader(font, index, parseGlyph, data, position, buildPath) {
+    return function() {
+        var glyph = new _glyph.Glyph({index: index, font: font});
+
+        glyph.path = function() {
+            parseGlyph(glyph, data, position);
+            var path = buildPath(font.glyphs, glyph);
+            path.unitsPerEm = font.unitsPerEm;
+            return path;
+        };
+
+        defineDependentProperty(glyph, 'xMin', '_xMin');
+        defineDependentProperty(glyph, 'xMax', '_xMax');
+        defineDependentProperty(glyph, 'yMin', '_yMin');
+        defineDependentProperty(glyph, 'yMax', '_yMax');
+
+        return glyph;
+    };
+}
+/**
+ * @alias opentype.cffGlyphLoader
+ * @param  {opentype.Font} font
+ * @param  {number} index
+ * @param  {Function} parseCFFCharstring
+ * @param  {string} charstring
+ * @return {opentype.Glyph}
+ */
+function cffGlyphLoader(font, index, parseCFFCharstring, charstring) {
+    return function() {
+        var glyph = new _glyph.Glyph({index: index, font: font});
+
+        glyph.path = function() {
+            var path = parseCFFCharstring(font, glyph, charstring);
+            path.unitsPerEm = font.unitsPerEm;
+            return path;
+        };
+
+        return glyph;
+    };
+}
+
+exports.GlyphSet = GlyphSet;
+exports.glyphLoader = glyphLoader;
+exports.ttfGlyphLoader = ttfGlyphLoader;
+exports.cffGlyphLoader = cffGlyphLoader;
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*istanbul ignore start*/
+
+exports.__esModule = true;
+exports. /*istanbul ignore end*/parsePatch = parsePatch;
+function parsePatch(uniDiff) {
+  /*istanbul ignore start*/var /*istanbul ignore end*/options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+  var diffstr = uniDiff.split(/\r\n|[\n\v\f\r\x85]/),
+      delimiters = uniDiff.match(/\r\n|[\n\v\f\r\x85]/g) || [],
+      list = [],
+      i = 0;
+
+  function parseIndex() {
+    var index = {};
+    list.push(index);
+
+    // Parse diff metadata
+    while (i < diffstr.length) {
+      var line = diffstr[i];
+
+      // File header found, end parsing diff metadata
+      if (/^(\-\-\-|\+\+\+|@@)\s/.test(line)) {
+        break;
+      }
+
+      // Diff index
+      var header = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(line);
+      if (header) {
+        index.index = header[1];
+      }
+
+      i++;
+    }
+
+    // Parse file headers if they are defined. Unified diff requires them, but
+    // there's no technical issues to have an isolated hunk without file header
+    parseFileHeader(index);
+    parseFileHeader(index);
+
+    // Parse hunks
+    index.hunks = [];
+
+    while (i < diffstr.length) {
+      var _line = diffstr[i];
+
+      if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(_line)) {
+        break;
+      } else if (/^@@/.test(_line)) {
+        index.hunks.push(parseHunk());
+      } else if (_line && options.strict) {
+        // Ignore unexpected content unless in strict mode
+        throw new Error('Unknown line ' + (i + 1) + ' ' + JSON.stringify(_line));
+      } else {
+        i++;
+      }
+    }
+  }
+
+  // Parses the --- and +++ headers, if none are found, no lines
+  // are consumed.
+  function parseFileHeader(index) {
+    var headerPattern = /^(---|\+\+\+)\s+([\S ]*)(?:\t(.*?)\s*)?$/;
+    var fileHeader = headerPattern.exec(diffstr[i]);
+    if (fileHeader) {
+      var keyPrefix = fileHeader[1] === '---' ? 'old' : 'new';
+      index[keyPrefix + 'FileName'] = fileHeader[2];
+      index[keyPrefix + 'Header'] = fileHeader[3];
+
+      i++;
+    }
+  }
+
+  // Parses a hunk
+  // This assumes that we are at the start of a hunk.
+  function parseHunk() {
+    var chunkHeaderIndex = i,
+        chunkHeaderLine = diffstr[i++],
+        chunkHeader = chunkHeaderLine.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/);
+
+    var hunk = {
+      oldStart: +chunkHeader[1],
+      oldLines: +chunkHeader[2] || 1,
+      newStart: +chunkHeader[3],
+      newLines: +chunkHeader[4] || 1,
+      lines: [],
+      linedelimiters: []
+    };
+
+    var addCount = 0,
+        removeCount = 0;
+    for (; i < diffstr.length; i++) {
+      // Lines starting with '---' could be mistaken for the "remove line" operation
+      // But they could be the header for the next file. Therefore prune such cases out.
+      if (diffstr[i].indexOf('--- ') === 0 && i + 2 < diffstr.length && diffstr[i + 1].indexOf('+++ ') === 0 && diffstr[i + 2].indexOf('@@') === 0) {
+        break;
+      }
+      var operation = diffstr[i][0];
+
+      if (operation === '+' || operation === '-' || operation === ' ' || operation === '\\') {
+        hunk.lines.push(diffstr[i]);
+        hunk.linedelimiters.push(delimiters[i] || '\n');
+
+        if (operation === '+') {
+          addCount++;
+        } else if (operation === '-') {
+          removeCount++;
+        } else if (operation === ' ') {
+          addCount++;
+          removeCount++;
+        }
+      } else {
+        break;
+      }
+    }
+
+    // Handle the empty block count case
+    if (!addCount && hunk.newLines === 1) {
+      hunk.newLines = 0;
+    }
+    if (!removeCount && hunk.oldLines === 1) {
+      hunk.oldLines = 0;
+    }
+
+    // Perform optional sanity checking
+    if (options.strict) {
+      if (addCount !== hunk.newLines) {
+        throw new Error('Added line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
+      }
+      if (removeCount !== hunk.oldLines) {
+        throw new Error('Removed line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
+      }
+    }
+
+    return hunk;
+  }
+
+  while (i < diffstr.length) {
+    parseIndex();
+  }
+
+  return list;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9wYXRjaC9wYXJzZS5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Z0NBQWdCLFUsR0FBQSxVO0FBQVQsU0FBUyxVQUFULENBQW9CLE9BQXBCLEVBQTJDOzJCQUFBLEksdUJBQWQsT0FBYyx5REFBSixFQUFJOztBQUNoRCxNQUFJLFVBQVUsUUFBUSxLQUFSLENBQWMscUJBQWQsQ0FBZDtBQUFBLE1BQ0ksYUFBYSxRQUFRLEtBQVIsQ0FBYyxzQkFBZCxLQUF5QyxFQUQxRDtBQUFBLE1BRUksT0FBTyxFQUZYO0FBQUEsTUFHSSxJQUFJLENBSFI7O0FBS0EsV0FBUyxVQUFULEdBQXNCO0FBQ3BCLFFBQUksUUFBUSxFQUFaO0FBQ0EsU0FBSyxJQUFMLENBQVUsS0FBVjs7O0FBR0EsV0FBTyxJQUFJLFFBQVEsTUFBbkIsRUFBMkI7QUFDekIsVUFBSSxPQUFPLFFBQVEsQ0FBUixDQUFYOzs7QUFHQSxVQUFJLHdCQUF3QixJQUF4QixDQUE2QixJQUE3QixDQUFKLEVBQXdDO0FBQ3RDO0FBQ0Q7OztBQUdELFVBQUksU0FBVSwwQ0FBRCxDQUE2QyxJQUE3QyxDQUFrRCxJQUFsRCxDQUFiO0FBQ0EsVUFBSSxNQUFKLEVBQVk7QUFDVixjQUFNLEtBQU4sR0FBYyxPQUFPLENBQVAsQ0FBZDtBQUNEOztBQUVEO0FBQ0Q7Ozs7QUFJRCxvQkFBZ0IsS0FBaEI7QUFDQSxvQkFBZ0IsS0FBaEI7OztBQUdBLFVBQU0sS0FBTixHQUFjLEVBQWQ7O0FBRUEsV0FBTyxJQUFJLFFBQVEsTUFBbkIsRUFBMkI7QUFDekIsVUFBSSxRQUFPLFFBQVEsQ0FBUixDQUFYOztBQUVBLFVBQUksaUNBQWlDLElBQWpDLENBQXNDLEtBQXRDLENBQUosRUFBaUQ7QUFDL0M7QUFDRCxPQUZELE1BRU8sSUFBSSxNQUFNLElBQU4sQ0FBVyxLQUFYLENBQUosRUFBc0I7QUFDM0IsY0FBTSxLQUFOLENBQVksSUFBWixDQUFpQixXQUFqQjtBQUNELE9BRk0sTUFFQSxJQUFJLFNBQVEsUUFBUSxNQUFwQixFQUE0Qjs7QUFFakMsY0FBTSxJQUFJLEtBQUosQ0FBVSxtQkFBbUIsSUFBSSxDQUF2QixJQUE0QixHQUE1QixHQUFrQyxLQUFLLFNBQUwsQ0FBZSxLQUFmLENBQTVDLENBQU47QUFDRCxPQUhNLE1BR0E7QUFDTDtBQUNEO0FBQ0Y7QUFDRjs7OztBQUlELFdBQVMsZUFBVCxDQUF5QixLQUF6QixFQUFnQztBQUM5QixRQUFNLGdCQUFnQiwwQ0FBdEI7QUFDQSxRQUFNLGFBQWEsY0FBYyxJQUFkLENBQW1CLFFBQVEsQ0FBUixDQUFuQixDQUFuQjtBQUNBLFFBQUksVUFBSixFQUFnQjtBQUNkLFVBQUksWUFBWSxXQUFXLENBQVgsTUFBa0IsS0FBbEIsR0FBMEIsS0FBMUIsR0FBa0MsS0FBbEQ7QUFDQSxZQUFNLFlBQVksVUFBbEIsSUFBZ0MsV0FBVyxDQUFYLENBQWhDO0FBQ0EsWUFBTSxZQUFZLFFBQWxCLElBQThCLFdBQVcsQ0FBWCxDQUE5Qjs7QUFFQTtBQUNEO0FBQ0Y7Ozs7QUFJRCxXQUFTLFNBQVQsR0FBcUI7QUFDbkIsUUFBSSxtQkFBbUIsQ0FBdkI7QUFBQSxRQUNJLGtCQUFrQixRQUFRLEdBQVIsQ0FEdEI7QUFBQSxRQUVJLGNBQWMsZ0JBQWdCLEtBQWhCLENBQXNCLDRDQUF0QixDQUZsQjs7QUFJQSxRQUFJLE9BQU87QUFDVCxnQkFBVSxDQUFDLFlBQVksQ0FBWixDQURGO0FBRVQsZ0JBQVUsQ0FBQyxZQUFZLENBQVosQ0FBRCxJQUFtQixDQUZwQjtBQUdULGdCQUFVLENBQUMsWUFBWSxDQUFaLENBSEY7QUFJVCxnQkFBVSxDQUFDLFlBQVksQ0FBWixDQUFELElBQW1CLENBSnBCO0FBS1QsYUFBTyxFQUxFO0FBTVQsc0JBQWdCO0FBTlAsS0FBWDs7QUFTQSxRQUFJLFdBQVcsQ0FBZjtBQUFBLFFBQ0ksY0FBYyxDQURsQjtBQUVBLFdBQU8sSUFBSSxRQUFRLE1BQW5CLEVBQTJCLEdBQTNCLEVBQWdDOzs7QUFHOUIsVUFBSSxRQUFRLENBQVIsRUFBVyxPQUFYLENBQW1CLE1BQW5CLE1BQStCLENBQS9CLElBQ00sSUFBSSxDQUFKLEdBQVEsUUFBUSxNQUR0QixJQUVLLFFBQVEsSUFBSSxDQUFaLEVBQWUsT0FBZixDQUF1QixNQUF2QixNQUFtQyxDQUZ4QyxJQUdLLFFBQVEsSUFBSSxDQUFaLEVBQWUsT0FBZixDQUF1QixJQUF2QixNQUFpQyxDQUgxQyxFQUc2QztBQUN6QztBQUNIO0FBQ0QsVUFBSSxZQUFZLFFBQVEsQ0FBUixFQUFXLENBQVgsQ0FBaEI7O0FBRUEsVUFBSSxjQUFjLEdBQWQsSUFBcUIsY0FBYyxHQUFuQyxJQUEwQyxjQUFjLEdBQXhELElBQStELGNBQWMsSUFBakYsRUFBdUY7QUFDckYsYUFBSyxLQUFMLENBQVcsSUFBWCxDQUFnQixRQUFRLENBQVIsQ0FBaEI7QUFDQSxhQUFLLGNBQUwsQ0FBb0IsSUFBcEIsQ0FBeUIsV0FBVyxDQUFYLEtBQWlCLElBQTFDOztBQUVBLFlBQUksY0FBYyxHQUFsQixFQUF1QjtBQUNyQjtBQUNELFNBRkQsTUFFTyxJQUFJLGNBQWMsR0FBbEIsRUFBdUI7QUFDNUI7QUFDRCxTQUZNLE1BRUEsSUFBSSxjQUFjLEdBQWxCLEVBQXVCO0FBQzVCO0FBQ0E7QUFDRDtBQUNGLE9BWkQsTUFZTztBQUNMO0FBQ0Q7QUFDRjs7O0FBR0QsUUFBSSxDQUFDLFFBQUQsSUFBYSxLQUFLLFFBQUwsS0FBa0IsQ0FBbkMsRUFBc0M7QUFDcEMsV0FBSyxRQUFMLEdBQWdCLENBQWhCO0FBQ0Q7QUFDRCxRQUFJLENBQUMsV0FBRCxJQUFnQixLQUFLLFFBQUwsS0FBa0IsQ0FBdEMsRUFBeUM7QUFDdkMsV0FBSyxRQUFMLEdBQWdCLENBQWhCO0FBQ0Q7OztBQUdELFFBQUksUUFBUSxNQUFaLEVBQW9CO0FBQ2xCLFVBQUksYUFBYSxLQUFLLFFBQXRCLEVBQWdDO0FBQzlCLGNBQU0sSUFBSSxLQUFKLENBQVUsc0RBQXNELG1CQUFtQixDQUF6RSxDQUFWLENBQU47QUFDRDtBQUNELFVBQUksZ0JBQWdCLEtBQUssUUFBekIsRUFBbUM7QUFDakMsY0FBTSxJQUFJLEtBQUosQ0FBVSx3REFBd0QsbUJBQW1CLENBQTNFLENBQVYsQ0FBTjtBQUNEO0FBQ0Y7O0FBRUQsV0FBTyxJQUFQO0FBQ0Q7O0FBRUQsU0FBTyxJQUFJLFFBQVEsTUFBbkIsRUFBMkI7QUFDekI7QUFDRDs7QUFFRCxTQUFPLElBQVA7QUFDRCIsImZpbGUiOiJwYXJzZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBmdW5jdGlvbiBwYXJzZVBhdGNoKHVuaURpZmYsIG9wdGlvbnMgPSB7fSkge1xuICBsZXQgZGlmZnN0ciA9IHVuaURpZmYuc3BsaXQoL1xcclxcbnxbXFxuXFx2XFxmXFxyXFx4ODVdLyksXG4gICAgICBkZWxpbWl0ZXJzID0gdW5pRGlmZi5tYXRjaCgvXFxyXFxufFtcXG5cXHZcXGZcXHJcXHg4NV0vZykgfHwgW10sXG4gICAgICBsaXN0ID0gW10sXG4gICAgICBpID0gMDtcblxuICBmdW5jdGlvbiBwYXJzZUluZGV4KCkge1xuICAgIGxldCBpbmRleCA9IHt9O1xuICAgIGxpc3QucHVzaChpbmRleCk7XG5cbiAgICAvLyBQYXJzZSBkaWZmIG1ldGFkYXRhXG4gICAgd2hpbGUgKGkgPCBkaWZmc3RyLmxlbmd0aCkge1xuICAgICAgbGV0IGxpbmUgPSBkaWZmc3RyW2ldO1xuXG4gICAgICAvLyBGaWxlIGhlYWRlciBmb3VuZCwgZW5kIHBhcnNpbmcgZGlmZiBtZXRhZGF0YVxuICAgICAgaWYgKC9eKFxcLVxcLVxcLXxcXCtcXCtcXCt8QEApXFxzLy50ZXN0KGxpbmUpKSB7XG4gICAgICAgIGJyZWFrO1xuICAgICAgfVxuXG4gICAgICAvLyBEaWZmIGluZGV4XG4gICAgICBsZXQgaGVhZGVyID0gKC9eKD86SW5kZXg6fGRpZmYoPzogLXIgXFx3KykrKVxccysoLis/KVxccyokLykuZXhlYyhsaW5lKTtcbiAgICAgIGlmIChoZWFkZXIpIHtcbiAgICAgICAgaW5kZXguaW5kZXggPSBoZWFkZXJbMV07XG4gICAgICB9XG5cbiAgICAgIGkrKztcbiAgICB9XG5cbiAgICAvLyBQYXJzZSBmaWxlIGhlYWRlcnMgaWYgdGhleSBhcmUgZGVmaW5lZC4gVW5pZmllZCBkaWZmIHJlcXVpcmVzIHRoZW0sIGJ1dFxuICAgIC8vIHRoZXJlJ3Mgbm8gdGVjaG5pY2FsIGlzc3VlcyB0byBoYXZlIGFuIGlzb2xhdGVkIGh1bmsgd2l0aG91dCBmaWxlIGhlYWRlclxuICAgIHBhcnNlRmlsZUhlYWRlcihpbmRleCk7XG4gICAgcGFyc2VGaWxlSGVhZGVyKGluZGV4KTtcblxuICAgIC8vIFBhcnNlIGh1bmtzXG4gICAgaW5kZXguaHVua3MgPSBbXTtcblxuICAgIHdoaWxlIChpIDwgZGlmZnN0ci5sZW5ndGgpIHtcbiAgICAgIGxldCBsaW5lID0gZGlmZnN0cltpXTtcblxuICAgICAgaWYgKC9eKEluZGV4OnxkaWZmfFxcLVxcLVxcLXxcXCtcXCtcXCspXFxzLy50ZXN0KGxpbmUpKSB7XG4gICAgICAgIGJyZWFrO1xuICAgICAgfSBlbHNlIGlmICgvXkBALy50ZXN0KGxpbmUpKSB7XG4gICAgICAgIGluZGV4Lmh1bmtzLnB1c2gocGFyc2VIdW5rKCkpO1xuICAgICAgfSBlbHNlIGlmIChsaW5lICYmIG9wdGlvbnMuc3RyaWN0KSB7XG4gICAgICAgIC8vIElnbm9yZSB1bmV4cGVjdGVkIGNvbnRlbnQgdW5sZXNzIGluIHN0cmljdCBtb2RlXG4gICAgICAgIHRocm93IG5ldyBFcnJvcignVW5rbm93biBsaW5lICcgKyAoaSArIDEpICsgJyAnICsgSlNPTi5zdHJpbmdpZnkobGluZSkpO1xuICAgICAgfSBlbHNlIHtcbiAgICAgICAgaSsrO1xuICAgICAgfVxuICAgIH1cbiAgfVxuXG4gIC8vIFBhcnNlcyB0aGUgLS0tIGFuZCArKysgaGVhZGVycywgaWYgbm9uZSBhcmUgZm91bmQsIG5vIGxpbmVzXG4gIC8vIGFyZSBjb25zdW1lZC5cbiAgZnVuY3Rpb24gcGFyc2VGaWxlSGVhZGVyKGluZGV4KSB7XG4gICAgY29uc3QgaGVhZGVyUGF0dGVybiA9IC9eKC0tLXxcXCtcXCtcXCspXFxzKyhbXFxTIF0qKSg/OlxcdCguKj8pXFxzKik/JC87XG4gICAgY29uc3QgZmlsZUhlYWRlciA9IGhlYWRlclBhdHRlcm4uZXhlYyhkaWZmc3RyW2ldKTtcbiAgICBpZiAoZmlsZUhlYWRlcikge1xuICAgICAgbGV0IGtleVByZWZpeCA9IGZpbGVIZWFkZXJbMV0gPT09ICctLS0nID8gJ29sZCcgOiAnbmV3JztcbiAgICAgIGluZGV4W2tleVByZWZpeCArICdGaWxlTmFtZSddID0gZmlsZUhlYWRlclsyXTtcbiAgICAgIGluZGV4W2tleVByZWZpeCArICdIZWFkZXInXSA9IGZpbGVIZWFkZXJbM107XG5cbiAgICAgIGkrKztcbiAgICB9XG4gIH1cblxuICAvLyBQYXJzZXMgYSBodW5rXG4gIC8vIFRoaXMgYXNzdW1lcyB0aGF0IHdlIGFyZSBhdCB0aGUgc3RhcnQgb2YgYSBodW5rLlxuICBmdW5jdGlvbiBwYXJzZUh1bmsoKSB7XG4gICAgbGV0IGNodW5rSGVhZGVySW5kZXggPSBpLFxuICAgICAgICBjaHVua0hlYWRlckxpbmUgPSBkaWZmc3RyW2krK10sXG4gICAgICAgIGNodW5rSGVhZGVyID0gY2h1bmtIZWFkZXJMaW5lLnNwbGl0KC9AQCAtKFxcZCspKD86LChcXGQrKSk/IFxcKyhcXGQrKSg/OiwoXFxkKykpPyBAQC8pO1xuXG4gICAgbGV0IGh1bmsgPSB7XG4gICAgICBvbGRTdGFydDogK2NodW5rSGVhZGVyWzFdLFxuICAgICAgb2xkTGluZXM6ICtjaHVua0hlYWRlclsyXSB8fCAxLFxuICAgICAgbmV3U3RhcnQ6ICtjaHVua0hlYWRlclszXSxcbiAgICAgIG5ld0xpbmVzOiArY2h1bmtIZWFkZXJbNF0gfHwgMSxcbiAgICAgIGxpbmVzOiBbXSxcbiAgICAgIGxpbmVkZWxpbWl0ZXJzOiBbXVxuICAgIH07XG5cbiAgICBsZXQgYWRkQ291bnQgPSAwLFxuICAgICAgICByZW1vdmVDb3VudCA9IDA7XG4gICAgZm9yICg7IGkgPCBkaWZmc3RyLmxlbmd0aDsgaSsrKSB7XG4gICAgICAvLyBMaW5lcyBzdGFydGluZyB3aXRoICctLS0nIGNvdWxkIGJlIG1pc3Rha2VuIGZvciB0aGUgXCJyZW1vdmUgbGluZVwiIG9wZXJhdGlvblxuICAgICAgLy8gQnV0IHRoZXkgY291bGQgYmUgdGhlIGhlYWRlciBmb3IgdGhlIG5leHQgZmlsZS4gVGhlcmVmb3JlIHBydW5lIHN1Y2ggY2FzZXMgb3V0LlxuICAgICAgaWYgKGRpZmZzdHJbaV0uaW5kZXhPZignLS0tICcpID09PSAwXG4gICAgICAgICAgICAmJiAoaSArIDIgPCBkaWZmc3RyLmxlbmd0aClcbiAgICAgICAgICAgICYmIGRpZmZzdHJbaSArIDFdLmluZGV4T2YoJysrKyAnKSA9PT0gMFxuICAgICAgICAgICAgJiYgZGlmZnN0cltpICsgMl0uaW5kZXhPZignQEAnKSA9PT0gMCkge1xuICAgICAgICAgIGJyZWFrO1xuICAgICAgfVxuICAgICAgbGV0IG9wZXJhdGlvbiA9IGRpZmZzdHJbaV1bMF07XG5cbiAgICAgIGlmIChvcGVyYXRpb24gPT09ICcrJyB8fCBvcGVyYXRpb24gPT09ICctJyB8fCBvcGVyYXRpb24gPT09ICcgJyB8fCBvcGVyYXRpb24gPT09ICdcXFxcJykge1xuICAgICAgICBodW5rLmxpbmVzLnB1c2goZGlmZnN0cltpXSk7XG4gICAgICAgIGh1bmsubGluZWRlbGltaXRlcnMucHVzaChkZWxpbWl0ZXJzW2ldIHx8ICdcXG4nKTtcblxuICAgICAgICBpZiAob3BlcmF0aW9uID09PSAnKycpIHtcbiAgICAgICAgICBhZGRDb3VudCsrO1xuICAgICAgICB9IGVsc2UgaWYgKG9wZXJhdGlvbiA9PT0gJy0nKSB7XG4gICAgICAgICAgcmVtb3ZlQ291bnQrKztcbiAgICAgICAgfSBlbHNlIGlmIChvcGVyYXRpb24gPT09ICcgJykge1xuICAgICAgICAgIGFkZENvdW50Kys7XG4gICAgICAgICAgcmVtb3ZlQ291bnQrKztcbiAgICAgICAgfVxuICAgICAgfSBlbHNlIHtcbiAgICAgICAgYnJlYWs7XG4gICAgICB9XG4gICAgfVxuXG4gICAgLy8gSGFuZGxlIHRoZSBlbXB0eSBibG9jayBjb3VudCBjYXNlXG4gICAgaWYgKCFhZGRDb3VudCAmJiBodW5rLm5ld0xpbmVzID09PSAxKSB7XG4gICAgICBodW5rLm5ld0xpbmVzID0gMDtcbiAgICB9XG4gICAgaWYgKCFyZW1vdmVDb3VudCAmJiBodW5rLm9sZExpbmVzID09PSAxKSB7XG4gICAgICBodW5rLm9sZExpbmVzID0gMDtcbiAgICB9XG5cbiAgICAvLyBQZXJmb3JtIG9wdGlvbmFsIHNhbml0eSBjaGVja2luZ1xuICAgIGlmIChvcHRpb25zLnN0cmljdCkge1xuICAgICAgaWYgKGFkZENvdW50ICE9PSBodW5rLm5ld0xpbmVzKSB7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcignQWRkZWQgbGluZSBjb3VudCBkaWQgbm90IG1hdGNoIGZvciBodW5rIGF0IGxpbmUgJyArIChjaHVua0hlYWRlckluZGV4ICsgMSkpO1xuICAgICAgfVxuICAgICAgaWYgKHJlbW92ZUNvdW50ICE9PSBodW5rLm9sZExpbmVzKSB7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcignUmVtb3ZlZCBsaW5lIGNvdW50IGRpZCBub3QgbWF0Y2ggZm9yIGh1bmsgYXQgbGluZSAnICsgKGNodW5rSGVhZGVySW5kZXggKyAxKSk7XG4gICAgICB9XG4gICAgfVxuXG4gICAgcmV0dXJuIGh1bms7XG4gIH1cblxuICB3aGlsZSAoaSA8IGRpZmZzdHIubGVuZ3RoKSB7XG4gICAgcGFyc2VJbmRleCgpO1xuICB9XG5cbiAgcmV0dXJuIGxpc3Q7XG59XG4iXX0=
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*istanbul ignore start*/
+
+exports.__esModule = true;
+exports. /*istanbul ignore end*/generateOptions = generateOptions;
+function generateOptions(options, defaults) {
+  if (typeof options === 'function') {
+    defaults.callback = options;
+  } else if (options) {
+    for (var name in options) {
+      /* istanbul ignore else */
+      if (options.hasOwnProperty(name)) {
+        defaults[name] = options[name];
+      }
+    }
+  }
+  return defaults;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlsL3BhcmFtcy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Z0NBQWdCLGUsR0FBQSxlO0FBQVQsU0FBUyxlQUFULENBQXlCLE9BQXpCLEVBQWtDLFFBQWxDLEVBQTRDO0FBQ2pELE1BQUksT0FBTyxPQUFQLEtBQW1CLFVBQXZCLEVBQW1DO0FBQ2pDLGFBQVMsUUFBVCxHQUFvQixPQUFwQjtBQUNELEdBRkQsTUFFTyxJQUFJLE9BQUosRUFBYTtBQUNsQixTQUFLLElBQUksSUFBVCxJQUFpQixPQUFqQixFQUEwQjs7QUFFeEIsVUFBSSxRQUFRLGNBQVIsQ0FBdUIsSUFBdkIsQ0FBSixFQUFrQztBQUNoQyxpQkFBUyxJQUFULElBQWlCLFFBQVEsSUFBUixDQUFqQjtBQUNEO0FBQ0Y7QUFDRjtBQUNELFNBQU8sUUFBUDtBQUNEIiwiZmlsZSI6InBhcmFtcy5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBmdW5jdGlvbiBnZW5lcmF0ZU9wdGlvbnMob3B0aW9ucywgZGVmYXVsdHMpIHtcbiAgaWYgKHR5cGVvZiBvcHRpb25zID09PSAnZnVuY3Rpb24nKSB7XG4gICAgZGVmYXVsdHMuY2FsbGJhY2sgPSBvcHRpb25zO1xuICB9IGVsc2UgaWYgKG9wdGlvbnMpIHtcbiAgICBmb3IgKGxldCBuYW1lIGluIG9wdGlvbnMpIHtcbiAgICAgIC8qIGlzdGFuYnVsIGlnbm9yZSBlbHNlICovXG4gICAgICBpZiAob3B0aW9ucy5oYXNPd25Qcm9wZXJ0eShuYW1lKSkge1xuICAgICAgICBkZWZhdWx0c1tuYW1lXSA9IG9wdGlvbnNbbmFtZV07XG4gICAgICB9XG4gICAgfVxuICB9XG4gIHJldHVybiBkZWZhdWx0cztcbn1cbiJdfQ==
 
 
 /***/ }),
@@ -4796,7 +4794,7 @@ exports.Glyph = Glyph;
 
 
 var encoding = __webpack_require__(7);
-var glyphset = __webpack_require__(11);
+var glyphset = __webpack_require__(13);
 var parse = __webpack_require__(0);
 var path = __webpack_require__(6);
 var table = __webpack_require__(2);
@@ -8178,7 +8176,7 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _eventemitter = __webpack_require__(16);
+var _eventemitter = __webpack_require__(12);
 
 var _eventemitter2 = _interopRequireDefault(_eventemitter);
 
@@ -8275,13 +8273,17 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _TextField = __webpack_require__(13);
+var _TextField = __webpack_require__(10);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
 var _Char = __webpack_require__(9);
 
 var _Char2 = _interopRequireDefault(_Char);
+
+var _KeyboardHandler = __webpack_require__(67);
+
+var _KeyboardHandler2 = _interopRequireDefault(_KeyboardHandler);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8357,11 +8359,6 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
             this.cursor.setStyle({ fontSize: size });
         }
     }, {
-        key: 'focus',
-        value: function focus(size) {
-            this.emit("focus");
-        }
-    }, {
         key: 'hideCursor',
         value: function hideCursor(size) {
             this.interactive = false;
@@ -8397,8 +8394,12 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
     }, {
         key: 'focus',
         value: function focus(e) {
+
             this.selectionStarted = true;
+
             this.initialChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
+
+            this.keyboardHandler = _KeyboardHandler2.default.getInstance();
         }
     }, {
         key: 'select',
@@ -9754,7 +9755,7 @@ var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore en
 var _base2 = _interopRequireDefault(_base);
 
 /*istanbul ignore end*/
-var /*istanbul ignore start*/_line = __webpack_require__(10) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_line = __webpack_require__(11) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -9896,7 +9897,7 @@ var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore en
 var _base2 = _interopRequireDefault(_base);
 
 /*istanbul ignore end*/
-var /*istanbul ignore start*/_params = __webpack_require__(15) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_params = __webpack_require__(16) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -9975,7 +9976,7 @@ var /*istanbul ignore start*/_character = __webpack_require__(41) /*istanbul ign
 
 var /*istanbul ignore start*/_word = __webpack_require__(45) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_line = __webpack_require__(10) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_line = __webpack_require__(11) /*istanbul ignore end*/;
 
 var /*istanbul ignore start*/_sentence = __webpack_require__(44) /*istanbul ignore end*/;
 
@@ -9987,7 +9988,7 @@ var /*istanbul ignore start*/_array = __webpack_require__(40) /*istanbul ignore 
 
 var /*istanbul ignore start*/_apply = __webpack_require__(47) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_parse = __webpack_require__(14) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_parse = __webpack_require__(15) /*istanbul ignore end*/;
 
 var /*istanbul ignore start*/_create = __webpack_require__(48) /*istanbul ignore end*/;
 
@@ -10046,7 +10047,7 @@ exports.__esModule = true;
 exports. /*istanbul ignore end*/applyPatch = applyPatch;
 /*istanbul ignore start*/exports. /*istanbul ignore end*/applyPatches = applyPatches;
 
-var /*istanbul ignore start*/_parse = __webpack_require__(14) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_parse = __webpack_require__(15) /*istanbul ignore end*/;
 
 var /*istanbul ignore start*/_distanceIterator = __webpack_require__(49) /*istanbul ignore end*/;
 
@@ -10231,7 +10232,7 @@ exports. /*istanbul ignore end*/structuredPatch = structuredPatch;
 /*istanbul ignore start*/exports. /*istanbul ignore end*/createTwoFilesPatch = createTwoFilesPatch;
 /*istanbul ignore start*/exports. /*istanbul ignore end*/createPatch = createPatch;
 
-var /*istanbul ignore start*/_line = __webpack_require__(10) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_line = __webpack_require__(11) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -10849,7 +10850,7 @@ exports.line = line;
 var path = __webpack_require__(6);
 var sfnt = __webpack_require__(61);
 var encoding = __webpack_require__(7);
-var glyphset = __webpack_require__(11);
+var glyphset = __webpack_require__(13);
 var Substitution = __webpack_require__(55);
 var util = __webpack_require__(31);
 
@@ -11318,7 +11319,7 @@ Font.prototype.download = function(fileName) {
             throw new Error(err.name + ': ' + err.message);
         });
     } else {
-        var fs = __webpack_require__(12);
+        var fs = __webpack_require__(14);
         var buffer = util.arrayBufferToNodeBuffer(arrayBuffer);
         fs.writeFileSync(fileName, buffer);
     }
@@ -11716,7 +11717,7 @@ var meta = __webpack_require__(27);
  * @param  {Function} callback - The function to call when the font load completes
  */
 function loadFromFile(path, callback) {
-    var fs = __webpack_require__(12);
+    var fs = __webpack_require__(14);
     fs.readFile(path, function(err, buffer) {
         if (err) {
             return callback(err.message);
@@ -12043,7 +12044,7 @@ function load(url, callback) {
  * @return {opentype.Font}
  */
 function loadSync(url) {
-    var fs = __webpack_require__(12);
+    var fs = __webpack_require__(14);
     var buffer = fs.readFileSync(url);
     return parseBuffer(util.nodeBufferToArrayBuffer(buffer));
 }
@@ -12523,7 +12524,7 @@ exports.parse = parseFvarTable;
 
 
 var check = __webpack_require__(1);
-var glyphset = __webpack_require__(11);
+var glyphset = __webpack_require__(13);
 var parse = __webpack_require__(0);
 var path = __webpack_require__(6);
 
@@ -15630,6 +15631,120 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
+var _TextField = __webpack_require__(10);
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+var _eventemitter = __webpack_require__(12);
+
+var _eventemitter2 = _interopRequireDefault(_eventemitter);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var KeyboardHandler = (0, _autobindDecorator2.default)(_class = function (_EventEmiter) {
+    _inherits(KeyboardHandler, _EventEmiter);
+
+    function KeyboardHandler() {
+        _classCallCheck(this, KeyboardHandler);
+
+        var _this = _possibleConstructorReturn(this, (KeyboardHandler.__proto__ || Object.getPrototypeOf(KeyboardHandler)).call(this));
+
+        _this._instance = null;
+
+
+        if (_this.instance) {
+            throw "Singleton:: use KeyboardHandler.getInstance()";
+        }
+
+        _this.instance = _this;
+
+        _this._focusedInput = null;
+
+        _this.startMonitor();
+        return _this;
+    }
+
+    _createClass(KeyboardHandler, [{
+        key: 'startMonitor',
+        value: function startMonitor() {
+
+            var self = this;
+
+            window.document.onkeydown = function (e) {
+                self._hardKeyboard.call(self, e);
+            };
+        }
+    }, {
+        key: '_hardKeyboard',
+        value: function _hardKeyboard(e) {
+            if (e.key.match(/arrow/i) === null && e.key.match(/control/i) === null && e.key.match(/shift/i) === null && e.key.match(/dead/i) === null && e.key.match(/alt/i) === null) {
+                var value = e.key;
+                if (value.match(/enter/i) !== null) {
+                    value = "\n";
+                }
+                //this.emit('keyPressed', {value: value});
+                console.log(value);
+            }
+        }
+    }, {
+        key: 'focusedInput',
+        set: function set(value) {
+            this._focusedInput = value;
+        },
+        get: function get() {
+            return this._focusedInput;
+        }
+    }], [{
+        key: 'getInstance',
+        value: function getInstance() {
+            console.log("getinstance");
+            if (!KeyboardHandler.instance) {
+                new KeyboardHandler();
+            }
+
+            return KeyboardHandler.instance;
+        }
+    }, {
+        key: 'instance',
+        get: function get() {
+            return this._instance;
+        },
+        set: function set(value) {
+            this._instance = value;
+        }
+    }]);
+
+    return KeyboardHandler;
+}(_eventemitter2.default)) || _class;
+
+exports.default = KeyboardHandler;
+
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _autobindDecorator = __webpack_require__(3);
+
+var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
+
 var _Metrics = __webpack_require__(5);
 
 var _Metrics2 = _interopRequireDefault(_Metrics);
@@ -15715,7 +15830,7 @@ exports.default = CustomModule;
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16823,7 +16938,7 @@ exports.default = HorizontalModule;
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17860,7 +17975,7 @@ exports.default = VerticalModule;
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17890,7 +18005,7 @@ var _Char = __webpack_require__(9);
 
 var _Char2 = _interopRequireDefault(_Char);
 
-var _TextField = __webpack_require__(13);
+var _TextField = __webpack_require__(10);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 

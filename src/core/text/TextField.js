@@ -337,7 +337,6 @@ class TextField extends PIXI.Container {
 
         var lines = this.horizontalModule.lines
 
-        console.log(lines);
 
         if (charinicial < charfinal) {
             letraIni = this.children[charinicial];
