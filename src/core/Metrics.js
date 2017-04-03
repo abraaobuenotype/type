@@ -99,7 +99,6 @@ class Metrics extends EventEmiter {
     }
 
     loadFromUrl(url, callback) {
-        console.log(url);
         var request = new XMLHttpRequest();
         request.open('get', url, true);
         request.responseType = 'arraybuffer';

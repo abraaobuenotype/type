@@ -4,6 +4,7 @@ import Metrics from './core/Metrics';
 import Char from './core/text/Char';
 import TextField from './core/text/TextField';
 import TypeAlign from './core/text/align/TypeAlign';
+import Input from './core/text/Input';
 
 @autobind
 class type{
@@ -16,7 +17,8 @@ class type{
     text = {
         Char: Char,
         TextField: TextField,
-        TypeAlign: TypeAlign
+        TypeAlign: TypeAlign,
+        Input: Input
 
     };
 

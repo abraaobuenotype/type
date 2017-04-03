@@ -27,7 +27,6 @@ class Char extends PIXI.Container{
         this._style = new PIXI.TextStyle({
             fill: 'black',
             fontSize: 20,
-            fontFamily: 'Arial',
             padding: 0
         });
 
@@ -49,6 +48,7 @@ class Char extends PIXI.Container{
         else{
             this._vwidth = this._textObject.width;
         }
+
         this.createDebug();
     }
 

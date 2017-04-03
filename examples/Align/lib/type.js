@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 69);
+/******/ 	return __webpack_require__(__webpack_require__.s = 71);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -558,8 +558,8 @@ exports.assert = exports.argument;
 
 
 var check = __webpack_require__(1);
-var encode = __webpack_require__(8).encode;
-var sizeOf = __webpack_require__(8).sizeOf;
+var encode = __webpack_require__(9).encode;
+var sizeOf = __webpack_require__(9).sizeOf;
 /**
  * @exports opentype.Table
  * @class
@@ -1117,7 +1117,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _class, _class2, _temp;
 
-var _opentype = __webpack_require__(53);
+var _opentype = __webpack_require__(54);
 
 var _opentype2 = _interopRequireDefault(_opentype);
 
@@ -1125,7 +1125,7 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _eventemitter = __webpack_require__(15);
+var _eventemitter = __webpack_require__(12);
 
 var _eventemitter2 = _interopRequireDefault(_eventemitter);
 
@@ -1185,7 +1185,6 @@ var Metrics = (0, _autobindDecorator2.default)(_class = (_temp = _class2 = funct
     }, {
         key: 'loadFromUrl',
         value: function loadFromUrl(url, callback) {
-            console.log(url);
             var request = new XMLHttpRequest();
             request.open('get', url, true);
             request.responseType = 'arraybuffer';
@@ -1281,7 +1280,7 @@ exports.default = Metrics;
 
 
 
-var bbox = __webpack_require__(16);
+var bbox = __webpack_require__(18);
 
 /**
  * A bézier path containing a set of path commands similar to a SVG path.
@@ -1600,6 +1599,566 @@ exports.Path = Path;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _autobindDecorator = __webpack_require__(3);
+
+var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
+
+var _Char = __webpack_require__(10);
+
+var _Char2 = _interopRequireDefault(_Char);
+
+var _HorizontalModule = __webpack_require__(69);
+
+var _HorizontalModule2 = _interopRequireDefault(_HorizontalModule);
+
+var _VerticalModule = __webpack_require__(70);
+
+var _VerticalModule2 = _interopRequireDefault(_VerticalModule);
+
+var _CustomModule = __webpack_require__(68);
+
+var _CustomModule2 = _interopRequireDefault(_CustomModule);
+
+var _Loader = __webpack_require__(15);
+
+var _Loader2 = _interopRequireDefault(_Loader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var JsDiff = __webpack_require__(46);
+
+var _width = new WeakMap();
+
+var _height = new WeakMap();
+
+var _hitArea = new WeakMap();
+
+var _box = new WeakMap();
+
+var _map = new WeakMap();
+
+var _customAlign = new WeakMap();
+
+var _spaceBetweenLines = new WeakMap();
+
+var _spaceBetweenWords = new WeakMap();
+
+var _textAlign = new WeakMap();
+
+var _textLeftToRight = new WeakMap();
+
+var _textTopToBottom = new WeakMap();
+
+var _alignHorizontalPriority = new WeakMap();
+
+var _defaultStyle = new WeakMap();
+
+var _mapStyle = new WeakMap();
+
+var _customStyle = new WeakMap();
+
+var _textSupport = new WeakMap();
+
+var _horizontalModule = new WeakMap();
+
+var _verticalModule = new WeakMap();
+
+var _customModule = new WeakMap();
+
+var _getMap = new WeakMap();
+
+var _change = new WeakMap();
+
+var _buildStyle = new WeakMap();
+
+var _relocate = new WeakMap();
+
+var _blurinessFix = new WeakMap();
+
+var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container) {
+    _inherits(TextField, _PIXI$Container);
+
+    function TextField() {
+        var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 2048;
+        var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1152;
+
+        _classCallCheck(this, TextField);
+
+        var _this = _possibleConstructorReturn(this, (TextField.__proto__ || Object.getPrototypeOf(TextField)).call(this));
+
+        _this._text = "";
+
+        _width.set(_this, 0);
+
+        _height.set(_this, 0);
+
+        _hitArea.set(_this, null);
+
+        _box.set(_this, null);
+
+        _map.set(_this, {});
+
+        _customAlign.set(_this, false);
+
+        _spaceBetweenLines.set(_this, 0);
+
+        _spaceBetweenWords.set(_this, -1);
+
+        _textAlign.set(_this, "left");
+
+        _textLeftToRight.set(_this, true);
+
+        _textTopToBottom.set(_this, true);
+
+        _alignHorizontalPriority.set(_this, true);
+
+        _defaultStyle.set(_this, _Loader2.default.defaultStyle);
+
+        _mapStyle.set(_this, []);
+
+        _customStyle.set(_this, {});
+
+        _textSupport.set(_this, document.createElement('div'));
+
+        _horizontalModule.set(_this, null);
+
+        _verticalModule.set(_this, null);
+
+        _customModule.set(_this, null);
+
+        _getMap.set(_this, function (nodes) {
+            var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ["text"];
+
+            for (var i = 0; i < nodes.length; i++) {
+                var _n = nodes[i];
+                if (_n.nodeName == "#text") {
+                    for (var j = 0; j < _n.length; j++) {
+                        _mapStyle.get(this).push({ char: _n.nodeValue[j], style: parent });
+                    }
+                } else {
+                    var arr = [];
+                    if (parent[0] == "text") {
+                        arr[0] = _n.nodeName.toLowerCase();
+                    } else {
+                        arr = parent.concat([]);
+                        arr.push(_n.nodeName.toLowerCase());
+                    }
+                    _getMap.get(this)(_n.childNodes, arr);
+                }
+            }
+        }.bind(_this));
+
+        _change.set(_this, function (diff) {
+            var count = 0;
+
+            for (var i = 0; i < diff.length; i++) {
+                if (diff[i][0] === 0) {
+                    for (var zi = 0; zi < diff[i][1].length; zi++) {
+
+                        if (_mapStyle.get(this)[count] == "text") {
+                            count++;
+                            continue;
+                        }
+                        this.children[count].setStyle(_customStyle.get(this)[_mapStyle.get(this)[count]]);
+                        count++;
+                    }
+                }
+
+                if (diff[i][0] == 1) {
+                    for (var zj = 0; zj < diff[i][1].length; zj++) {
+                        var st = _mapStyle.get(this)[count].style;
+                        var style = _buildStyle.get(this)(st);
+                        var char = new _Char2.default(diff[i][1].charAt(zj), style);
+
+                        this.addChildAt(char, count);
+                        count++;
+                    }
+                }
+
+                if (diff[i][0] == -1) {
+                    for (var k = 0; k < diff[i][1].length; k++) {
+                        var c = this.children[count];
+                        this.removeChild(c);
+                        c.destroy(true);
+                        c = null;
+                    }
+                }
+            }
+
+            _relocate.get(this)();
+        }.bind(_this));
+
+        _buildStyle.set(_this, function (styleRefs) {
+            var temp = {};
+
+            for (var j in _defaultStyle.get(this)) {
+                temp[j] = _defaultStyle.get(this)[j];
+            }
+
+            for (var i = 0; i < styleRefs.length; i++) {
+                if (styleRefs[i] === "text") {
+                    continue;
+                } else {
+                    var st = _customStyle.get(this)[styleRefs[i]];
+                    for (var k in st) {
+                        temp[k] = st[k];
+                    }
+                }
+            }
+
+            return temp;
+        }.bind(_this));
+
+        _relocate.set(_this, function () {
+
+            if (this._text == "") return;
+
+            if (_customAlign.get(this)) {
+                if (_customModule.get(this) === null) {
+                    _customModule.set(this, new _CustomModule2.default());
+                }
+
+                _customModule.get(this).typeAlign = this._typeAlign;
+                _customModule.get(this).align(this.children);
+                _blurinessFix.get(this)();
+                return;
+            }
+
+            if (isNaN(parseInt(_spaceBetweenWords.get(this)))) {
+                _spaceBetweenWords.set(this, -1);
+            }
+
+            if (isNaN(parseInt(_spaceBetweenLines.get(this)))) {
+                _spaceBetweenLines.set(this, -1);
+            }
+
+            if (_alignHorizontalPriority.get(this)) {
+                var _textAlign$get, _textLeftToRight$get, _textTopToBottom$get, _spaceBetweenLines$ge, _spaceBetweenWords$ge;
+
+                if (_horizontalModule.get(this) === null) {
+                    _horizontalModule.set(this, new _HorizontalModule2.default());
+                }
+
+                _horizontalModule.get(this)._textAlign = (_textAlign$get = _textAlign.get(this), _objectDestructuringEmpty(_textAlign$get), _textAlign$get);
+                _horizontalModule.get(this)._textLeftToRight = (_textLeftToRight$get = _textLeftToRight.get(this), _objectDestructuringEmpty(_textLeftToRight$get), _textLeftToRight$get);
+                _horizontalModule.get(this)._textTopToBottom = (_textTopToBottom$get = _textTopToBottom.get(this), _objectDestructuringEmpty(_textTopToBottom$get), _textTopToBottom$get);
+                _horizontalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge), _spaceBetweenLines$ge);
+                _horizontalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge), _spaceBetweenWords$ge);
+
+                _horizontalModule.get(this).relocate(this._text, this.children, _width.get(this), _height.get(this));
+
+                if (this.children.length > 0) {
+                    this.emit('textupdated', this.children[this.children.length - 1]);
+                } else {
+                    this.emit('textupdated', null);
+                }
+                _blurinessFix.get(this)();
+                return;
+            }
+
+            if (!_alignHorizontalPriority.get(this)) {
+                var _textAlign$get2, _textLeftToRight$get2, _textTopToBottom$get2, _spaceBetweenLines$ge2, _spaceBetweenWords$ge2;
+
+                if (_verticalModule.get(this) === null) {
+                    _verticalModule.set(this, new _VerticalModule2.default());
+                }
+
+                _verticalModule.get(this)._textAlign = (_textAlign$get2 = _textAlign.get(this), _objectDestructuringEmpty(_textAlign$get2), _textAlign$get2);
+                _verticalModule.get(this)._textLeftToRight = (_textLeftToRight$get2 = _textLeftToRight.get(this), _objectDestructuringEmpty(_textLeftToRight$get2), _textLeftToRight$get2);
+                _verticalModule.get(this)._textTopToBottom = (_textTopToBottom$get2 = _textTopToBottom.get(this), _objectDestructuringEmpty(_textTopToBottom$get2), _textTopToBottom$get2);
+                _verticalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge2 = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge2), _spaceBetweenLines$ge2);
+                _verticalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge2 = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge2), _spaceBetweenWords$ge2);
+
+                _verticalModule.get(this).relocate(this._text, this.children, _width.get(this), _height.get(this));
+
+                if (this.children.length > 0) {
+                    this.emit('textupdated', this.children[this.children.length - 1]);
+                } else {
+                    this.emit('textupdated', null);
+                }
+
+                _blurinessFix.get(this)();
+                return;
+            }
+        }.bind(_this));
+
+        _blurinessFix.set(_this, function () {
+            for (var i = 0; i < this.children.length; i++) {
+                this.children[i].x = Math.round(this.children[i].x);
+                this.children[i].y = Math.round(this.children[i].y);
+            }
+        }.bind(_this));
+
+        _width.set(_this, width);
+
+        _height.set(_this, height);
+
+        _hitArea.set(_this, new PIXI.Rectangle(0, 0, _width.get(_this), _height.get(_this)));
+
+        return _this;
+    }
+
+    _createClass(TextField, [{
+        key: 'setText',
+        value: function setText(text) {
+            var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            _customStyle.set(this, style);
+
+            if (_customStyle.get(this).align) {
+                _textAlign.set(this, _customStyle.get(this).align);
+            }
+
+            if (_customStyle.get(this).spaceBetweenWords) {
+                _spaceBetweenWords.set(this, _customStyle.get(this).spaceBetweenWords);
+            }
+
+            if (_customStyle.get(this).spaceBetweenLines) {
+                _spaceBetweenLines.set(this, _customStyle.get(this).spaceBetweenLines);
+            }
+
+            if (_customStyle.get(this).leftToRight) {
+                _textLeftToRight.set(this, _customStyle.get(this).leftToRight);
+            }
+
+            if (_customStyle.get(this).topToBottom) {
+                _textTopToBottom.set(this, _customStyle.get(this).topToBottom);
+            }
+
+            if (_customStyle.get(this).horizontalPriority) {
+                _alignHorizontalPriority.set(this, _customStyle.get(this).horizontalPriority);
+            }
+
+            _textSupport.get(this).innerHTML = text;
+
+            _mapStyle.get(this).splice(0, _mapStyle.get(this).length);
+
+            _getMap.get(this)(_textSupport.get(this).childNodes);
+
+            var oldText = this._text;
+            this._text = _textSupport.get(this).innerText;
+
+            var diff = JsDiff.diffChars(oldText, this._text);
+            _change.get(this)(JsDiff.convertChangesToDMP(diff));
+        }
+    }, {
+        key: 'getCharAt',
+        value: function getCharAt(x, y) {
+            var position = this.toLocal({ x: x, y: y });
+            for (var i = 0; i < this.children.length; i++) {
+                if (this.children[i].x < position.x && this.children[i].x + this.children[i].width > position.x && this.children[i].y < position.y && this.children[i].y + this.children[i].height > position.y) {
+                    return i;
+                }
+            }
+        }
+    }, {
+        key: 'getSelectionCoordinates',
+        value: function getSelectionCoordinates(charinicial, charfinal) {
+            var coordinates = [];
+            var iniCoord = {};
+            var endCoord = {};
+
+            var letraIni = null;
+            var letraFinal = null;
+
+            var lines = _horizontalModule.get(this).lines;
+
+            if (charinicial < charfinal) {
+                letraIni = this.children[charinicial];
+                letraFinal = this.children[charfinal];
+            } else {
+                letraIni = this.children[charfinal];
+                letraFinal = this.children[charinicial];
+            }
+            //coordenadas iniciais
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i];
+                if (letraIni.y >= line.y && letraIni.y < line.y + line.height) {
+                    iniCoord = {
+                        x: letraIni.x,
+                        up: line.y,
+                        down: line.height,
+                        lineIndex: i
+                    };
+                    break;
+                }
+            }
+            //coordenadas finais
+            for (i = 0; i < lines.length; i++) {
+                var line = lines[i];
+                if (letraFinal.y >= line.y && letraFinal.y < line.y + line.height) {
+                    endCoord = {
+                        x: letraFinal.x + letraFinal.vwidth,
+                        up: line.y,
+                        down: line.height,
+                        lineIndex: i
+                    };
+                    break;
+                }
+            }
+            //se for uma seleção na mesma linha desenha um retangulo
+            if (iniCoord.lineIndex == endCoord.lineIndex) {
+                coordinates.push({
+                    x: iniCoord.x,
+                    y: iniCoord.up,
+                    width: endCoord.x - iniCoord.x,
+                    height: endCoord.down
+                });
+                return coordinates;
+            }
+            //se for uma seleção de duas linhas desenha 2 retangulos
+            if (iniCoord.lineIndex == endCoord.lineIndex - 1) {
+                coordinates.push({
+                    x: iniCoord.x,
+                    y: iniCoord.up,
+                    width: self._width - iniCoord.x,
+                    height: iniCoord.down
+                });
+                coordinates.push({ x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down });
+                return coordinates;
+            }
+            //se for uma seleção de mais de duas linhas desenha 3 retangulos
+            coordinates.push({
+                x: iniCoord.x,
+                y: iniCoord.up,
+                width: self._width - iniCoord.x,
+                height: iniCoord.down
+            });
+            coordinates.push({
+                x: 0,
+                y: iniCoord.up + iniCoord.down,
+                width: self._width,
+                height: endCoord.up - iniCoord.up - iniCoord.down
+            });
+            coordinates.push({ x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down });
+            return coordinates;
+        }
+    }, {
+        key: 'text',
+        get: function get() {
+            return this._text;
+        },
+        set: function set(value) {
+            this._text = value;
+        }
+    }, {
+        key: 'defaultStyle',
+        get: function get() {
+            return _defaultStyle.get(this);
+        },
+        set: function set(value) {
+            _defaultStyle.set(this, value);
+        }
+    }, {
+        key: 'textLeftToRight',
+        get: function get() {
+            return _textLeftToRight.get(this);
+        },
+        set: function set(value) {
+            _textLeftToRight.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'textTopToBottom',
+        get: function get() {
+            return _textTopToBottom.get(this);
+        },
+        set: function set(value) {
+            _textTopToBottom.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'alignHorizontalPriority',
+        get: function get() {
+            return _alignHorizontalPriority.get(this);
+        },
+        set: function set(value) {
+            _alignHorizontalPriority.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'customAlign',
+        get: function get() {
+            return _customAlign.get(this);
+        },
+        set: function set(value) {
+            _customAlign.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'typeAlign',
+        get: function get() {
+            return this._typeAlign;
+        },
+        set: function set(value) {
+            this._typeAlign = value;
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'align',
+        get: function get() {
+            return _textAlign.get(this);
+        },
+        set: function set(value) {
+            _textAlign.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'spaceBetweenLines',
+        get: function get() {
+            return _spaceBetweenLines.get(this);
+        },
+        set: function set(value) {
+            _spaceBetweenLines.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'spaceBetweenWords',
+        get: function get() {
+            return _spaceBetweenWords.get(this);
+        },
+        set: function set(value) {
+            _spaceBetweenWords.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }]);
+
+    return TextField;
+}(PIXI.Container)) || _class;
+
+exports.default = TextField;
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 // Glyph encoding
 
 
@@ -1884,7 +2443,7 @@ exports.addGlyphNames = addGlyphNames;
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2756,212 +3315,7 @@ exports.sizeOf = sizeOf;
 
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/*istanbul ignore start*/
-
-exports.__esModule = true;
-exports.lineDiff = undefined;
-exports. /*istanbul ignore end*/diffLines = diffLines;
-/*istanbul ignore start*/exports. /*istanbul ignore end*/diffTrimmedLines = diffTrimmedLines;
-
-var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore end*/;
-
-/*istanbul ignore start*/
-var _base2 = _interopRequireDefault(_base);
-
-/*istanbul ignore end*/
-var /*istanbul ignore start*/_params = __webpack_require__(14) /*istanbul ignore end*/;
-
-/*istanbul ignore start*/
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/*istanbul ignore end*/var lineDiff = /*istanbul ignore start*/exports. /*istanbul ignore end*/lineDiff = new /*istanbul ignore start*/_base2['default']() /*istanbul ignore end*/;
-lineDiff.tokenize = function (value) {
-  var retLines = [],
-      linesAndNewlines = value.split(/(\n|\r\n)/);
-
-  // Ignore the final empty token that occurs if the string ends with a new line
-  if (!linesAndNewlines[linesAndNewlines.length - 1]) {
-    linesAndNewlines.pop();
-  }
-
-  // Merge the content and line separators into single tokens
-  for (var i = 0; i < linesAndNewlines.length; i++) {
-    var line = linesAndNewlines[i];
-
-    if (i % 2 && !this.options.newlineIsToken) {
-      retLines[retLines.length - 1] += line;
-    } else {
-      if (this.options.ignoreWhitespace) {
-        line = line.trim();
-      }
-      retLines.push(line);
-    }
-  }
-
-  return retLines;
-};
-
-function diffLines(oldStr, newStr, callback) {
-  return lineDiff.diff(oldStr, newStr, callback);
-}
-function diffTrimmedLines(oldStr, newStr, callback) {
-  var options = /*istanbul ignore start*/(0, _params.generateOptions) /*istanbul ignore end*/(callback, { ignoreWhitespace: true });
-  return lineDiff.diff(oldStr, newStr, options);
-}
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2xpbmUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztnQ0E4QmdCLFMsR0FBQSxTO3lEQUNBLGdCLEdBQUEsZ0I7O0FBL0JoQixJLHlCQUFBLHlCLHdCQUFBOzs7Ozs7QUFDQSxJLHlCQUFBLG1DLHdCQUFBOzs7Ozt1QkFFTyxJQUFNLFcseUJBQUEsUSx3QkFBQSxXQUFXLEkseUJBQUEsbUIsd0JBQWpCO0FBQ1AsU0FBUyxRQUFULEdBQW9CLFVBQVMsS0FBVCxFQUFnQjtBQUNsQyxNQUFJLFdBQVcsRUFBZjtBQUFBLE1BQ0ksbUJBQW1CLE1BQU0sS0FBTixDQUFZLFdBQVosQ0FEdkI7OztBQUlBLE1BQUksQ0FBQyxpQkFBaUIsaUJBQWlCLE1BQWpCLEdBQTBCLENBQTNDLENBQUwsRUFBb0Q7QUFDbEQscUJBQWlCLEdBQWpCO0FBQ0Q7OztBQUdELE9BQUssSUFBSSxJQUFJLENBQWIsRUFBZ0IsSUFBSSxpQkFBaUIsTUFBckMsRUFBNkMsR0FBN0MsRUFBa0Q7QUFDaEQsUUFBSSxPQUFPLGlCQUFpQixDQUFqQixDQUFYOztBQUVBLFFBQUksSUFBSSxDQUFKLElBQVMsQ0FBQyxLQUFLLE9BQUwsQ0FBYSxjQUEzQixFQUEyQztBQUN6QyxlQUFTLFNBQVMsTUFBVCxHQUFrQixDQUEzQixLQUFpQyxJQUFqQztBQUNELEtBRkQsTUFFTztBQUNMLFVBQUksS0FBSyxPQUFMLENBQWEsZ0JBQWpCLEVBQW1DO0FBQ2pDLGVBQU8sS0FBSyxJQUFMLEVBQVA7QUFDRDtBQUNELGVBQVMsSUFBVCxDQUFjLElBQWQ7QUFDRDtBQUNGOztBQUVELFNBQU8sUUFBUDtBQUNELENBeEJEOztBQTBCTyxTQUFTLFNBQVQsQ0FBbUIsTUFBbkIsRUFBMkIsTUFBM0IsRUFBbUMsUUFBbkMsRUFBNkM7QUFBRSxTQUFPLFNBQVMsSUFBVCxDQUFjLE1BQWQsRUFBc0IsTUFBdEIsRUFBOEIsUUFBOUIsQ0FBUDtBQUFpRDtBQUNoRyxTQUFTLGdCQUFULENBQTBCLE1BQTFCLEVBQWtDLE1BQWxDLEVBQTBDLFFBQTFDLEVBQW9EO0FBQ3pELE1BQUksVSx5QkFBVSw0Qix3QkFBQSxDQUFnQixRQUFoQixFQUEwQixFQUFDLGtCQUFrQixJQUFuQixFQUExQixDQUFkO0FBQ0EsU0FBTyxTQUFTLElBQVQsQ0FBYyxNQUFkLEVBQXNCLE1BQXRCLEVBQThCLE9BQTlCLENBQVA7QUFDRCIsImZpbGUiOiJsaW5lLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IERpZmYgZnJvbSAnLi9iYXNlJztcbmltcG9ydCB7Z2VuZXJhdGVPcHRpb25zfSBmcm9tICcuLi91dGlsL3BhcmFtcyc7XG5cbmV4cG9ydCBjb25zdCBsaW5lRGlmZiA9IG5ldyBEaWZmKCk7XG5saW5lRGlmZi50b2tlbml6ZSA9IGZ1bmN0aW9uKHZhbHVlKSB7XG4gIGxldCByZXRMaW5lcyA9IFtdLFxuICAgICAgbGluZXNBbmROZXdsaW5lcyA9IHZhbHVlLnNwbGl0KC8oXFxufFxcclxcbikvKTtcblxuICAvLyBJZ25vcmUgdGhlIGZpbmFsIGVtcHR5IHRva2VuIHRoYXQgb2NjdXJzIGlmIHRoZSBzdHJpbmcgZW5kcyB3aXRoIGEgbmV3IGxpbmVcbiAgaWYgKCFsaW5lc0FuZE5ld2xpbmVzW2xpbmVzQW5kTmV3bGluZXMubGVuZ3RoIC0gMV0pIHtcbiAgICBsaW5lc0FuZE5ld2xpbmVzLnBvcCgpO1xuICB9XG5cbiAgLy8gTWVyZ2UgdGhlIGNvbnRlbnQgYW5kIGxpbmUgc2VwYXJhdG9ycyBpbnRvIHNpbmdsZSB0b2tlbnNcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBsaW5lc0FuZE5ld2xpbmVzLmxlbmd0aDsgaSsrKSB7XG4gICAgbGV0IGxpbmUgPSBsaW5lc0FuZE5ld2xpbmVzW2ldO1xuXG4gICAgaWYgKGkgJSAyICYmICF0aGlzLm9wdGlvbnMubmV3bGluZUlzVG9rZW4pIHtcbiAgICAgIHJldExpbmVzW3JldExpbmVzLmxlbmd0aCAtIDFdICs9IGxpbmU7XG4gICAgfSBlbHNlIHtcbiAgICAgIGlmICh0aGlzLm9wdGlvbnMuaWdub3JlV2hpdGVzcGFjZSkge1xuICAgICAgICBsaW5lID0gbGluZS50cmltKCk7XG4gICAgICB9XG4gICAgICByZXRMaW5lcy5wdXNoKGxpbmUpO1xuICAgIH1cbiAgfVxuXG4gIHJldHVybiByZXRMaW5lcztcbn07XG5cbmV4cG9ydCBmdW5jdGlvbiBkaWZmTGluZXMob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7IHJldHVybiBsaW5lRGlmZi5kaWZmKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjayk7IH1cbmV4cG9ydCBmdW5jdGlvbiBkaWZmVHJpbW1lZExpbmVzKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjaykge1xuICBsZXQgb3B0aW9ucyA9IGdlbmVyYXRlT3B0aW9ucyhjYWxsYmFjaywge2lnbm9yZVdoaXRlc3BhY2U6IHRydWV9KTtcbiAgcmV0dXJuIGxpbmVEaWZmLmRpZmYob2xkU3RyLCBuZXdTdHIsIG9wdGlvbnMpO1xufVxuIl19
-
-
-/***/ }),
 /* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// The GlyphSet object
-
-
-
-var _glyph = __webpack_require__(17);
-
-// Define a property on the glyph that depends on the path being loaded.
-function defineDependentProperty(glyph, externalName, internalName) {
-    Object.defineProperty(glyph, externalName, {
-        get: function() {
-            // Request the path property to make sure the path is loaded.
-            glyph.path; // jshint ignore:line
-            return glyph[internalName];
-        },
-        set: function(newValue) {
-            glyph[internalName] = newValue;
-        },
-        enumerable: true,
-        configurable: true
-    });
-}
-
-/**
- * A GlyphSet represents all glyphs available in the font, but modelled using
- * a deferred glyph loader, for retrieving glyphs only once they are absolutely
- * necessary, to keep the memory footprint down.
- * @exports opentype.GlyphSet
- * @class
- * @param {opentype.Font}
- * @param {Array}
- */
-function GlyphSet(font, glyphs) {
-    this.font = font;
-    this.glyphs = {};
-    if (Array.isArray(glyphs)) {
-        for (var i = 0; i < glyphs.length; i++) {
-            this.glyphs[i] = glyphs[i];
-        }
-    }
-
-    this.length = (glyphs && glyphs.length) || 0;
-}
-
-/**
- * @param  {number} index
- * @return {opentype.Glyph}
- */
-GlyphSet.prototype.get = function(index) {
-    if (typeof this.glyphs[index] === 'function') {
-        this.glyphs[index] = this.glyphs[index]();
-    }
-
-    return this.glyphs[index];
-};
-
-/**
- * @param  {number} index
- * @param  {Object}
- */
-GlyphSet.prototype.push = function(index, loader) {
-    this.glyphs[index] = loader;
-    this.length++;
-};
-
-/**
- * @alias opentype.glyphLoader
- * @param  {opentype.Font} font
- * @param  {number} index
- * @return {opentype.Glyph}
- */
-function glyphLoader(font, index) {
-    return new _glyph.Glyph({index: index, font: font});
-}
-
-/**
- * Generate a stub glyph that can be filled with all metadata *except*
- * the "points" and "path" properties, which must be loaded only once
- * the glyph's path is actually requested for text shaping.
- * @alias opentype.ttfGlyphLoader
- * @param  {opentype.Font} font
- * @param  {number} index
- * @param  {Function} parseGlyph
- * @param  {Object} data
- * @param  {number} position
- * @param  {Function} buildPath
- * @return {opentype.Glyph}
- */
-function ttfGlyphLoader(font, index, parseGlyph, data, position, buildPath) {
-    return function() {
-        var glyph = new _glyph.Glyph({index: index, font: font});
-
-        glyph.path = function() {
-            parseGlyph(glyph, data, position);
-            var path = buildPath(font.glyphs, glyph);
-            path.unitsPerEm = font.unitsPerEm;
-            return path;
-        };
-
-        defineDependentProperty(glyph, 'xMin', '_xMin');
-        defineDependentProperty(glyph, 'xMax', '_xMax');
-        defineDependentProperty(glyph, 'yMin', '_yMin');
-        defineDependentProperty(glyph, 'yMax', '_yMax');
-
-        return glyph;
-    };
-}
-/**
- * @alias opentype.cffGlyphLoader
- * @param  {opentype.Font} font
- * @param  {number} index
- * @param  {Function} parseCFFCharstring
- * @param  {string} charstring
- * @return {opentype.Glyph}
- */
-function cffGlyphLoader(font, index, parseCFFCharstring, charstring) {
-    return function() {
-        var glyph = new _glyph.Glyph({index: index, font: font});
-
-        glyph.path = function() {
-            var path = parseCFFCharstring(font, glyph, charstring);
-            path.unitsPerEm = font.unitsPerEm;
-            return path;
-        };
-
-        return glyph;
-    };
-}
-
-exports.GlyphSet = GlyphSet;
-exports.glyphLoader = glyphLoader;
-exports.ttfGlyphLoader = ttfGlyphLoader;
-exports.cffGlyphLoader = cffGlyphLoader;
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3133,7 +3487,6 @@ var Char = function (_PIXI$Container) {
         _style.set(_this, new PIXI.TextStyle({
             fill: 'black',
             fontSize: 20,
-            fontFamily: 'Arial',
             padding: 0
         }));
 
@@ -3184,6 +3537,7 @@ var Char = function (_PIXI$Container) {
             } else {
                 _vwidth.set(this, _textObject.get(this).width);
             }
+
             _createDebug.get(this)();
         }
     }, {
@@ -3225,182 +3579,67 @@ exports.default = Char;
 
 
 /***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /*istanbul ignore start*/
 
 exports.__esModule = true;
-exports. /*istanbul ignore end*/parsePatch = parsePatch;
-function parsePatch(uniDiff) {
-  /*istanbul ignore start*/var /*istanbul ignore end*/options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+exports.lineDiff = undefined;
+exports. /*istanbul ignore end*/diffLines = diffLines;
+/*istanbul ignore start*/exports. /*istanbul ignore end*/diffTrimmedLines = diffTrimmedLines;
 
-  var diffstr = uniDiff.split(/\r\n|[\n\v\f\r\x85]/),
-      delimiters = uniDiff.match(/\r\n|[\n\v\f\r\x85]/g) || [],
-      list = [],
-      i = 0;
+var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore end*/;
 
-  function parseIndex() {
-    var index = {};
-    list.push(index);
-
-    // Parse diff metadata
-    while (i < diffstr.length) {
-      var line = diffstr[i];
-
-      // File header found, end parsing diff metadata
-      if (/^(\-\-\-|\+\+\+|@@)\s/.test(line)) {
-        break;
-      }
-
-      // Diff index
-      var header = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(line);
-      if (header) {
-        index.index = header[1];
-      }
-
-      i++;
-    }
-
-    // Parse file headers if they are defined. Unified diff requires them, but
-    // there's no technical issues to have an isolated hunk without file header
-    parseFileHeader(index);
-    parseFileHeader(index);
-
-    // Parse hunks
-    index.hunks = [];
-
-    while (i < diffstr.length) {
-      var _line = diffstr[i];
-
-      if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(_line)) {
-        break;
-      } else if (/^@@/.test(_line)) {
-        index.hunks.push(parseHunk());
-      } else if (_line && options.strict) {
-        // Ignore unexpected content unless in strict mode
-        throw new Error('Unknown line ' + (i + 1) + ' ' + JSON.stringify(_line));
-      } else {
-        i++;
-      }
-    }
-  }
-
-  // Parses the --- and +++ headers, if none are found, no lines
-  // are consumed.
-  function parseFileHeader(index) {
-    var headerPattern = /^(---|\+\+\+)\s+([\S ]*)(?:\t(.*?)\s*)?$/;
-    var fileHeader = headerPattern.exec(diffstr[i]);
-    if (fileHeader) {
-      var keyPrefix = fileHeader[1] === '---' ? 'old' : 'new';
-      index[keyPrefix + 'FileName'] = fileHeader[2];
-      index[keyPrefix + 'Header'] = fileHeader[3];
-
-      i++;
-    }
-  }
-
-  // Parses a hunk
-  // This assumes that we are at the start of a hunk.
-  function parseHunk() {
-    var chunkHeaderIndex = i,
-        chunkHeaderLine = diffstr[i++],
-        chunkHeader = chunkHeaderLine.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/);
-
-    var hunk = {
-      oldStart: +chunkHeader[1],
-      oldLines: +chunkHeader[2] || 1,
-      newStart: +chunkHeader[3],
-      newLines: +chunkHeader[4] || 1,
-      lines: [],
-      linedelimiters: []
-    };
-
-    var addCount = 0,
-        removeCount = 0;
-    for (; i < diffstr.length; i++) {
-      // Lines starting with '---' could be mistaken for the "remove line" operation
-      // But they could be the header for the next file. Therefore prune such cases out.
-      if (diffstr[i].indexOf('--- ') === 0 && i + 2 < diffstr.length && diffstr[i + 1].indexOf('+++ ') === 0 && diffstr[i + 2].indexOf('@@') === 0) {
-        break;
-      }
-      var operation = diffstr[i][0];
-
-      if (operation === '+' || operation === '-' || operation === ' ' || operation === '\\') {
-        hunk.lines.push(diffstr[i]);
-        hunk.linedelimiters.push(delimiters[i] || '\n');
-
-        if (operation === '+') {
-          addCount++;
-        } else if (operation === '-') {
-          removeCount++;
-        } else if (operation === ' ') {
-          addCount++;
-          removeCount++;
-        }
-      } else {
-        break;
-      }
-    }
-
-    // Handle the empty block count case
-    if (!addCount && hunk.newLines === 1) {
-      hunk.newLines = 0;
-    }
-    if (!removeCount && hunk.oldLines === 1) {
-      hunk.oldLines = 0;
-    }
-
-    // Perform optional sanity checking
-    if (options.strict) {
-      if (addCount !== hunk.newLines) {
-        throw new Error('Added line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
-      }
-      if (removeCount !== hunk.oldLines) {
-        throw new Error('Removed line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
-      }
-    }
-
-    return hunk;
-  }
-
-  while (i < diffstr.length) {
-    parseIndex();
-  }
-
-  return list;
-}
-//# sourceMappingURL=data:application/json;base64,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LEtBQUosQ0FBVSx3REFBd0QsbUJBQW1CLENBQTNFLENBQVYsQ0FBTjtBQUNEO0FBQ0Y7O0FBRUQsV0FBTyxJQUFQO0FBQ0Q7O0FBRUQsU0FBTyxJQUFJLFFBQVEsTUFBbkIsRUFBMkI7QUFDekI7QUFDRDs7QUFFRCxTQUFPLElBQVA7QUFDRCIsImZpbGUiOiJwYXJzZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBmdW5jdGlvbiBwYXJzZVBhdGNoKHVuaURpZmYsIG9wdGlvbnMgPSB7fSkge1xuICBsZXQgZGlmZnN0ciA9IHVuaURpZmYuc3BsaXQoL1xcclxcbnxbXFxuXFx2XFxmXFxyXFx4ODVdLyksXG4gICAgICBkZWxpbWl0ZXJzID0gdW5pRGlmZi5tYXRjaCgvXFxyXFxufFtcXG5cXHZcXGZcXHJcXHg4NV0vZykgfHwgW10sXG4gICAgICBsaXN0ID0gW10sXG4gICAgICBpID0gMDtcblxuICBmdW5jdGlvbiBwYXJzZUluZGV4KCkge1xuICAgIGxldCBpbmRleCA9IHt9O1xuICAgIGxpc3QucHVzaChpbmRleCk7XG5cbiAgICAvLyBQYXJzZSBkaWZmIG1ldGFkYXRhXG4gICAgd2hpbGUgKGkgPCBkaWZmc3RyLmxlbmd0aCkge1xuICAgICAgbGV0IGxpbmUgPSBkaWZmc3RyW2ldO1xuXG4gICAgICAvLyBGaWxlIGhlYWRlciBmb3VuZCwgZW5kIHBhcnNpbmcgZGlmZiBtZXRhZGF0YVxuICAgICAgaWYgKC9eKFxcLVxcLVxcLXxcXCtcXCtcXCt8QEApXFxzLy50ZXN0KGxpbmUpKSB7XG4gICAgICAgIGJyZWFrO1xuICAgICAgfVxuXG4gICAgICAvLyBEaWZmIGluZGV4XG4gICAgICBsZXQgaGVhZGVyID0gKC9eKD86SW5kZXg6fGRpZmYoPzogLXIgXFx3KykrKVxccysoLis/KVxccyokLykuZXhlYyhsaW5lKTtcbiAgICAgIGlmIChoZWFkZXIpIHtcbiAgICAgICAgaW5kZXguaW5kZXggPSBoZWFkZXJbMV07XG4gICAgICB9XG5cbiAgICAgIGkrKztcbiAgICB9XG5cbiAgICAvLyBQYXJzZSBmaWxlIGhlYWRlcnMgaWYgdGhleSBhcmUgZGVmaW5lZC4gVW5pZmllZCBkaWZmIHJlcXVpcmVzIHRoZW0sIGJ1dFxuICAgIC8vIHRoZXJlJ3Mgbm8gdGVjaG5pY2FsIGlzc3VlcyB0byBoYXZlIGFuIGlzb2xhdGVkIGh1bmsgd2l0aG91dCBmaWxlIGhlYWRlclxuICAgIHBhcnNlRmlsZUhlYWRlcihpbmRleCk7XG4gICAgcGFyc2VGaWxlSGVhZGVyKGluZGV4KTtcblxuICAgIC8vIFBhcnNlIGh1bmtzXG4gICAgaW5kZXguaHVua3MgPSBbXTtcblxuICAgIHdoaWxlIChpIDwgZGlmZnN0ci5sZW5ndGgpIHtcbiAgICAgIGxldCBsaW5lID0gZGlmZnN0cltpXTtcblxuICAgICAgaWYgKC9eKEluZGV4OnxkaWZmfFxcLVxcLVxcLXxcXCtcXCtcXCspXFxzLy50ZXN0KGxpbmUpKSB7XG4gICAgICAgIGJyZWFrO1xuICAgICAgfSBlbHNlIGlmICgvXkBALy50ZXN0KGxpbmUpKSB7XG4gICAgICAgIGluZGV4Lmh1bmtzLnB1c2gocGFyc2VIdW5rKCkpO1xuICAgICAgfSBlbHNlIGlmIChsaW5lICYmIG9wdGlvbnMuc3RyaWN0KSB7XG4gICAgICAgIC8vIElnbm9yZSB1bmV4cGVjdGVkIGNvbnRlbnQgdW5sZXNzIGluIHN0cmljdCBtb2RlXG4gICAgICAgIHRocm93IG5ldyBFcnJvcignVW5rbm93biBsaW5lICcgKyAoaSArIDEpICsgJyAnICsgSlNPTi5zdHJpbmdpZnkobGluZSkpO1xuICAgICAgfSBlbHNlIHtcbiAgICAgICAgaSsrO1xuICAgICAgfVxuICAgIH1cbiAgfVxuXG4gIC8vIFBhcnNlcyB0aGUgLS0tIGFuZCArKysgaGVhZGVycywgaWYgbm9uZSBhcmUgZm91bmQsIG5vIGxpbmVzXG4gIC8vIGFyZSBjb25zdW1lZC5cbiAgZnVuY3Rpb24gcGFyc2VGaWxlSGVhZGVyKGluZGV4KSB7XG4gICAgY29uc3QgaGVhZGVyUGF0dGVybiA9IC9eKC0tLXxcXCtcXCtcXCspXFxzKyhbXFxTIF0qKSg/OlxcdCguKj8pXFxzKik/JC87XG4gICAgY29uc3QgZmlsZUhlYWRlciA9IGhlYWRlclBhdHRlcm4uZXhlYyhkaWZmc3RyW2ldKTtcbiAgICBpZiAoZmlsZUhlYWRlcikge1xuICAgICAgbGV0IGtleVByZWZpeCA9IGZpbGVIZWFkZXJbMV0gPT09ICctLS0nID8gJ29sZCcgOiAnbmV3JztcbiAgICAgIGluZGV4W2tleVByZWZpeCArICdGaWxlTmFtZSddID0gZmlsZUhlYWRlclsyXTtcbiAgICAgIGluZGV4W2tleVByZWZpeCArICdIZWFkZXInXSA9IGZpbGVIZWFkZXJbM107XG5cbiAgICAgIGkrKztcbiAgICB9XG4gIH1cblxuICAvLyBQYXJzZXMgYSBodW5rXG4gIC8vIFRoaXMgYXNzdW1lcyB0aGF0IHdlIGFyZSBhdCB0aGUgc3RhcnQgb2YgYSBodW5rLlxuICBmdW5jdGlvbiBwYXJzZUh1bmsoKSB7XG4gICAgbGV0IGNodW5rSGVhZGVySW5kZXggPSBpLFxuICAgICAgICBjaHVua0hlYWRlckxpbmUgPSBkaWZmc3RyW2krK10sXG4gICAgICAgIGNodW5rSGVhZGVyID0gY2h1bmtIZWFkZXJMaW5lLnNwbGl0KC9AQCAtKFxcZCspKD86LChcXGQrKSk/IFxcKyhcXGQrKSg/OiwoXFxkKykpPyBAQC8pO1xuXG4gICAgbGV0IGh1bmsgPSB7XG4gICAgICBvbGRTdGFydDogK2NodW5rSGVhZGVyWzFdLFxuICAgICAgb2xkTGluZXM6ICtjaHVua0hlYWRlclsyXSB8fCAxLFxuICAgICAgbmV3U3RhcnQ6ICtjaHVua0hlYWRlclszXSxcbiAgICAgIG5ld0xpbmVzOiArY2h1bmtIZWFkZXJbNF0gfHwgMSxcbiAgICAgIGxpbmVzOiBbXSxcbiAgICAgIGxpbmVkZWxpbWl0ZXJzOiBbXVxuICAgIH07XG5cbiAgICBsZXQgYWRkQ291bnQgPSAwLFxuICAgICAgICByZW1vdmVDb3VudCA9IDA7XG4gICAgZm9yICg7IGkgPCBkaWZmc3RyLmxlbmd0aDsgaSsrKSB7XG4gICAgICAvLyBMaW5lcyBzdGFydGluZyB3aXRoICctLS0nIGNvdWxkIGJlIG1pc3Rha2VuIGZvciB0aGUgXCJyZW1vdmUgbGluZVwiIG9wZXJhdGlvblxuICAgICAgLy8gQnV0IHRoZXkgY291bGQgYmUgdGhlIGhlYWRlciBmb3IgdGhlIG5leHQgZmlsZS4gVGhlcmVmb3JlIHBydW5lIHN1Y2ggY2FzZXMgb3V0LlxuICAgICAgaWYgKGRpZmZzdHJbaV0uaW5kZXhPZignLS0tICcpID09PSAwXG4gICAgICAgICAgICAmJiAoaSArIDIgPCBkaWZmc3RyLmxlbmd0aClcbiAgICAgICAgICAgICYmIGRpZmZzdHJbaSArIDFdLmluZGV4T2YoJysrKyAnKSA9PT0gMFxuICAgICAgICAgICAgJiYgZGlmZnN0cltpICsgMl0uaW5kZXhPZignQEAnKSA9PT0gMCkge1xuICAgICAgICAgIGJyZWFrO1xuICAgICAgfVxuICAgICAgbGV0IG9wZXJhdGlvbiA9IGRpZmZzdHJbaV1bMF07XG5cbiAgICAgIGlmIChvcGVyYXRpb24gPT09ICcrJyB8fCBvcGVyYXRpb24gPT09ICctJyB8fCBvcGVyYXRpb24gPT09ICcgJyB8fCBvcGVyYXRpb24gPT09ICdcXFxcJykge1xuICAgICAgICBodW5rLmxpbmVzLnB1c2goZGlmZnN0cltpXSk7XG4gICAgICAgIGh1bmsubGluZWRlbGltaXRlcnMucHVzaChkZWxpbWl0ZXJzW2ldIHx8ICdcXG4nKTtcblxuICAgICAgICBpZiAob3BlcmF0aW9uID09PSAnKycpIHtcbiAgICAgICAgICBhZGRDb3VudCsrO1xuICAgICAgICB9IGVsc2UgaWYgKG9wZXJhdGlvbiA9PT0gJy0nKSB7XG4gICAgICAgICAgcmVtb3ZlQ291bnQrKztcbiAgICAgICAgfSBlbHNlIGlmIChvcGVyYXRpb24gPT09ICcgJykge1xuICAgICAgICAgIGFkZENvdW50Kys7XG4gICAgICAgICAgcmVtb3ZlQ291bnQrKztcbiAgICAgICAgfVxuICAgICAgfSBlbHNlIHtcbiAgICAgICAgYnJlYWs7XG4gICAgICB9XG4gICAgfVxuXG4gICAgLy8gSGFuZGxlIHRoZSBlbXB0eSBibG9jayBjb3VudCBjYXNlXG4gICAgaWYgKCFhZGRDb3VudCAmJiBodW5rLm5ld0xpbmVzID09PSAxKSB7XG4gICAgICBodW5rLm5ld0xpbmVzID0gMDtcbiAgICB9XG4gICAgaWYgKCFyZW1vdmVDb3VudCAmJiBodW5rLm9sZExpbmVzID09PSAxKSB7XG4gICAgICBodW5rLm9sZExpbmVzID0gMDtcbiAgICB9XG5cbiAgICAvLyBQZXJmb3JtIG9wdGlvbmFsIHNhbml0eSBjaGVja2luZ1xuICAgIGlmIChvcHRpb25zLnN0cmljdCkge1xuICAgICAgaWYgKGFkZENvdW50ICE9PSBodW5rLm5ld0xpbmVzKSB7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcignQWRkZWQgbGluZSBjb3VudCBkaWQgbm90IG1hdGNoIGZvciBodW5rIGF0IGxpbmUgJyArIChjaHVua0hlYWRlckluZGV4ICsgMSkpO1xuICAgICAgfVxuICAgICAgaWYgKHJlbW92ZUNvdW50ICE9PSBodW5rLm9sZExpbmVzKSB7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcignUmVtb3ZlZCBsaW5lIGNvdW50IGRpZCBub3QgbWF0Y2ggZm9yIGh1bmsgYXQgbGluZSAnICsgKGNodW5rSGVhZGVySW5kZXggKyAxKSk7XG4gICAgICB9XG4gICAgfVxuXG4gICAgcmV0dXJuIGh1bms7XG4gIH1cblxuICB3aGlsZSAoaSA8IGRpZmZzdHIubGVuZ3RoKSB7XG4gICAgcGFyc2VJbmRleCgpO1xuICB9XG5cbiAgcmV0dXJuIGxpc3Q7XG59XG4iXX0=
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 /*istanbul ignore start*/
+var _base2 = _interopRequireDefault(_base);
 
-exports.__esModule = true;
-exports. /*istanbul ignore end*/generateOptions = generateOptions;
-function generateOptions(options, defaults) {
-  if (typeof options === 'function') {
-    defaults.callback = options;
-  } else if (options) {
-    for (var name in options) {
-      /* istanbul ignore else */
-      if (options.hasOwnProperty(name)) {
-        defaults[name] = options[name];
+/*istanbul ignore end*/
+var /*istanbul ignore start*/_params = __webpack_require__(17) /*istanbul ignore end*/;
+
+/*istanbul ignore start*/
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+/*istanbul ignore end*/var lineDiff = /*istanbul ignore start*/exports. /*istanbul ignore end*/lineDiff = new /*istanbul ignore start*/_base2['default']() /*istanbul ignore end*/;
+lineDiff.tokenize = function (value) {
+  var retLines = [],
+      linesAndNewlines = value.split(/(\n|\r\n)/);
+
+  // Ignore the final empty token that occurs if the string ends with a new line
+  if (!linesAndNewlines[linesAndNewlines.length - 1]) {
+    linesAndNewlines.pop();
+  }
+
+  // Merge the content and line separators into single tokens
+  for (var i = 0; i < linesAndNewlines.length; i++) {
+    var line = linesAndNewlines[i];
+
+    if (i % 2 && !this.options.newlineIsToken) {
+      retLines[retLines.length - 1] += line;
+    } else {
+      if (this.options.ignoreWhitespace) {
+        line = line.trim();
       }
+      retLines.push(line);
     }
   }
-  return defaults;
+
+  return retLines;
+};
+
+function diffLines(oldStr, newStr, callback) {
+  return lineDiff.diff(oldStr, newStr, callback);
 }
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlsL3BhcmFtcy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Z0NBQWdCLGUsR0FBQSxlO0FBQVQsU0FBUyxlQUFULENBQXlCLE9BQXpCLEVBQWtDLFFBQWxDLEVBQTRDO0FBQ2pELE1BQUksT0FBTyxPQUFQLEtBQW1CLFVBQXZCLEVBQW1DO0FBQ2pDLGFBQVMsUUFBVCxHQUFvQixPQUFwQjtBQUNELEdBRkQsTUFFTyxJQUFJLE9BQUosRUFBYTtBQUNsQixTQUFLLElBQUksSUFBVCxJQUFpQixPQUFqQixFQUEwQjs7QUFFeEIsVUFBSSxRQUFRLGNBQVIsQ0FBdUIsSUFBdkIsQ0FBSixFQUFrQztBQUNoQyxpQkFBUyxJQUFULElBQWlCLFFBQVEsSUFBUixDQUFqQjtBQUNEO0FBQ0Y7QUFDRjtBQUNELFNBQU8sUUFBUDtBQUNEIiwiZmlsZSI6InBhcmFtcy5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBmdW5jdGlvbiBnZW5lcmF0ZU9wdGlvbnMob3B0aW9ucywgZGVmYXVsdHMpIHtcbiAgaWYgKHR5cGVvZiBvcHRpb25zID09PSAnZnVuY3Rpb24nKSB7XG4gICAgZGVmYXVsdHMuY2FsbGJhY2sgPSBvcHRpb25zO1xuICB9IGVsc2UgaWYgKG9wdGlvbnMpIHtcbiAgICBmb3IgKGxldCBuYW1lIGluIG9wdGlvbnMpIHtcbiAgICAgIC8qIGlzdGFuYnVsIGlnbm9yZSBlbHNlICovXG4gICAgICBpZiAob3B0aW9ucy5oYXNPd25Qcm9wZXJ0eShuYW1lKSkge1xuICAgICAgICBkZWZhdWx0c1tuYW1lXSA9IG9wdGlvbnNbbmFtZV07XG4gICAgICB9XG4gICAgfVxuICB9XG4gIHJldHVybiBkZWZhdWx0cztcbn1cbiJdfQ==
+function diffTrimmedLines(oldStr, newStr, callback) {
+  var options = /*istanbul ignore start*/(0, _params.generateOptions) /*istanbul ignore end*/(callback, { ignoreWhitespace: true });
+  return lineDiff.diff(oldStr, newStr, options);
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kaWZmL2xpbmUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztnQ0E4QmdCLFMsR0FBQSxTO3lEQUNBLGdCLEdBQUEsZ0I7O0FBL0JoQixJLHlCQUFBLHlCLHdCQUFBOzs7Ozs7QUFDQSxJLHlCQUFBLG1DLHdCQUFBOzs7Ozt1QkFFTyxJQUFNLFcseUJBQUEsUSx3QkFBQSxXQUFXLEkseUJBQUEsbUIsd0JBQWpCO0FBQ1AsU0FBUyxRQUFULEdBQW9CLFVBQVMsS0FBVCxFQUFnQjtBQUNsQyxNQUFJLFdBQVcsRUFBZjtBQUFBLE1BQ0ksbUJBQW1CLE1BQU0sS0FBTixDQUFZLFdBQVosQ0FEdkI7OztBQUlBLE1BQUksQ0FBQyxpQkFBaUIsaUJBQWlCLE1BQWpCLEdBQTBCLENBQTNDLENBQUwsRUFBb0Q7QUFDbEQscUJBQWlCLEdBQWpCO0FBQ0Q7OztBQUdELE9BQUssSUFBSSxJQUFJLENBQWIsRUFBZ0IsSUFBSSxpQkFBaUIsTUFBckMsRUFBNkMsR0FBN0MsRUFBa0Q7QUFDaEQsUUFBSSxPQUFPLGlCQUFpQixDQUFqQixDQUFYOztBQUVBLFFBQUksSUFBSSxDQUFKLElBQVMsQ0FBQyxLQUFLLE9BQUwsQ0FBYSxjQUEzQixFQUEyQztBQUN6QyxlQUFTLFNBQVMsTUFBVCxHQUFrQixDQUEzQixLQUFpQyxJQUFqQztBQUNELEtBRkQsTUFFTztBQUNMLFVBQUksS0FBSyxPQUFMLENBQWEsZ0JBQWpCLEVBQW1DO0FBQ2pDLGVBQU8sS0FBSyxJQUFMLEVBQVA7QUFDRDtBQUNELGVBQVMsSUFBVCxDQUFjLElBQWQ7QUFDRDtBQUNGOztBQUVELFNBQU8sUUFBUDtBQUNELENBeEJEOztBQTBCTyxTQUFTLFNBQVQsQ0FBbUIsTUFBbkIsRUFBMkIsTUFBM0IsRUFBbUMsUUFBbkMsRUFBNkM7QUFBRSxTQUFPLFNBQVMsSUFBVCxDQUFjLE1BQWQsRUFBc0IsTUFBdEIsRUFBOEIsUUFBOUIsQ0FBUDtBQUFpRDtBQUNoRyxTQUFTLGdCQUFULENBQTBCLE1BQTFCLEVBQWtDLE1BQWxDLEVBQTBDLFFBQTFDLEVBQW9EO0FBQ3pELE1BQUksVSx5QkFBVSw0Qix3QkFBQSxDQUFnQixRQUFoQixFQUEwQixFQUFDLGtCQUFrQixJQUFuQixFQUExQixDQUFkO0FBQ0EsU0FBTyxTQUFTLElBQVQsQ0FBYyxNQUFkLEVBQXNCLE1BQXRCLEVBQThCLE9BQTlCLENBQVA7QUFDRCIsImZpbGUiOiJsaW5lLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IERpZmYgZnJvbSAnLi9iYXNlJztcbmltcG9ydCB7Z2VuZXJhdGVPcHRpb25zfSBmcm9tICcuLi91dGlsL3BhcmFtcyc7XG5cbmV4cG9ydCBjb25zdCBsaW5lRGlmZiA9IG5ldyBEaWZmKCk7XG5saW5lRGlmZi50b2tlbml6ZSA9IGZ1bmN0aW9uKHZhbHVlKSB7XG4gIGxldCByZXRMaW5lcyA9IFtdLFxuICAgICAgbGluZXNBbmROZXdsaW5lcyA9IHZhbHVlLnNwbGl0KC8oXFxufFxcclxcbikvKTtcblxuICAvLyBJZ25vcmUgdGhlIGZpbmFsIGVtcHR5IHRva2VuIHRoYXQgb2NjdXJzIGlmIHRoZSBzdHJpbmcgZW5kcyB3aXRoIGEgbmV3IGxpbmVcbiAgaWYgKCFsaW5lc0FuZE5ld2xpbmVzW2xpbmVzQW5kTmV3bGluZXMubGVuZ3RoIC0gMV0pIHtcbiAgICBsaW5lc0FuZE5ld2xpbmVzLnBvcCgpO1xuICB9XG5cbiAgLy8gTWVyZ2UgdGhlIGNvbnRlbnQgYW5kIGxpbmUgc2VwYXJhdG9ycyBpbnRvIHNpbmdsZSB0b2tlbnNcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBsaW5lc0FuZE5ld2xpbmVzLmxlbmd0aDsgaSsrKSB7XG4gICAgbGV0IGxpbmUgPSBsaW5lc0FuZE5ld2xpbmVzW2ldO1xuXG4gICAgaWYgKGkgJSAyICYmICF0aGlzLm9wdGlvbnMubmV3bGluZUlzVG9rZW4pIHtcbiAgICAgIHJldExpbmVzW3JldExpbmVzLmxlbmd0aCAtIDFdICs9IGxpbmU7XG4gICAgfSBlbHNlIHtcbiAgICAgIGlmICh0aGlzLm9wdGlvbnMuaWdub3JlV2hpdGVzcGFjZSkge1xuICAgICAgICBsaW5lID0gbGluZS50cmltKCk7XG4gICAgICB9XG4gICAgICByZXRMaW5lcy5wdXNoKGxpbmUpO1xuICAgIH1cbiAgfVxuXG4gIHJldHVybiByZXRMaW5lcztcbn07XG5cbmV4cG9ydCBmdW5jdGlvbiBkaWZmTGluZXMob2xkU3RyLCBuZXdTdHIsIGNhbGxiYWNrKSB7IHJldHVybiBsaW5lRGlmZi5kaWZmKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjayk7IH1cbmV4cG9ydCBmdW5jdGlvbiBkaWZmVHJpbW1lZExpbmVzKG9sZFN0ciwgbmV3U3RyLCBjYWxsYmFjaykge1xuICBsZXQgb3B0aW9ucyA9IGdlbmVyYXRlT3B0aW9ucyhjYWxsYmFjaywge2lnbm9yZVdoaXRlc3BhY2U6IHRydWV9KTtcbiAgcmV0dXJuIGxpbmVEaWZmLmRpZmYob2xkU3RyLCBuZXdTdHIsIG9wdGlvbnMpO1xufVxuIl19
 
 
 /***/ }),
-/* 15 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3718,7 +3957,443 @@ if (true) {
 
 
 /***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// The GlyphSet object
+
+
+
+var _glyph = __webpack_require__(19);
+
+// Define a property on the glyph that depends on the path being loaded.
+function defineDependentProperty(glyph, externalName, internalName) {
+    Object.defineProperty(glyph, externalName, {
+        get: function() {
+            // Request the path property to make sure the path is loaded.
+            glyph.path; // jshint ignore:line
+            return glyph[internalName];
+        },
+        set: function(newValue) {
+            glyph[internalName] = newValue;
+        },
+        enumerable: true,
+        configurable: true
+    });
+}
+
+/**
+ * A GlyphSet represents all glyphs available in the font, but modelled using
+ * a deferred glyph loader, for retrieving glyphs only once they are absolutely
+ * necessary, to keep the memory footprint down.
+ * @exports opentype.GlyphSet
+ * @class
+ * @param {opentype.Font}
+ * @param {Array}
+ */
+function GlyphSet(font, glyphs) {
+    this.font = font;
+    this.glyphs = {};
+    if (Array.isArray(glyphs)) {
+        for (var i = 0; i < glyphs.length; i++) {
+            this.glyphs[i] = glyphs[i];
+        }
+    }
+
+    this.length = (glyphs && glyphs.length) || 0;
+}
+
+/**
+ * @param  {number} index
+ * @return {opentype.Glyph}
+ */
+GlyphSet.prototype.get = function(index) {
+    if (typeof this.glyphs[index] === 'function') {
+        this.glyphs[index] = this.glyphs[index]();
+    }
+
+    return this.glyphs[index];
+};
+
+/**
+ * @param  {number} index
+ * @param  {Object}
+ */
+GlyphSet.prototype.push = function(index, loader) {
+    this.glyphs[index] = loader;
+    this.length++;
+};
+
+/**
+ * @alias opentype.glyphLoader
+ * @param  {opentype.Font} font
+ * @param  {number} index
+ * @return {opentype.Glyph}
+ */
+function glyphLoader(font, index) {
+    return new _glyph.Glyph({index: index, font: font});
+}
+
+/**
+ * Generate a stub glyph that can be filled with all metadata *except*
+ * the "points" and "path" properties, which must be loaded only once
+ * the glyph's path is actually requested for text shaping.
+ * @alias opentype.ttfGlyphLoader
+ * @param  {opentype.Font} font
+ * @param  {number} index
+ * @param  {Function} parseGlyph
+ * @param  {Object} data
+ * @param  {number} position
+ * @param  {Function} buildPath
+ * @return {opentype.Glyph}
+ */
+function ttfGlyphLoader(font, index, parseGlyph, data, position, buildPath) {
+    return function() {
+        var glyph = new _glyph.Glyph({index: index, font: font});
+
+        glyph.path = function() {
+            parseGlyph(glyph, data, position);
+            var path = buildPath(font.glyphs, glyph);
+            path.unitsPerEm = font.unitsPerEm;
+            return path;
+        };
+
+        defineDependentProperty(glyph, 'xMin', '_xMin');
+        defineDependentProperty(glyph, 'xMax', '_xMax');
+        defineDependentProperty(glyph, 'yMin', '_yMin');
+        defineDependentProperty(glyph, 'yMax', '_yMax');
+
+        return glyph;
+    };
+}
+/**
+ * @alias opentype.cffGlyphLoader
+ * @param  {opentype.Font} font
+ * @param  {number} index
+ * @param  {Function} parseCFFCharstring
+ * @param  {string} charstring
+ * @return {opentype.Glyph}
+ */
+function cffGlyphLoader(font, index, parseCFFCharstring, charstring) {
+    return function() {
+        var glyph = new _glyph.Glyph({index: index, font: font});
+
+        glyph.path = function() {
+            var path = parseCFFCharstring(font, glyph, charstring);
+            path.unitsPerEm = font.unitsPerEm;
+            return path;
+        };
+
+        return glyph;
+    };
+}
+
+exports.GlyphSet = GlyphSet;
+exports.glyphLoader = glyphLoader;
+exports.ttfGlyphLoader = ttfGlyphLoader;
+exports.cffGlyphLoader = cffGlyphLoader;
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _class2, _temp;
+
+var _autobindDecorator = __webpack_require__(3);
+
+var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
+
+var _eventemitter = __webpack_require__(12);
+
+var _eventemitter2 = _interopRequireDefault(_eventemitter);
+
+var _Font = __webpack_require__(37);
+
+var _Font2 = _interopRequireDefault(_Font);
+
+var _Metrics = __webpack_require__(5);
+
+var _Metrics2 = _interopRequireDefault(_Metrics);
+
+var _TextField = __webpack_require__(7);
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _library = new WeakMap();
+
+var _count = new WeakMap();
+
+var _metrics = new WeakMap();
+
+var Loader = (0, _autobindDecorator2.default)(_class = (_temp = _class2 = function (_EventEmiter) {
+    _inherits(Loader, _EventEmiter);
+
+    function Loader() {
+        _classCallCheck(this, Loader);
+
+        var _this = _possibleConstructorReturn(this, (Loader.__proto__ || Object.getPrototypeOf(Loader)).call(this));
+
+        _library.set(_this, {});
+
+        _count.set(_this, 0);
+
+        _metrics.set(_this, new _Metrics2.default());
+
+        return _this;
+    }
+
+    _createClass(Loader, [{
+        key: 'add',
+        value: function add(name, url) {
+            _library.get(this)[name] = url;
+
+            if (Loader.defaultStyle.fontFamily === undefined) {
+                Loader.defaultStyle.fontFamily = name;
+            }
+        }
+    }, {
+        key: 'load',
+        value: function load() {
+            for (var i in _library.get(this)) {
+                var f = new _Font2.default();
+                f.fontFamily = i;
+                f.onload = this.tempLoad;
+                f.src = _library.get(this)[i];
+
+                _metrics.get(this).once('metricsLoaded', this.tempLoad);
+                _metrics.get(this).load(i, _library.get(this)[i]);
+            }
+        }
+    }, {
+        key: 'tempLoad',
+        value: function tempLoad() {
+            _count.set(this, _count.get(this) + 1);
+
+            if (_count.get(this) >= Object.keys(_library.get(this)).length * 2) {
+                this.emit('loadComplete');
+            }
+        }
+    }], [{
+        key: 'defaultStyle',
+        get: function get() {
+            return this._defaultStyle;
+        },
+        set: function set(value) {
+            this.setText(_defaultStyle);
+        }
+    }]);
+
+    return Loader;
+}(_eventemitter2.default), _class2._defaultStyle = {
+    fontSize: 20,
+    fill: '#000000'
+}, _temp)) || _class;
+
+exports.default = Loader;
+
+
+/***/ }),
 /* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*istanbul ignore start*/
+
+exports.__esModule = true;
+exports. /*istanbul ignore end*/parsePatch = parsePatch;
+function parsePatch(uniDiff) {
+  /*istanbul ignore start*/var /*istanbul ignore end*/options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+  var diffstr = uniDiff.split(/\r\n|[\n\v\f\r\x85]/),
+      delimiters = uniDiff.match(/\r\n|[\n\v\f\r\x85]/g) || [],
+      list = [],
+      i = 0;
+
+  function parseIndex() {
+    var index = {};
+    list.push(index);
+
+    // Parse diff metadata
+    while (i < diffstr.length) {
+      var line = diffstr[i];
+
+      // File header found, end parsing diff metadata
+      if (/^(\-\-\-|\+\+\+|@@)\s/.test(line)) {
+        break;
+      }
+
+      // Diff index
+      var header = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(line);
+      if (header) {
+        index.index = header[1];
+      }
+
+      i++;
+    }
+
+    // Parse file headers if they are defined. Unified diff requires them, but
+    // there's no technical issues to have an isolated hunk without file header
+    parseFileHeader(index);
+    parseFileHeader(index);
+
+    // Parse hunks
+    index.hunks = [];
+
+    while (i < diffstr.length) {
+      var _line = diffstr[i];
+
+      if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(_line)) {
+        break;
+      } else if (/^@@/.test(_line)) {
+        index.hunks.push(parseHunk());
+      } else if (_line && options.strict) {
+        // Ignore unexpected content unless in strict mode
+        throw new Error('Unknown line ' + (i + 1) + ' ' + JSON.stringify(_line));
+      } else {
+        i++;
+      }
+    }
+  }
+
+  // Parses the --- and +++ headers, if none are found, no lines
+  // are consumed.
+  function parseFileHeader(index) {
+    var headerPattern = /^(---|\+\+\+)\s+([\S ]*)(?:\t(.*?)\s*)?$/;
+    var fileHeader = headerPattern.exec(diffstr[i]);
+    if (fileHeader) {
+      var keyPrefix = fileHeader[1] === '---' ? 'old' : 'new';
+      index[keyPrefix + 'FileName'] = fileHeader[2];
+      index[keyPrefix + 'Header'] = fileHeader[3];
+
+      i++;
+    }
+  }
+
+  // Parses a hunk
+  // This assumes that we are at the start of a hunk.
+  function parseHunk() {
+    var chunkHeaderIndex = i,
+        chunkHeaderLine = diffstr[i++],
+        chunkHeader = chunkHeaderLine.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/);
+
+    var hunk = {
+      oldStart: +chunkHeader[1],
+      oldLines: +chunkHeader[2] || 1,
+      newStart: +chunkHeader[3],
+      newLines: +chunkHeader[4] || 1,
+      lines: [],
+      linedelimiters: []
+    };
+
+    var addCount = 0,
+        removeCount = 0;
+    for (; i < diffstr.length; i++) {
+      // Lines starting with '---' could be mistaken for the "remove line" operation
+      // But they could be the header for the next file. Therefore prune such cases out.
+      if (diffstr[i].indexOf('--- ') === 0 && i + 2 < diffstr.length && diffstr[i + 1].indexOf('+++ ') === 0 && diffstr[i + 2].indexOf('@@') === 0) {
+        break;
+      }
+      var operation = diffstr[i][0];
+
+      if (operation === '+' || operation === '-' || operation === ' ' || operation === '\\') {
+        hunk.lines.push(diffstr[i]);
+        hunk.linedelimiters.push(delimiters[i] || '\n');
+
+        if (operation === '+') {
+          addCount++;
+        } else if (operation === '-') {
+          removeCount++;
+        } else if (operation === ' ') {
+          addCount++;
+          removeCount++;
+        }
+      } else {
+        break;
+      }
+    }
+
+    // Handle the empty block count case
+    if (!addCount && hunk.newLines === 1) {
+      hunk.newLines = 0;
+    }
+    if (!removeCount && hunk.oldLines === 1) {
+      hunk.oldLines = 0;
+    }
+
+    // Perform optional sanity checking
+    if (options.strict) {
+      if (addCount !== hunk.newLines) {
+        throw new Error('Added line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
+      }
+      if (removeCount !== hunk.oldLines) {
+        throw new Error('Removed line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
+      }
+    }
+
+    return hunk;
+  }
+
+  while (i < diffstr.length) {
+    parseIndex();
+  }
+
+  return list;
+}
+//# sourceMappingURL=data:application/json;base64,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LEtBQUosQ0FBVSx3REFBd0QsbUJBQW1CLENBQTNFLENBQVYsQ0FBTjtBQUNEO0FBQ0Y7O0FBRUQsV0FBTyxJQUFQO0FBQ0Q7O0FBRUQsU0FBTyxJQUFJLFFBQVEsTUFBbkIsRUFBMkI7QUFDekI7QUFDRDs7QUFFRCxTQUFPLElBQVA7QUFDRCIsImZpbGUiOiJwYXJzZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBmdW5jdGlvbiBwYXJzZVBhdGNoKHVuaURpZmYsIG9wdGlvbnMgPSB7fSkge1xuICBsZXQgZGlmZnN0ciA9IHVuaURpZmYuc3BsaXQoL1xcclxcbnxbXFxuXFx2XFxmXFxyXFx4ODVdLyksXG4gICAgICBkZWxpbWl0ZXJzID0gdW5pRGlmZi5tYXRjaCgvXFxyXFxufFtcXG5cXHZcXGZcXHJcXHg4NV0vZykgfHwgW10sXG4gICAgICBsaXN0ID0gW10sXG4gICAgICBpID0gMDtcblxuICBmdW5jdGlvbiBwYXJzZUluZGV4KCkge1xuICAgIGxldCBpbmRleCA9IHt9O1xuICAgIGxpc3QucHVzaChpbmRleCk7XG5cbiAgICAvLyBQYXJzZSBkaWZmIG1ldGFkYXRhXG4gICAgd2hpbGUgKGkgPCBkaWZmc3RyLmxlbmd0aCkge1xuICAgICAgbGV0IGxpbmUgPSBkaWZmc3RyW2ldO1xuXG4gICAgICAvLyBGaWxlIGhlYWRlciBmb3VuZCwgZW5kIHBhcnNpbmcgZGlmZiBtZXRhZGF0YVxuICAgICAgaWYgKC9eKFxcLVxcLVxcLXxcXCtcXCtcXCt8QEApXFxzLy50ZXN0KGxpbmUpKSB7XG4gICAgICAgIGJyZWFrO1xuICAgICAgfVxuXG4gICAgICAvLyBEaWZmIGluZGV4XG4gICAgICBsZXQgaGVhZGVyID0gKC9eKD86SW5kZXg6fGRpZmYoPzogLXIgXFx3KykrKVxccysoLis/KVxccyokLykuZXhlYyhsaW5lKTtcbiAgICAgIGlmIChoZWFkZXIpIHtcbiAgICAgICAgaW5kZXguaW5kZXggPSBoZWFkZXJbMV07XG4gICAgICB9XG5cbiAgICAgIGkrKztcbiAgICB9XG5cbiAgICAvLyBQYXJzZSBmaWxlIGhlYWRlcnMgaWYgdGhleSBhcmUgZGVmaW5lZC4gVW5pZmllZCBkaWZmIHJlcXVpcmVzIHRoZW0sIGJ1dFxuICAgIC8vIHRoZXJlJ3Mgbm8gdGVjaG5pY2FsIGlzc3VlcyB0byBoYXZlIGFuIGlzb2xhdGVkIGh1bmsgd2l0aG91dCBmaWxlIGhlYWRlclxuICAgIHBhcnNlRmlsZUhlYWRlcihpbmRleCk7XG4gICAgcGFyc2VGaWxlSGVhZGVyKGluZGV4KTtcblxuICAgIC8vIFBhcnNlIGh1bmtzXG4gICAgaW5kZXguaHVua3MgPSBbXTtcblxuICAgIHdoaWxlIChpIDwgZGlmZnN0ci5sZW5ndGgpIHtcbiAgICAgIGxldCBsaW5lID0gZGlmZnN0cltpXTtcblxuICAgICAgaWYgKC9eKEluZGV4OnxkaWZmfFxcLVxcLVxcLXxcXCtcXCtcXCspXFxzLy50ZXN0KGxpbmUpKSB7XG4gICAgICAgIGJyZWFrO1xuICAgICAgfSBlbHNlIGlmICgvXkBALy50ZXN0KGxpbmUpKSB7XG4gICAgICAgIGluZGV4Lmh1bmtzLnB1c2gocGFyc2VIdW5rKCkpO1xuICAgICAgfSBlbHNlIGlmIChsaW5lICYmIG9wdGlvbnMuc3RyaWN0KSB7XG4gICAgICAgIC8vIElnbm9yZSB1bmV4cGVjdGVkIGNvbnRlbnQgdW5sZXNzIGluIHN0cmljdCBtb2RlXG4gICAgICAgIHRocm93IG5ldyBFcnJvcignVW5rbm93biBsaW5lICcgKyAoaSArIDEpICsgJyAnICsgSlNPTi5zdHJpbmdpZnkobGluZSkpO1xuICAgICAgfSBlbHNlIHtcbiAgICAgICAgaSsrO1xuICAgICAgfVxuICAgIH1cbiAgfVxuXG4gIC8vIFBhcnNlcyB0aGUgLS0tIGFuZCArKysgaGVhZGVycywgaWYgbm9uZSBhcmUgZm91bmQsIG5vIGxpbmVzXG4gIC8vIGFyZSBjb25zdW1lZC5cbiAgZnVuY3Rpb24gcGFyc2VGaWxlSGVhZGVyKGluZGV4KSB7XG4gICAgY29uc3QgaGVhZGVyUGF0dGVybiA9IC9eKC0tLXxcXCtcXCtcXCspXFxzKyhbXFxTIF0qKSg/OlxcdCguKj8pXFxzKik/JC87XG4gICAgY29uc3QgZmlsZUhlYWRlciA9IGhlYWRlclBhdHRlcm4uZXhlYyhkaWZmc3RyW2ldKTtcbiAgICBpZiAoZmlsZUhlYWRlcikge1xuICAgICAgbGV0IGtleVByZWZpeCA9IGZpbGVIZWFkZXJbMV0gPT09ICctLS0nID8gJ29sZCcgOiAnbmV3JztcbiAgICAgIGluZGV4W2tleVByZWZpeCArICdGaWxlTmFtZSddID0gZmlsZUhlYWRlclsyXTtcbiAgICAgIGluZGV4W2tleVByZWZpeCArICdIZWFkZXInXSA9IGZpbGVIZWFkZXJbM107XG5cbiAgICAgIGkrKztcbiAgICB9XG4gIH1cblxuICAvLyBQYXJzZXMgYSBodW5rXG4gIC8vIFRoaXMgYXNzdW1lcyB0aGF0IHdlIGFyZSBhdCB0aGUgc3RhcnQgb2YgYSBodW5rLlxuICBmdW5jdGlvbiBwYXJzZUh1bmsoKSB7XG4gICAgbGV0IGNodW5rSGVhZGVySW5kZXggPSBpLFxuICAgICAgICBjaHVua0hlYWRlckxpbmUgPSBkaWZmc3RyW2krK10sXG4gICAgICAgIGNodW5rSGVhZGVyID0gY2h1bmtIZWFkZXJMaW5lLnNwbGl0KC9AQCAtKFxcZCspKD86LChcXGQrKSk/IFxcKyhcXGQrKSg/OiwoXFxkKykpPyBAQC8pO1xuXG4gICAgbGV0IGh1bmsgPSB7XG4gICAgICBvbGRTdGFydDogK2NodW5rSGVhZGVyWzFdLFxuICAgICAgb2xkTGluZXM6ICtjaHVua0hlYWRlclsyXSB8fCAxLFxuICAgICAgbmV3U3RhcnQ6ICtjaHVua0hlYWRlclszXSxcbiAgICAgIG5ld0xpbmVzOiArY2h1bmtIZWFkZXJbNF0gfHwgMSxcbiAgICAgIGxpbmVzOiBbXSxcbiAgICAgIGxpbmVkZWxpbWl0ZXJzOiBbXVxuICAgIH07XG5cbiAgICBsZXQgYWRkQ291bnQgPSAwLFxuICAgICAgICByZW1vdmVDb3VudCA9IDA7XG4gICAgZm9yICg7IGkgPCBkaWZmc3RyLmxlbmd0aDsgaSsrKSB7XG4gICAgICAvLyBMaW5lcyBzdGFydGluZyB3aXRoICctLS0nIGNvdWxkIGJlIG1pc3Rha2VuIGZvciB0aGUgXCJyZW1vdmUgbGluZVwiIG9wZXJhdGlvblxuICAgICAgLy8gQnV0IHRoZXkgY291bGQgYmUgdGhlIGhlYWRlciBmb3IgdGhlIG5leHQgZmlsZS4gVGhlcmVmb3JlIHBydW5lIHN1Y2ggY2FzZXMgb3V0LlxuICAgICAgaWYgKGRpZmZzdHJbaV0uaW5kZXhPZignLS0tICcpID09PSAwXG4gICAgICAgICAgICAmJiAoaSArIDIgPCBkaWZmc3RyLmxlbmd0aClcbiAgICAgICAgICAgICYmIGRpZmZzdHJbaSArIDFdLmluZGV4T2YoJysrKyAnKSA9PT0gMFxuICAgICAgICAgICAgJiYgZGlmZnN0cltpICsgMl0uaW5kZXhPZignQEAnKSA9PT0gMCkge1xuICAgICAgICAgIGJyZWFrO1xuICAgICAgfVxuICAgICAgbGV0IG9wZXJhdGlvbiA9IGRpZmZzdHJbaV1bMF07XG5cbiAgICAgIGlmIChvcGVyYXRpb24gPT09ICcrJyB8fCBvcGVyYXRpb24gPT09ICctJyB8fCBvcGVyYXRpb24gPT09ICcgJyB8fCBvcGVyYXRpb24gPT09ICdcXFxcJykge1xuICAgICAgICBodW5rLmxpbmVzLnB1c2goZGlmZnN0cltpXSk7XG4gICAgICAgIGh1bmsubGluZWRlbGltaXRlcnMucHVzaChkZWxpbWl0ZXJzW2ldIHx8ICdcXG4nKTtcblxuICAgICAgICBpZiAob3BlcmF0aW9uID09PSAnKycpIHtcbiAgICAgICAgICBhZGRDb3VudCsrO1xuICAgICAgICB9IGVsc2UgaWYgKG9wZXJhdGlvbiA9PT0gJy0nKSB7XG4gICAgICAgICAgcmVtb3ZlQ291bnQrKztcbiAgICAgICAgfSBlbHNlIGlmIChvcGVyYXRpb24gPT09ICcgJykge1xuICAgICAgICAgIGFkZENvdW50Kys7XG4gICAgICAgICAgcmVtb3ZlQ291bnQrKztcbiAgICAgICAgfVxuICAgICAgfSBlbHNlIHtcbiAgICAgICAgYnJlYWs7XG4gICAgICB9XG4gICAgfVxuXG4gICAgLy8gSGFuZGxlIHRoZSBlbXB0eSBibG9jayBjb3VudCBjYXNlXG4gICAgaWYgKCFhZGRDb3VudCAmJiBodW5rLm5ld0xpbmVzID09PSAxKSB7XG4gICAgICBodW5rLm5ld0xpbmVzID0gMDtcbiAgICB9XG4gICAgaWYgKCFyZW1vdmVDb3VudCAmJiBodW5rLm9sZExpbmVzID09PSAxKSB7XG4gICAgICBodW5rLm9sZExpbmVzID0gMDtcbiAgICB9XG5cbiAgICAvLyBQZXJmb3JtIG9wdGlvbmFsIHNhbml0eSBjaGVja2luZ1xuICAgIGlmIChvcHRpb25zLnN0cmljdCkge1xuICAgICAgaWYgKGFkZENvdW50ICE9PSBodW5rLm5ld0xpbmVzKSB7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcignQWRkZWQgbGluZSBjb3VudCBkaWQgbm90IG1hdGNoIGZvciBodW5rIGF0IGxpbmUgJyArIChjaHVua0hlYWRlckluZGV4ICsgMSkpO1xuICAgICAgfVxuICAgICAgaWYgKHJlbW92ZUNvdW50ICE9PSBodW5rLm9sZExpbmVzKSB7XG4gICAgICAgIHRocm93IG5ldyBFcnJvcignUmVtb3ZlZCBsaW5lIGNvdW50IGRpZCBub3QgbWF0Y2ggZm9yIGh1bmsgYXQgbGluZSAnICsgKGNodW5rSGVhZGVySW5kZXggKyAxKSk7XG4gICAgICB9XG4gICAgfVxuXG4gICAgcmV0dXJuIGh1bms7XG4gIH1cblxuICB3aGlsZSAoaSA8IGRpZmZzdHIubGVuZ3RoKSB7XG4gICAgcGFyc2VJbmRleCgpO1xuICB9XG5cbiAgcmV0dXJuIGxpc3Q7XG59XG4iXX0=
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*istanbul ignore start*/
+
+exports.__esModule = true;
+exports. /*istanbul ignore end*/generateOptions = generateOptions;
+function generateOptions(options, defaults) {
+  if (typeof options === 'function') {
+    defaults.callback = options;
+  } else if (options) {
+    for (var name in options) {
+      /* istanbul ignore else */
+      if (options.hasOwnProperty(name)) {
+        defaults[name] = options[name];
+      }
+    }
+  }
+  return defaults;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlsL3BhcmFtcy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Z0NBQWdCLGUsR0FBQSxlO0FBQVQsU0FBUyxlQUFULENBQXlCLE9BQXpCLEVBQWtDLFFBQWxDLEVBQTRDO0FBQ2pELE1BQUksT0FBTyxPQUFQLEtBQW1CLFVBQXZCLEVBQW1DO0FBQ2pDLGFBQVMsUUFBVCxHQUFvQixPQUFwQjtBQUNELEdBRkQsTUFFTyxJQUFJLE9BQUosRUFBYTtBQUNsQixTQUFLLElBQUksSUFBVCxJQUFpQixPQUFqQixFQUEwQjs7QUFFeEIsVUFBSSxRQUFRLGNBQVIsQ0FBdUIsSUFBdkIsQ0FBSixFQUFrQztBQUNoQyxpQkFBUyxJQUFULElBQWlCLFFBQVEsSUFBUixDQUFqQjtBQUNEO0FBQ0Y7QUFDRjtBQUNELFNBQU8sUUFBUDtBQUNEIiwiZmlsZSI6InBhcmFtcy5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBmdW5jdGlvbiBnZW5lcmF0ZU9wdGlvbnMob3B0aW9ucywgZGVmYXVsdHMpIHtcbiAgaWYgKHR5cGVvZiBvcHRpb25zID09PSAnZnVuY3Rpb24nKSB7XG4gICAgZGVmYXVsdHMuY2FsbGJhY2sgPSBvcHRpb25zO1xuICB9IGVsc2UgaWYgKG9wdGlvbnMpIHtcbiAgICBmb3IgKGxldCBuYW1lIGluIG9wdGlvbnMpIHtcbiAgICAgIC8qIGlzdGFuYnVsIGlnbm9yZSBlbHNlICovXG4gICAgICBpZiAob3B0aW9ucy5oYXNPd25Qcm9wZXJ0eShuYW1lKSkge1xuICAgICAgICBkZWZhdWx0c1tuYW1lXSA9IG9wdGlvbnNbbmFtZV07XG4gICAgICB9XG4gICAgfVxuICB9XG4gIHJldHVybiBkZWZhdWx0cztcbn1cbiJdfQ==
+
+
+/***/ }),
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3885,7 +4560,7 @@ exports.BoundingBox = BoundingBox;
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3894,7 +4569,7 @@ exports.BoundingBox = BoundingBox;
 
 
 var check = __webpack_require__(1);
-var draw = __webpack_require__(50);
+var draw = __webpack_require__(51);
 var path = __webpack_require__(6);
 
 function getPathDefinition(glyph, path) {
@@ -4233,7 +4908,7 @@ exports.Glyph = Glyph;
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4244,8 +4919,8 @@ exports.Glyph = Glyph;
 
 
 
-var encoding = __webpack_require__(7);
-var glyphset = __webpack_require__(10);
+var encoding = __webpack_require__(8);
+var glyphset = __webpack_require__(13);
 var parse = __webpack_require__(0);
 var path = __webpack_require__(6);
 var table = __webpack_require__(2);
@@ -5352,7 +6027,7 @@ exports.make = makeCFFTable;
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5581,7 +6256,7 @@ exports.make = makeCmapTable;
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5846,7 +6521,7 @@ exports.make = makeGsubTable;
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5919,7 +6594,7 @@ exports.make = makeHeadTable;
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5979,7 +6654,7 @@ exports.make = makeHheaTable;
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6028,7 +6703,7 @@ exports.make = makeHmtxTable;
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6096,7 +6771,7 @@ exports.parse = parseLtagTable;
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6146,7 +6821,7 @@ exports.make = makeMaxpTable;
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6155,7 +6830,7 @@ exports.make = makeMaxpTable;
 
 
 
-var types = __webpack_require__(8);
+var types = __webpack_require__(9);
 var decode = types.decode;
 var check = __webpack_require__(1);
 var parse = __webpack_require__(0);
@@ -6214,7 +6889,7 @@ exports.make = makeMetaTable;
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6223,7 +6898,7 @@ exports.make = makeMetaTable;
 
 
 
-var types = __webpack_require__(8);
+var types = __webpack_require__(9);
 var decode = types.decode;
 var encode = types.encode;
 var parse = __webpack_require__(0);
@@ -7056,7 +7731,7 @@ exports.make = makeNameTable;
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7317,7 +7992,7 @@ exports.make = makeOS2Table;
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7326,7 +8001,7 @@ exports.make = makeOS2Table;
 
 
 
-var encoding = __webpack_require__(7);
+var encoding = __webpack_require__(8);
 var parse = __webpack_require__(0);
 var table = __webpack_require__(2);
 
@@ -7395,7 +8070,7 @@ exports.make = makePostTable;
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7435,10 +8110,10 @@ exports.checkArgument = function(expression, message) {
     }
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(62).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(63).Buffer))
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7522,7 +8197,7 @@ exports.default = Phrase;
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7609,7 +8284,7 @@ exports.default = Word;
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7627,126 +8302,19 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _eventemitter = __webpack_require__(15);
+var _TextField = __webpack_require__(7);
 
-var _eventemitter2 = _interopRequireDefault(_eventemitter);
+var _TextField2 = _interopRequireDefault(_TextField);
 
-var _Font = __webpack_require__(36);
-
-var _Font2 = _interopRequireDefault(_Font);
-
-var _Metrics = __webpack_require__(5);
-
-var _Metrics2 = _interopRequireDefault(_Metrics);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _library = new WeakMap();
-
-var _count = new WeakMap();
-
-var _metrics = new WeakMap();
-
-var Loader = (0, _autobindDecorator2.default)(_class = function (_EventEmiter) {
-    _inherits(Loader, _EventEmiter);
-
-    function Loader() {
-        _classCallCheck(this, Loader);
-
-        var _this = _possibleConstructorReturn(this, (Loader.__proto__ || Object.getPrototypeOf(Loader)).call(this));
-
-        _library.set(_this, {});
-
-        _count.set(_this, 0);
-
-        _metrics.set(_this, new _Metrics2.default());
-
-        return _this;
-    }
-
-    _createClass(Loader, [{
-        key: 'add',
-        value: function add(name, url) {
-            _library.get(this)[name] = url;
-        }
-    }, {
-        key: 'load',
-        value: function load() {
-            for (var i in _library.get(this)) {
-                var f = new _Font2.default();
-                f.fontFamily = i;
-                f.onload = this.tempLoad;
-                f.src = _library.get(this)[i];
-
-                _metrics.get(this).once('metricsLoaded', this.tempLoad);
-                _metrics.get(this).load(i, _library.get(this)[i]);
-            }
-        }
-    }, {
-        key: 'tempLoad',
-        value: function tempLoad() {
-            _count.set(this, _count.get(this) + 1);
-
-            if (_count.get(this) >= Object.keys(_library.get(this)).length * 2) {
-                this.emit('loadComplete');
-            }
-        }
-    }]);
-
-    return Loader;
-}(_eventemitter2.default)) || _class;
-
-exports.default = Loader;
-
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _class;
-
-var _autobindDecorator = __webpack_require__(3);
-
-var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
-
-var _Char = __webpack_require__(12);
+var _Char = __webpack_require__(10);
 
 var _Char2 = _interopRequireDefault(_Char);
 
-var _HorizontalModule = __webpack_require__(67);
+var _KeyboardHandler = __webpack_require__(67);
 
-var _HorizontalModule2 = _interopRequireDefault(_HorizontalModule);
-
-var _VerticalModule = __webpack_require__(68);
-
-var _VerticalModule2 = _interopRequireDefault(_VerticalModule);
-
-var _CustomModule = __webpack_require__(66);
-
-var _CustomModule2 = _interopRequireDefault(_CustomModule);
-
-var _Metrics = __webpack_require__(5);
-
-var _Metrics2 = _interopRequireDefault(_Metrics);
+var _KeyboardHandler2 = _interopRequireDefault(_KeyboardHandler);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7754,419 +8322,336 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var JsDiff = __webpack_require__(45);
+var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container) {
+    _inherits(Input, _PIXI$Container);
 
-var _width = new WeakMap();
+    function Input(_width, _height, align, maxChars) {
+        _classCallCheck(this, Input);
 
-var _height = new WeakMap();
+        var _this = _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this));
 
-var _hitArea = new WeakMap();
-
-var _box = new WeakMap();
-
-var _text = new WeakMap();
-
-var _map = new WeakMap();
-
-var _customAlign = new WeakMap();
-
-var _spaceBetweenLines = new WeakMap();
-
-var _spaceBetweenWords = new WeakMap();
-
-var _textAlign = new WeakMap();
-
-var _textLeftToRight = new WeakMap();
-
-var _textTopToBottom = new WeakMap();
-
-var _alignHorizontalPriority = new WeakMap();
-
-var _defaultStyle = new WeakMap();
-
-var _mapStyle = new WeakMap();
-
-var _customStyle = new WeakMap();
-
-var _textSupport = new WeakMap();
-
-var _horizontalModule = new WeakMap();
-
-var _verticalModule = new WeakMap();
-
-var _customModule = new WeakMap();
-
-var _getMap = new WeakMap();
-
-var _change = new WeakMap();
-
-var _buildStyle = new WeakMap();
-
-var _relocate = new WeakMap();
-
-var _blurinessFix = new WeakMap();
-
-var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container) {
-    _inherits(TextField, _PIXI$Container);
-
-    function TextField() {
-        var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 2048;
-        var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1152;
-
-        _classCallCheck(this, TextField);
-
-        var _this = _possibleConstructorReturn(this, (TextField.__proto__ || Object.getPrototypeOf(TextField)).call(this));
-
-        _width.set(_this, 0);
-
-        _height.set(_this, 0);
-
-        _hitArea.set(_this, null);
-
-        _box.set(_this, null);
-
-        _text.set(_this, "");
-
-        _map.set(_this, {});
-
-        _customAlign.set(_this, false);
-
-        _spaceBetweenLines.set(_this, 0);
-
-        _spaceBetweenWords.set(_this, -1);
-
-        _textAlign.set(_this, "left");
-
-        _textLeftToRight.set(_this, true);
-
-        _textTopToBottom.set(_this, true);
-
-        _alignHorizontalPriority.set(_this, true);
-
-        _defaultStyle.set(_this, {
-            fontFamily: 'Arial',
-            fontSize: 20,
-            fill: '#000000'
+        _this._width = _width || 2048;
+        _this._height = _height || 1152;
+        _this.hitArea = new PIXI.Rectangle(0, 0, _this._width, _this._height);
+        _this.debug = false;
+        _this.maxChars = maxChars || 0;
+        _this.field = new _TextField2.default(_width, _height);
+        _this.field.align = align;
+        _this.addChild(_this.field);
+        _this._allowSelection = true;
+        //configurando o cursor
+        _this.cursor = new _Char2.default("I", _this.cursorStyle);
+        _this.addChild(_this.cursor);
+        _this.cursor.alpha = 0;
+        switch (align) {
+            case "center":
+                _this.cursor.x = (_this.x + _this._width) / 2;
+                break;
+            case "right":
+                _this.cursor.x = _this.x + _this._width;
+                break;
+            case "justify":
+                _this.cursor.x = (_this.x + _this._width) / 2;
+                break;
+            default:
+                _this.cursor.x = _this.x;
+        }
+        _this.selectionGraphics = new PIXI.Graphics();
+        _this.addChild(_this.selectionGraphics);
+        _this.field.on("textUpdated", function (char) {
+            this.positionCursor(char);
         });
-
-        _mapStyle.set(_this, []);
-
-        _customStyle.set(_this, {});
-
-        _textSupport.set(_this, document.createElement('div'));
-
-        _horizontalModule.set(_this, null);
-
-        _verticalModule.set(_this, null);
-
-        _customModule.set(_this, null);
-
-        _getMap.set(_this, function (nodes) {
-            var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ["text"];
-
-            for (var i = 0; i < nodes.length; i++) {
-                var _n = nodes[i];
-                if (_n.nodeName == "#text") {
-                    for (var j = 0; j < _n.length; j++) {
-                        _mapStyle.get(this).push({ char: _n.nodeValue[j], style: parent });
-                    }
-                } else {
-                    var arr = [];
-                    if (parent[0] == "text") {
-                        arr[0] = _n.nodeName.toLowerCase();
-                    } else {
-                        arr = parent.concat([]);
-                        arr.push(_n.nodeName.toLowerCase());
-                    }
-                    _getMap.get(this)(_n.childNodes, arr);
-                }
-            }
-        }.bind(_this));
-
-        _change.set(_this, function (diff) {
-            var count = 0;
-
-            for (var i = 0; i < diff.length; i++) {
-                if (diff[i][0] === 0) {
-                    for (var zi = 0; zi < diff[i][1].length; zi++) {
-
-                        if (_mapStyle.get(this)[count] == "text") {
-                            count++;
-                            continue;
-                        }
-                        this.children[count].setStyle(_customStyle.get(this)[_mapStyle.get(this)[count]]);
-                        count++;
-                    }
-                }
-
-                if (diff[i][0] == 1) {
-                    for (var zj = 0; zj < diff[i][1].length; zj++) {
-                        var st = _mapStyle.get(this)[count].style;
-                        var style = _buildStyle.get(this)(st);
-
-                        var char = new _Char2.default(diff[i][1].charAt(zj), style);
-
-                        this.addChildAt(char, count);
-                        count++;
-                    }
-                }
-
-                if (diff[i][0] == -1) {
-                    for (var k = 0; k < diff[i][1].length; k++) {
-                        var c = this.children[count];
-                        this.removeChild(c);
-                        c.destroy(true);
-                        c = null;
-                    }
-                }
-            }
-
-            _relocate.get(this)();
-        }.bind(_this));
-
-        _buildStyle.set(_this, function (styleRefs) {
-            var temp = {};
-
-            for (var j in _defaultStyle.get(this)) {
-                temp[j] = _defaultStyle.get(this)[j];
-            }
-
-            for (var i = 0; i < styleRefs.length; i++) {
-                if (styleRefs[i] === "text") {
-                    continue;
-                } else {
-                    var st = _customStyle.get(this)[styleRefs[i]];
-                    for (var k in st) {
-                        temp[k] = st[k];
-                    }
-                }
-            }
-
-            return temp;
-        }.bind(_this));
-
-        _relocate.set(_this, function () {
-
-            if (_text.get(this) == "") return;
-
-            if (_customAlign.get(this)) {
-                if (_customModule.get(this) === null) {
-                    _customModule.set(this, new _CustomModule2.default());
-                }
-
-                _customModule.get(this).typeAlign = this._typeAlign;
-                _customModule.get(this).align(this.children);
-                _blurinessFix.get(this)();
-                return;
-            }
-
-            if (isNaN(parseInt(_spaceBetweenWords.get(this)))) {
-                _spaceBetweenWords.set(this, -1);
-            }
-
-            if (isNaN(parseInt(_spaceBetweenLines.get(this)))) {
-                _spaceBetweenLines.set(this, -1);
-            }
-
-            if (_alignHorizontalPriority.get(this)) {
-                var _textAlign$get, _textLeftToRight$get, _textTopToBottom$get, _spaceBetweenLines$ge, _spaceBetweenWords$ge;
-
-                if (_horizontalModule.get(this) === null) {
-                    _horizontalModule.set(this, new _HorizontalModule2.default());
-                }
-
-                _horizontalModule.get(this)._textAlign = (_textAlign$get = _textAlign.get(this), _objectDestructuringEmpty(_textAlign$get), _textAlign$get);
-                _horizontalModule.get(this)._textLeftToRight = (_textLeftToRight$get = _textLeftToRight.get(this), _objectDestructuringEmpty(_textLeftToRight$get), _textLeftToRight$get);
-                _horizontalModule.get(this)._textTopToBottom = (_textTopToBottom$get = _textTopToBottom.get(this), _objectDestructuringEmpty(_textTopToBottom$get), _textTopToBottom$get);
-                _horizontalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge), _spaceBetweenLines$ge);
-                _horizontalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge), _spaceBetweenWords$ge);
-
-                _horizontalModule.get(this).relocate(_text.get(this), this.children, _width.get(this), _height.get(this));
-
-                if (this.children.length > 0) {
-                    this.emit('textupdated', this.children[this.children.length - 1]);
-                } else {
-                    this.emit('textupdated', null);
-                }
-                _blurinessFix.get(this)();
-                return;
-            }
-
-            if (!_alignHorizontalPriority.get(this)) {
-                var _textAlign$get2, _textLeftToRight$get2, _textTopToBottom$get2, _spaceBetweenLines$ge2, _spaceBetweenWords$ge2;
-
-                if (_verticalModule.get(this) === null) {
-                    _verticalModule.set(this, new _VerticalModule2.default());
-                }
-
-                _verticalModule.get(this)._textAlign = (_textAlign$get2 = _textAlign.get(this), _objectDestructuringEmpty(_textAlign$get2), _textAlign$get2);
-                _verticalModule.get(this)._textLeftToRight = (_textLeftToRight$get2 = _textLeftToRight.get(this), _objectDestructuringEmpty(_textLeftToRight$get2), _textLeftToRight$get2);
-                _verticalModule.get(this)._textTopToBottom = (_textTopToBottom$get2 = _textTopToBottom.get(this), _objectDestructuringEmpty(_textTopToBottom$get2), _textTopToBottom$get2);
-                _verticalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge2 = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge2), _spaceBetweenLines$ge2);
-                _verticalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge2 = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge2), _spaceBetweenWords$ge2);
-
-                _verticalModule.get(this).relocate(_text.get(this), this.children, _width.get(this), _height.get(this));
-
-                if (this.children.length > 0) {
-                    this.emit('textupdated', this.children[this.children.length - 1]);
-                } else {
-                    this.emit('textupdated', null);
-                }
-
-                _blurinessFix.get(this)();
-                return;
-            }
-        }.bind(_this));
-
-        _blurinessFix.set(_this, function () {
-            for (var i = 0; i < this.children.length; i++) {
-                this.children[i].x = Math.round(this.children[i].x);
-                this.children[i].y = Math.round(this.children[i].y);
-            }
-        }.bind(_this));
-
-        _width.set(_this, width);
-
-        _height.set(_this, height);
-
-        _hitArea.set(_this, new PIXI.Rectangle(0, 0, _width.get(_this), _height.get(_this)));
-
         return _this;
     }
 
-    _createClass(TextField, [{
+    _createClass(Input, [{
+        key: 'animateCursor',
+        value: function animateCursor() {
+            TweenMax.to(this.cursor, 0.5, {
+                alpha: 0,
+                yoyo: true,
+                repeat: -1
+            }, this);
+        }
+    }, {
         key: 'setText',
-        value: function setText(text) {
-            var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+        value: function setText(text, style) {
+            this.field.setText(text, style);
+        }
+    }, {
+        key: 'cursorSize',
+        value: function cursorSize(size) {
+            this.cursor.setStyle({ fontSize: size });
+        }
+    }, {
+        key: 'hideCursor',
+        value: function hideCursor(size) {
+            this.interactive = false;
+            TweenMax.killTweensOf(this.cursor);
+            this.cursor.alpha = 0;
+        }
+    }, {
+        key: 'addEvents',
+        value: function addEvents() {
+            this.interactive = true;
+            this.on('mousedown', this.focus, this);
+            this.on('touchstart', this.focus, this);
+            this.on('mouseup', this.stopSelecting, this);
+            this.on('touchend', this.stopSelecting, this);
+            this.on('mousemove', this.select, this);
+            this.on('touchmove', this.select, this);
+            this.on('mouseupoutside', this.stopSelecting, this);
+            this.on('touchendoutside', this.stopSelecting, this);
+        }
+    }, {
+        key: 'removeEvents',
+        value: function removeEvents() {
+            this.interactive = false;
+            this.removeListener('mousedown');
+            this.removeListener('touchstart');
+            this.removeListener('mouseup');
+            this.removeListener('touchend');
+            this.removeListener('mousemove');
+            this.removeListener('touchmove');
+            this.removeListener('mouseupoutside');
+            this.removeListener('touchendoutside');
+        }
+    }, {
+        key: 'focus',
+        value: function focus(e) {
 
-            _customStyle.set(this, style);
+            this.selectionStarted = true;
 
-            if (_customStyle.get(this).align) {
-                _textAlign.set(this, _customStyle.get(this).align);
+            this.initialChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
+
+            this.keyboardHandler = _KeyboardHandler2.default.getInstance();
+            this.keyboardHandler.focusedInput = this;
+        }
+    }, {
+        key: 'select',
+        value: function select(e) {
+            if (this._allowSelection && this.selectionStarted) {
+                var character = this.field.getCharAt(e.data.global.x, e.data.global.y);
+
+                if (character !== undefined) this.finalChar = character;
+
+                if (this.initialChar !== undefined && this.finalChar !== undefined && this.initialChar != this.finalChar) {
+                    this.drawSelection(this.field.getSelectionCoordinates(this.initialChar, this.finalChar));
+                }
+            }
+        }
+    }, {
+        key: 'stopSelecting',
+        value: function stopSelecting(e) {
+            var character = this.field.getCharAt(e.data.global.x, e.data.global.y);
+            if (character !== undefined) this.finalChar = character;
+
+            if (this.finalChar < this.initialChar) {
+                var charstorage;
+                charstorage = this.finalChar;
+                this.finalChar = this.initialChar;
+                this.initialChar = charstorage;
             }
 
-            if (_customStyle.get(this).spaceBetweenWords) {
-                _spaceBetweenWords.set(this, _customStyle.get(this).spaceBetweenWords);
+            if (this._allowSelection && this.selectionStarted) {
+                this.selectionStarted = false;
+                if (this.initialChar !== undefined && this.finalChar !== undefined && this.initialChar != this.finalChar) {
+                    this.drawSelection(this.field.getSelectionCoordinates(this.initialChar, this.finalChar));
+                }
             }
-
-            if (_customStyle.get(this).spaceBetweenLines) {
-                _spaceBetweenLines.set(this, _customStyle.get(this).spaceBetweenLines);
+            if (this.initialChar == this.finalChar) {
+                this.selectionGraphics.clear();
+                this.positionCursor(this.field.children[this.finalChar]);
             }
-
-            if (_customStyle.get(this).leftToRight) {
-                _textLeftToRight.set(this, _customStyle.get(this).leftToRight);
+        }
+    }, {
+        key: 'drawSelection',
+        value: function drawSelection(coords) {
+            this.selectionGraphics.clear();
+            for (var i = 0; i < coords.length; i++) {
+                this.selectionGraphics.beginFill(0x0000ff, 0.1);
+                this.selectionGraphics.drawRect(coords[i].x, coords[i].y, coords[i].width, coords[i].height);
+                this.selectionGraphics.endFill();
             }
+        }
+    }, {
+        key: 'showCursor',
+        value: function showCursor() {
+            this.positionCursor(this.field.children[this.field.children.length - 1]);
+            this.initialChar = this.field.children.length - 1;
+            this.finalChar = this.field.children.length - 1;
+            this.cursorDirection = 1;
 
-            if (_customStyle.get(this).topToBottom) {
-                _textTopToBottom.set(this, _customStyle.get(this).topToBottom);
+            this.keyboardHandler = _KeyboardHandler2.default.getInstance();
+            this.keyboardHandler.focusedInput = this;
+
+            this.cursorAnimation();
+        }
+    }, {
+        key: 'cursorAnimation',
+        value: function cursorAnimation() {
+            this.cursor.alpha = 1;
+            var cursor = this.cursor;
+
+            this.showCursor = setInterval(function () {
+                if (this.cursorDirection == 1) {
+                    cursor.alpha += 0.3;
+                } else {
+                    cursor.alpha -= 0.3;
+                }
+                if (cursor.alpha >= 1) {
+                    this.cursorDirection = 0;
+                }
+                if (cursor.alpha <= 0) {
+                    this.cursorDirection = 1;
+                }
+            }, 130);
+        }
+    }, {
+        key: 'setWordStyle',
+        value: function setWordStyle(word, style) {
+            this.field.setWordStyle(word, style);
+        }
+    }, {
+        key: 'setStyle',
+        value: function setStyle(style) {
+            this.field.setStyle(style);
+        }
+    }, {
+        key: 'hideCursor',
+        value: function hideCursor() {
+            clearInterval(this.showCursor);
+            this.cursor.alpha = 0;
+        }
+    }, {
+        key: 'positionCursor',
+        value: function positionCursor(character) {
+            if (character === undefined) {
+                character = null;
             }
+            if (character === null) {
 
-            if (_customStyle.get(this).horizontalPriority) {
-                _alignHorizontalPriority.set(this, _customStyle.get(this).horizontalPriority);
+                if (this.field.text.length !== 0) return;
+
+                if (this.field.align == "left" || this.field.align == "justify") {
+                    this.cursor.x = 2;
+                    this.cursor.y = 0;
+                }
+                if (this.field.align == "center") {
+                    this.cursor.x = this._width / 2;
+                    this.cursor.y = 0;
+                }
+                if (this.field.align == "right") {
+                    this.cursor.x = this.width - 3;
+                    this.cursor.y = 0;
+                }
+            } else {
+                this.cursor.setStyle({ fontSize: character.style.fontSize });
+                this.cursor.x = Math.round(character.x + character.vwidth - character.style.fontSize / 10);
+                this.cursor.y = character.y;
             }
+        }
+    }, {
+        key: 'text',
+        get: function get() {
+            return this.field._text;
+        },
+        set: function set(text) {
+            this.field.setText(text);
+        }
 
-            _textSupport.get(this).innerHTML = text;
+        //TODO
 
-            _mapStyle.get(this).splice(0, _mapStyle.get(this).length);
+    }, {
+        key: 'textStyle',
+        get: function get() {
+            return this.field._text;
+        },
+        set: function set(text) {
+            this.field.setText(text);
+        }
+        //TODO
 
-            _getMap.get(this)(_textSupport.get(this).childNodes);
-
-            var oldText = _text.get(this);
-
-            _text.set(this, _textSupport.get(this).innerText);
-
-            var diff = JsDiff.diffChars(oldText, _text.get(this));
-            _change.get(this)(JsDiff.convertChangesToDMP(diff));
+    }, {
+        key: 'align',
+        get: function get() {
+            return this.field.align;
+        },
+        set: function set(value) {
+            this.field.align = value;
+        }
+    }, {
+        key: 'defaultStyle',
+        get: function get() {
+            return this.field.defaultStyle;
+        },
+        set: function set(value) {
+            this.field.defaultStyle = value;
+        }
+    }, {
+        key: 'width',
+        get: function get() {
+            return this._width;
+        },
+        set: function set(value) {
+            var width = this.getLocalBounds().width;
+            if (width !== 0) {
+                this.scale.x = value / width;
+            } else {
+                this.scale.x = 1;
+            }
+            this._width = value;
         }
     }, {
         key: 'textLeftToRight',
         get: function get() {
-            return _textLeftToRight.get(this);
+            return this.field.textLeftToRight;
         },
         set: function set(value) {
-            _textLeftToRight.set(this, value);
-
-            _relocate.get(this)();
+            this.field.textLeftToRight = value;
         }
     }, {
         key: 'textTopToBottom',
         get: function get() {
-            return _textTopToBottom.get(this);
+            return this.field.textTopToBottom;
         },
         set: function set(value) {
-            _textTopToBottom.set(this, value);
-
-            _relocate.get(this)();
+            this.field.textTopToBottom = value;
         }
     }, {
         key: 'alignHorizontalPriority',
         get: function get() {
-            return _alignHorizontalPriority.get(this);
+            return this.field._alignHorizontalPriority;
         },
         set: function set(value) {
-            _alignHorizontalPriority.set(this, value);
-
-            _relocate.get(this)();
+            this.field._alignHorizontalPriority = value;
         }
     }, {
         key: 'customAlign',
         get: function get() {
-            return _customAlign.get(this);
+            return this.field._customAlign;
         },
         set: function set(value) {
-            _customAlign.set(this, value);
-
-            _relocate.get(this)();
+            this.field._customAlign = value;
         }
     }, {
-        key: 'typeAlign',
+        key: 'allowSelection',
         get: function get() {
-            return this._typeAlign;
+            return this._allowSelection;
         },
         set: function set(value) {
-            this._typeAlign = value;
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'align',
-        get: function get() {
-            return _textAlign.get(this);
-        },
-        set: function set(value) {
-            _textAlign.set(this, value);
-
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'spaceBetweenLines',
-        get: function get() {
-            return _spaceBetweenLines.get(this);
-        },
-        set: function set(value) {
-            _spaceBetweenLines.set(this, value);
-
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'spaceBetweenWords',
-        get: function get() {
-            return _spaceBetweenWords.get(this);
-        },
-        set: function set(value) {
-            _spaceBetweenWords.set(this, value);
-
-            _relocate.get(this)();
+            this._allowSelection;
         }
     }]);
 
-    return TextField;
+    return Input;
 }(PIXI.Container)) || _class;
 
-exports.default = TextField;
+exports.default = Input;
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8333,7 +8818,7 @@ exports.default = TypeAlign;
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -9157,7 +9642,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9188,7 +9673,7 @@ function convertChangesToDMP(changes) {
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9230,7 +9715,7 @@ function escapeHTML(s) {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9259,7 +9744,7 @@ function diffArrays(oldArr, newArr, callback) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9284,7 +9769,7 @@ function diffChars(oldStr, newStr, callback) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9313,7 +9798,7 @@ function diffCss(oldStr, newStr, callback) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9333,7 +9818,7 @@ var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore en
 var _base2 = _interopRequireDefault(_base);
 
 /*istanbul ignore end*/
-var /*istanbul ignore start*/_line = __webpack_require__(9) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_line = __webpack_require__(11) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -9429,7 +9914,7 @@ function canonicalize(obj, stack, replacementStack) {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9458,7 +9943,7 @@ function diffSentences(oldStr, newStr, callback) {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9475,7 +9960,7 @@ var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore en
 var _base2 = _interopRequireDefault(_base);
 
 /*istanbul ignore end*/
-var /*istanbul ignore start*/_params = __webpack_require__(14) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_params = __webpack_require__(17) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -9535,7 +10020,7 @@ function diffWordsWithSpace(oldStr, newStr, callback) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9550,29 +10035,29 @@ var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore en
 var _base2 = _interopRequireDefault(_base);
 
 /*istanbul ignore end*/
-var /*istanbul ignore start*/_character = __webpack_require__(40) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_character = __webpack_require__(41) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_word = __webpack_require__(44) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_word = __webpack_require__(45) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_line = __webpack_require__(9) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_line = __webpack_require__(11) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_sentence = __webpack_require__(43) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_sentence = __webpack_require__(44) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_css = __webpack_require__(41) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_css = __webpack_require__(42) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_json = __webpack_require__(42) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_json = __webpack_require__(43) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_array = __webpack_require__(39) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_array = __webpack_require__(40) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_apply = __webpack_require__(46) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_apply = __webpack_require__(47) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_parse = __webpack_require__(13) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_parse = __webpack_require__(16) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_create = __webpack_require__(47) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_create = __webpack_require__(48) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_dmp = __webpack_require__(37) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_dmp = __webpack_require__(38) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_xml = __webpack_require__(38) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_xml = __webpack_require__(39) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -9615,7 +10100,7 @@ exports. /*istanbul ignore end*/Diff = _base2['default'];
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9625,9 +10110,9 @@ exports.__esModule = true;
 exports. /*istanbul ignore end*/applyPatch = applyPatch;
 /*istanbul ignore start*/exports. /*istanbul ignore end*/applyPatches = applyPatches;
 
-var /*istanbul ignore start*/_parse = __webpack_require__(13) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_parse = __webpack_require__(16) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_distanceIterator = __webpack_require__(48) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_distanceIterator = __webpack_require__(49) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 var _distanceIterator2 = _interopRequireDefault(_distanceIterator);
@@ -9799,7 +10284,7 @@ function applyPatches(uniDiff, options) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9810,7 +10295,7 @@ exports. /*istanbul ignore end*/structuredPatch = structuredPatch;
 /*istanbul ignore start*/exports. /*istanbul ignore end*/createTwoFilesPatch = createTwoFilesPatch;
 /*istanbul ignore start*/exports. /*istanbul ignore end*/createPatch = createPatch;
 
-var /*istanbul ignore start*/_line = __webpack_require__(9) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_line = __webpack_require__(11) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -9962,7 +10447,7 @@ function createPatch(fileName, oldStr, newStr, oldHeader, newHeader, options) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10016,7 +10501,7 @@ exports["default"] = /*istanbul ignore end*/function (start, minLine, maxLine) {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports) {
 
 var TINF_OK = 0;
@@ -10397,7 +10882,7 @@ module.exports = tinf_uncompress;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10417,7 +10902,7 @@ exports.line = line;
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10426,11 +10911,11 @@ exports.line = line;
 
 
 var path = __webpack_require__(6);
-var sfnt = __webpack_require__(60);
-var encoding = __webpack_require__(7);
-var glyphset = __webpack_require__(10);
-var Substitution = __webpack_require__(54);
-var util = __webpack_require__(30);
+var sfnt = __webpack_require__(61);
+var encoding = __webpack_require__(8);
+var glyphset = __webpack_require__(13);
+var Substitution = __webpack_require__(55);
+var util = __webpack_require__(32);
 
 /**
  * @typedef FontOptions
@@ -10897,7 +11382,7 @@ Font.prototype.download = function(fileName) {
             throw new Error(err.name + ': ' + err.message);
         });
     } else {
-        var fs = __webpack_require__(11);
+        var fs = __webpack_require__(14);
         var buffer = util.arrayBufferToNodeBuffer(arrayBuffer);
         fs.writeFileSync(fileName, buffer);
     }
@@ -10952,7 +11437,7 @@ exports.Font = Font;
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11241,7 +11726,7 @@ module.exports = Layout;
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11254,33 +11739,33 @@ module.exports = Layout;
 
 
 
-var inflate = __webpack_require__(49);
+var inflate = __webpack_require__(50);
 
-var encoding = __webpack_require__(7);
-var _font = __webpack_require__(51);
-var glyph = __webpack_require__(17);
+var encoding = __webpack_require__(8);
+var _font = __webpack_require__(52);
+var glyph = __webpack_require__(19);
 var parse = __webpack_require__(0);
-var bbox = __webpack_require__(16);
+var bbox = __webpack_require__(18);
 var path = __webpack_require__(6);
-var util = __webpack_require__(30);
+var util = __webpack_require__(32);
 
-var cmap = __webpack_require__(19);
-var cff = __webpack_require__(18);
-var fvar = __webpack_require__(55);
-var glyf = __webpack_require__(56);
-var gpos = __webpack_require__(57);
-var gsub = __webpack_require__(20);
-var head = __webpack_require__(21);
-var hhea = __webpack_require__(22);
-var hmtx = __webpack_require__(23);
-var kern = __webpack_require__(58);
-var ltag = __webpack_require__(24);
-var loca = __webpack_require__(59);
-var maxp = __webpack_require__(25);
-var _name = __webpack_require__(27);
-var os2 = __webpack_require__(28);
-var post = __webpack_require__(29);
-var meta = __webpack_require__(26);
+var cmap = __webpack_require__(21);
+var cff = __webpack_require__(20);
+var fvar = __webpack_require__(56);
+var glyf = __webpack_require__(57);
+var gpos = __webpack_require__(58);
+var gsub = __webpack_require__(22);
+var head = __webpack_require__(23);
+var hhea = __webpack_require__(24);
+var hmtx = __webpack_require__(25);
+var kern = __webpack_require__(59);
+var ltag = __webpack_require__(26);
+var loca = __webpack_require__(60);
+var maxp = __webpack_require__(27);
+var _name = __webpack_require__(29);
+var os2 = __webpack_require__(30);
+var post = __webpack_require__(31);
+var meta = __webpack_require__(28);
 
 /**
  * The opentype library.
@@ -11295,7 +11780,7 @@ var meta = __webpack_require__(26);
  * @param  {Function} callback - The function to call when the font load completes
  */
 function loadFromFile(path, callback) {
-    var fs = __webpack_require__(11);
+    var fs = __webpack_require__(14);
     fs.readFile(path, function(err, buffer) {
         if (err) {
             return callback(err.message);
@@ -11622,7 +12107,7 @@ function load(url, callback) {
  * @return {opentype.Font}
  */
 function loadSync(url) {
-    var fs = __webpack_require__(11);
+    var fs = __webpack_require__(14);
     var buffer = fs.readFileSync(url);
     return parseBuffer(util.nodeBufferToArrayBuffer(buffer));
 }
@@ -11638,7 +12123,7 @@ exports.loadSync = loadSync;
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11648,7 +12133,7 @@ exports.loadSync = loadSync;
 
 
 var check = __webpack_require__(1);
-var Layout = __webpack_require__(52);
+var Layout = __webpack_require__(53);
 
 /**
  * @exports opentype.Substitution
@@ -11946,7 +12431,7 @@ module.exports = Substitution;
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12092,7 +12577,7 @@ exports.parse = parseFvarTable;
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12102,7 +12587,7 @@ exports.parse = parseFvarTable;
 
 
 var check = __webpack_require__(1);
-var glyphset = __webpack_require__(10);
+var glyphset = __webpack_require__(13);
 var parse = __webpack_require__(0);
 var path = __webpack_require__(6);
 
@@ -12434,7 +12919,7 @@ exports.parse = parseGlyfTable;
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12678,7 +13163,7 @@ exports.parse = parseGposTable;
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12756,7 +13241,7 @@ exports.parse = parseKernTable;
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12796,7 +13281,7 @@ exports.parse = parseLocaTable;
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12811,18 +13296,18 @@ exports.parse = parseLocaTable;
 var check = __webpack_require__(1);
 var table = __webpack_require__(2);
 
-var cmap = __webpack_require__(19);
-var cff = __webpack_require__(18);
-var head = __webpack_require__(21);
-var hhea = __webpack_require__(22);
-var hmtx = __webpack_require__(23);
-var ltag = __webpack_require__(24);
-var maxp = __webpack_require__(25);
-var _name = __webpack_require__(27);
-var os2 = __webpack_require__(28);
-var post = __webpack_require__(29);
-var gsub = __webpack_require__(20);
-var meta = __webpack_require__(26);
+var cmap = __webpack_require__(21);
+var cff = __webpack_require__(20);
+var head = __webpack_require__(23);
+var hhea = __webpack_require__(24);
+var hmtx = __webpack_require__(25);
+var ltag = __webpack_require__(26);
+var maxp = __webpack_require__(27);
+var _name = __webpack_require__(29);
+var os2 = __webpack_require__(30);
+var post = __webpack_require__(31);
+var gsub = __webpack_require__(22);
+var meta = __webpack_require__(28);
 
 function log2(v) {
     return Math.log(v) / Math.log(2) | 0;
@@ -13145,7 +13630,7 @@ exports.fontToTable = fontToSfntTable;
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports) {
 
 var g;
@@ -13172,7 +13657,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13186,9 +13671,9 @@ module.exports = g;
 
 
 
-var base64 = __webpack_require__(63)
-var ieee754 = __webpack_require__(64)
-var isArray = __webpack_require__(65)
+var base64 = __webpack_require__(64)
+var ieee754 = __webpack_require__(65)
+var isArray = __webpack_require__(66)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -14966,10 +15451,10 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(61)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(62)))
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15090,7 +15575,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -15180,7 +15665,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -15191,7 +15676,209 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _class2, _temp;
+
+var _autobindDecorator = __webpack_require__(3);
+
+var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
+
+var _TextField = __webpack_require__(7);
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+var _eventemitter = __webpack_require__(12);
+
+var _eventemitter2 = _interopRequireDefault(_eventemitter);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var KeyboardHandler = (0, _autobindDecorator2.default)(_class = (_temp = _class2 = function (_EventEmiter) {
+    _inherits(KeyboardHandler, _EventEmiter);
+
+    function KeyboardHandler() {
+        _classCallCheck(this, KeyboardHandler);
+
+        var _this = _possibleConstructorReturn(this, (KeyboardHandler.__proto__ || Object.getPrototypeOf(KeyboardHandler)).call(this));
+
+        if (KeyboardHandler.instance !== null) {
+            throw "Singleton:: use KeyboardHandler.getInstance()";
+        }
+
+        _this.instance = _this;
+
+        _this._focusedInput = null;
+
+        _this.startMonitor();
+        return _this;
+    }
+
+    _createClass(KeyboardHandler, [{
+        key: 'startMonitor',
+        value: function startMonitor() {
+
+            var self = this;
+
+            window.document.onkeydown = function (e) {
+                self._hardKeyboard.call(self, e);
+            };
+        }
+    }, {
+        key: '_hardKeyboard',
+        value: function _hardKeyboard(e) {
+
+            this._focusedInput.selectionGraphics.clear();
+
+            if (e.key.match(/backspace/i) !== null) {
+
+                var text = this._focusedInput.text;
+                var textSliced = "";
+
+                if (this._focusedInput.initialChar <= this._focusedInput.finalChar) {
+                    if (this._focusedInput.initialChar == this._focusedInput.finalChar) {
+                        textSliced = text.substring(0, this._focusedInput.initialChar) + text.substring(++this._focusedInput.finalChar);
+                    } else {
+                        textSliced = text.substring(0, this._focusedInput.initialChar) + text.substring(++this._focusedInput.finalChar);
+                        this._focusedInput.finalChar = this._focusedInput.initialChar;
+                    }
+                } else {
+                    textSliced = text.substring(0, this._focusedInput.finalChar) + text.substring(++this._focusedInput.initialChar);
+                    this._focusedInput.initialChar = this._focusedInput.finalChar;
+                }
+
+                this._focusedInput.setText(textSliced);
+                this._focusedInput.initialChar--;
+                if (this._focusedInput.initialChar < 0) this._focusedInput.initialChar = 0;
+                this._focusedInput.finalChar = this._focusedInput.initialChar;
+                this._focusedInput.positionCursor(this._focusedInput.field.children[this._focusedInput.initialChar]);
+
+                return;
+            }
+
+            if (e.key.match(/delete/i) !== null) {
+                var text = this._focusedInput.text;
+                var textSliced = "";
+
+                if (this._focusedInput.initialChar <= this._focusedInput.finalChar) {
+                    if (this._focusedInput.initialChar == this._focusedInput.finalChar) {
+                        textSliced = text.substring(0, ++this._focusedInput.initialChar) + text.substring(this._focusedInput.finalChar + 2);
+                    } else {
+                        textSliced = text.substring(0, this._focusedInput.initialChar) + text.substring(++this._focusedInput.finalChar);
+                        this._focusedInput.finalChar = this._focusedInput.initialChar;
+                    }
+                } else {
+                    textSliced = text.substring(0, this._focusedInput.finalChar) + text.substring(this._focusedInput.initialChar + 2);
+                    this._focusedInput.initialChar = this._focusedInput.finalChar;
+                }
+
+                this._focusedInput.setText(textSliced);
+                this._focusedInput.initialChar--;
+                if (this._focusedInput.initialChar < 0) this._focusedInput.initialChar = 0;
+                this._focusedInput.finalChar = this._focusedInput.initialChar;
+                this._focusedInput.positionCursor(this._focusedInput.field.children[this._focusedInput.initialChar]);
+
+                return;
+            }
+
+            if (e.key.match(/arrow/i) !== null) {
+
+                if (e.key.match(/left/i) !== null) {
+                    if (this._focusedInput.initialChar != 0) this._focusedInput.initialChar--;
+
+                    this._focusedInput.positionCursor(this._focusedInput.field.children[this._focusedInput.initialChar]);
+                    this._focusedInput.finalChar = this._focusedInput.initialChar;
+                }
+
+                if (e.key.match(/right/i) !== null) {
+                    if (this._focusedInput.finalChar < this._focusedInput.text.length) this._focusedInput.finalChar++;
+                    this._focusedInput.positionCursor(this._focusedInput.field.children[this._focusedInput.finalChar]);
+                    this._focusedInput.initialChar = this._focusedInput.finalChar;
+                }
+
+                return;
+            }
+
+            if (e.key.match(/control/i) === null && e.key.match(/shift/i) === null && e.key.match(/dead/i) === null && e.key.match(/alt/i) === null && e.key.match(/meta/i) === null && e.key.match(/contextmenu/i) === null && (e.key.length == 1 || e.key.match(/enter/i) !== null)) {
+                var value = e.key;
+                if (value.match(/enter/i) !== null) {
+                    value = "\n";
+                }
+
+                var text = this._focusedInput.text;
+
+                var textSliced = "";
+
+                if (this._focusedInput.initialChar <= this._focusedInput.finalChar) {
+                    if (this._focusedInput.initialChar == this._focusedInput.finalChar) {
+                        textSliced = text.substring(0, ++this._focusedInput.initialChar) + value + text.substring(++this._focusedInput.finalChar);
+                    } else {
+
+                        textSliced = text.substring(0, this._focusedInput.initialChar) + value + text.substring(++this._focusedInput.finalChar);
+                        this._focusedInput.finalChar = this._focusedInput.initialChar;
+                    }
+                } else {
+                    textSliced = text.substring(0, this._focusedInput.finalChar) + value + text.substring(++this._focusedInput.initialChar);
+                    this._focusedInput.initialChar = this._focusedInput.finalChar;
+                }
+
+                this._focusedInput.setText(textSliced);
+                this._focusedInput.positionCursor(this._focusedInput.field.children[this._focusedInput.initialChar]);
+
+                return;
+            }
+        }
+    }, {
+        key: 'focusedInput',
+        set: function set(value) {
+            this._focusedInput = value;
+        },
+        get: function get() {
+            return this._focusedInput;
+        }
+    }], [{
+        key: 'getInstance',
+        value: function getInstance() {
+            if (KeyboardHandler.instance === null) {
+                KeyboardHandler.instance = new KeyboardHandler();
+            }
+
+            return KeyboardHandler.instance;
+        }
+    }, {
+        key: 'instance',
+        get: function get() {
+            return this._instance;
+        },
+        set: function set(value) {
+            this._instance = value;
+        }
+    }]);
+
+    return KeyboardHandler;
+}(_eventemitter2.default), _class2._instance = null, _temp)) || _class;
+
+exports.default = KeyboardHandler;
+
+
+/***/ }),
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15294,7 +15981,7 @@ exports.default = CustomModule;
 
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15312,11 +15999,11 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _Phrase = __webpack_require__(31);
+var _Phrase = __webpack_require__(33);
 
 var _Phrase2 = _interopRequireDefault(_Phrase);
 
-var _Word = __webpack_require__(32);
+var _Word = __webpack_require__(34);
 
 var _Word2 = _interopRequireDefault(_Word);
 
@@ -16388,6 +17075,11 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
         * @param lines Array of lines to be repositioned {Array}
         */
 
+    }, {
+        key: 'lines',
+        get: function get() {
+            return _lines.get(this);
+        }
     }]);
 
     return HorizontalModule;
@@ -16397,7 +17089,7 @@ exports.default = HorizontalModule;
 
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16415,11 +17107,11 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _Phrase = __webpack_require__(31);
+var _Phrase = __webpack_require__(33);
 
 var _Phrase2 = _interopRequireDefault(_Phrase);
 
-var _Word = __webpack_require__(32);
+var _Word = __webpack_require__(34);
 
 var _Word2 = _interopRequireDefault(_Word);
 
@@ -17434,7 +18126,7 @@ exports.default = VerticalModule;
 
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17452,7 +18144,7 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _Loader = __webpack_require__(33);
+var _Loader = __webpack_require__(15);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
@@ -17460,17 +18152,21 @@ var _Metrics = __webpack_require__(5);
 
 var _Metrics2 = _interopRequireDefault(_Metrics);
 
-var _Char = __webpack_require__(12);
+var _Char = __webpack_require__(10);
 
 var _Char2 = _interopRequireDefault(_Char);
 
-var _TextField = __webpack_require__(34);
+var _TextField = __webpack_require__(7);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
-var _TypeAlign = __webpack_require__(35);
+var _TypeAlign = __webpack_require__(36);
 
 var _TypeAlign2 = _interopRequireDefault(_TypeAlign);
+
+var _Input = __webpack_require__(35);
+
+var _Input2 = _interopRequireDefault(_Input);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17482,13 +18178,14 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.2.6';
+        this.version = '1.2.12';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
             Char: _Char2.default,
             TextField: _TextField2.default,
-            TypeAlign: _TypeAlign2.default
+            TypeAlign: _TypeAlign2.default,
+            Input: _Input2.default
 
         };
 

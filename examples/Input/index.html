@@ -1,0 +1,102 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Type exemple</title>
+
+    <script src="./lib/pixi/pixi.js" charset="utf-8"></script>
+    <script src="./lib/type.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+</head>
+
+<body>
+    <script>
+
+        var fontLibrary = [{
+            name: 'arcena',
+            url: 'fonts/arcena.ttf'
+        }, {
+            name: 'playtime',
+            url: 'fonts/playtime-webfont.ttf'
+        }, {
+            name: 'maria',
+            url: 'fonts/maria_lucia.ttf'
+        }, {
+            name: 'century',
+            url: 'fonts/century.ttf'
+        }, {
+            name: 'escolar',
+            url: 'fonts/escolar8.ttf'
+        }];
+
+        var loader = new type.Loader();
+        loader.add('playtime', 'fonts/playtime-webfont.ttf');
+        loader.add('escolar', 'fonts/escolar8.ttf');
+        loader.add('century', 'fonts/century.ttf');
+        loader.once('loadComplete', init);
+        loader.load();
+
+        var count = 0;
+
+        function init() {
+            var renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, {
+                transparent: true
+            });
+
+            document.body.appendChild(renderer.view);
+            var dom = renderer.view;
+            dom.style.position = "absolute";
+            document.body.style.margin = '0px';
+
+
+            var stage = new PIXI.Container();
+            var txField = new type.text.Input(window.innerWidth - 100, window.innerHeight - 100);
+
+            txField.x += 50;
+            txField.spaceBetweenLines = 20;
+            txField.align = "center";
+
+
+            txField.setText(
+                "<a>Nada do que é social e</a>",
+                {a: {
+                    fontFamily: "playtime",
+                    fontSize: 50
+                }}
+            );
+
+            txField.defaultStyle = {
+                fontFamily: "playtime",
+                fontSize: 50
+            };
+
+
+            stage.addChild(txField);
+
+
+            animate();
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                renderer.render(stage);
+            }
+
+            function startDemo() {
+
+                txField.addEvents();
+                txField.showCursor();
+
+
+            }
+
+            startDemo();
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>

@@ -3,6 +3,7 @@ import EventEmiter from 'eventemitter3';
 import Font from '../../lib/Font';
 
 import Metrics from './Metrics';
+import TextField from './text/TextField.js'
 
 
 @autobind
@@ -19,6 +20,23 @@ class Loader extends EventEmiter{
 
     add(name, url){
         this.library[name] = url;
+
+        if (Loader.defaultStyle.fontFamily === undefined) {
+            Loader.defaultStyle.fontFamily = name;
+        }
+    }
+
+    static _defaultStyle = {
+        fontSize: 20,
+        fill: '#000000'
+    };
+
+    static get defaultStyle() {
+        return this._defaultStyle;
+    }
+
+    static set defaultStyle(value) {
+        this.setText(_defaultStyle);
     }
 
     load(){
