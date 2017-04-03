@@ -3,7 +3,7 @@ Type for PIXI
 
 ![Type logo](http://www.studiokori.com.br/Type_logo.png)
 
-Type for PIXI is a powerfull tool for working with texts on HTML 5 canvas.
+Type for PIXI is a powerfull tool to work with texts on HTML 5 canvas.
 
 
 -------------
@@ -16,6 +16,7 @@ Type for PIXI is a powerfull tool for working with texts on HTML 5 canvas.
 - Suports any Font
 - Line Spacing
 - Word Spacing
+- Input
 
 -------------
 
@@ -130,7 +131,7 @@ If you don't already have Node.js and NPM, go install them. Once you do, you can
 
     npm install -g grunt-cli
 
-After that you can the install the project modules at the project root file:
+After that you can install the project modules at the project root file:
 
     npm install
 
@@ -142,7 +143,6 @@ Then, to build the source, run:
 
 ####Plans
 
-- Input
 - More customizations
 - Softkeyboard
 - Cursor

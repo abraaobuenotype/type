@@ -558,8 +558,8 @@ exports.assert = exports.argument;
 
 
 var check = __webpack_require__(1);
-var encode = __webpack_require__(8).encode;
-var sizeOf = __webpack_require__(8).sizeOf;
+var encode = __webpack_require__(9).encode;
+var sizeOf = __webpack_require__(9).sizeOf;
 /**
  * @exports opentype.Table
  * @class
@@ -1185,7 +1185,6 @@ var Metrics = (0, _autobindDecorator2.default)(_class = (_temp = _class2 = funct
     }, {
         key: 'loadFromUrl',
         value: function loadFromUrl(url, callback) {
-            console.log(url);
             var request = new XMLHttpRequest();
             request.open('get', url, true);
             request.responseType = 'arraybuffer';
@@ -1281,7 +1280,7 @@ exports.default = Metrics;
 
 
 
-var bbox = __webpack_require__(17);
+var bbox = __webpack_require__(18);
 
 /**
  * A bézier path containing a set of path commands similar to a SVG path.
@@ -1600,6 +1599,566 @@ exports.Path = Path;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
+
+var _autobindDecorator = __webpack_require__(3);
+
+var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
+
+var _Char = __webpack_require__(10);
+
+var _Char2 = _interopRequireDefault(_Char);
+
+var _HorizontalModule = __webpack_require__(69);
+
+var _HorizontalModule2 = _interopRequireDefault(_HorizontalModule);
+
+var _VerticalModule = __webpack_require__(70);
+
+var _VerticalModule2 = _interopRequireDefault(_VerticalModule);
+
+var _CustomModule = __webpack_require__(68);
+
+var _CustomModule2 = _interopRequireDefault(_CustomModule);
+
+var _Loader = __webpack_require__(15);
+
+var _Loader2 = _interopRequireDefault(_Loader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var JsDiff = __webpack_require__(46);
+
+var _width = new WeakMap();
+
+var _height = new WeakMap();
+
+var _hitArea = new WeakMap();
+
+var _box = new WeakMap();
+
+var _map = new WeakMap();
+
+var _customAlign = new WeakMap();
+
+var _spaceBetweenLines = new WeakMap();
+
+var _spaceBetweenWords = new WeakMap();
+
+var _textAlign = new WeakMap();
+
+var _textLeftToRight = new WeakMap();
+
+var _textTopToBottom = new WeakMap();
+
+var _alignHorizontalPriority = new WeakMap();
+
+var _defaultStyle = new WeakMap();
+
+var _mapStyle = new WeakMap();
+
+var _customStyle = new WeakMap();
+
+var _textSupport = new WeakMap();
+
+var _horizontalModule = new WeakMap();
+
+var _verticalModule = new WeakMap();
+
+var _customModule = new WeakMap();
+
+var _getMap = new WeakMap();
+
+var _change = new WeakMap();
+
+var _buildStyle = new WeakMap();
+
+var _relocate = new WeakMap();
+
+var _blurinessFix = new WeakMap();
+
+var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container) {
+    _inherits(TextField, _PIXI$Container);
+
+    function TextField() {
+        var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 2048;
+        var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1152;
+
+        _classCallCheck(this, TextField);
+
+        var _this = _possibleConstructorReturn(this, (TextField.__proto__ || Object.getPrototypeOf(TextField)).call(this));
+
+        _this._text = "";
+
+        _width.set(_this, 0);
+
+        _height.set(_this, 0);
+
+        _hitArea.set(_this, null);
+
+        _box.set(_this, null);
+
+        _map.set(_this, {});
+
+        _customAlign.set(_this, false);
+
+        _spaceBetweenLines.set(_this, 0);
+
+        _spaceBetweenWords.set(_this, -1);
+
+        _textAlign.set(_this, "left");
+
+        _textLeftToRight.set(_this, true);
+
+        _textTopToBottom.set(_this, true);
+
+        _alignHorizontalPriority.set(_this, true);
+
+        _defaultStyle.set(_this, _Loader2.default.defaultStyle);
+
+        _mapStyle.set(_this, []);
+
+        _customStyle.set(_this, {});
+
+        _textSupport.set(_this, document.createElement('div'));
+
+        _horizontalModule.set(_this, null);
+
+        _verticalModule.set(_this, null);
+
+        _customModule.set(_this, null);
+
+        _getMap.set(_this, function (nodes) {
+            var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ["text"];
+
+            for (var i = 0; i < nodes.length; i++) {
+                var _n = nodes[i];
+                if (_n.nodeName == "#text") {
+                    for (var j = 0; j < _n.length; j++) {
+                        _mapStyle.get(this).push({ char: _n.nodeValue[j], style: parent });
+                    }
+                } else {
+                    var arr = [];
+                    if (parent[0] == "text") {
+                        arr[0] = _n.nodeName.toLowerCase();
+                    } else {
+                        arr = parent.concat([]);
+                        arr.push(_n.nodeName.toLowerCase());
+                    }
+                    _getMap.get(this)(_n.childNodes, arr);
+                }
+            }
+        }.bind(_this));
+
+        _change.set(_this, function (diff) {
+            var count = 0;
+
+            for (var i = 0; i < diff.length; i++) {
+                if (diff[i][0] === 0) {
+                    for (var zi = 0; zi < diff[i][1].length; zi++) {
+
+                        if (_mapStyle.get(this)[count] == "text") {
+                            count++;
+                            continue;
+                        }
+                        this.children[count].setStyle(_customStyle.get(this)[_mapStyle.get(this)[count]]);
+                        count++;
+                    }
+                }
+
+                if (diff[i][0] == 1) {
+                    for (var zj = 0; zj < diff[i][1].length; zj++) {
+                        var st = _mapStyle.get(this)[count].style;
+                        var style = _buildStyle.get(this)(st);
+                        var char = new _Char2.default(diff[i][1].charAt(zj), style);
+
+                        this.addChildAt(char, count);
+                        count++;
+                    }
+                }
+
+                if (diff[i][0] == -1) {
+                    for (var k = 0; k < diff[i][1].length; k++) {
+                        var c = this.children[count];
+                        this.removeChild(c);
+                        c.destroy(true);
+                        c = null;
+                    }
+                }
+            }
+
+            _relocate.get(this)();
+        }.bind(_this));
+
+        _buildStyle.set(_this, function (styleRefs) {
+            var temp = {};
+
+            for (var j in _defaultStyle.get(this)) {
+                temp[j] = _defaultStyle.get(this)[j];
+            }
+
+            for (var i = 0; i < styleRefs.length; i++) {
+                if (styleRefs[i] === "text") {
+                    continue;
+                } else {
+                    var st = _customStyle.get(this)[styleRefs[i]];
+                    for (var k in st) {
+                        temp[k] = st[k];
+                    }
+                }
+            }
+
+            return temp;
+        }.bind(_this));
+
+        _relocate.set(_this, function () {
+
+            if (this._text == "") return;
+
+            if (_customAlign.get(this)) {
+                if (_customModule.get(this) === null) {
+                    _customModule.set(this, new _CustomModule2.default());
+                }
+
+                _customModule.get(this).typeAlign = this._typeAlign;
+                _customModule.get(this).align(this.children);
+                _blurinessFix.get(this)();
+                return;
+            }
+
+            if (isNaN(parseInt(_spaceBetweenWords.get(this)))) {
+                _spaceBetweenWords.set(this, -1);
+            }
+
+            if (isNaN(parseInt(_spaceBetweenLines.get(this)))) {
+                _spaceBetweenLines.set(this, -1);
+            }
+
+            if (_alignHorizontalPriority.get(this)) {
+                var _textAlign$get, _textLeftToRight$get, _textTopToBottom$get, _spaceBetweenLines$ge, _spaceBetweenWords$ge;
+
+                if (_horizontalModule.get(this) === null) {
+                    _horizontalModule.set(this, new _HorizontalModule2.default());
+                }
+
+                _horizontalModule.get(this)._textAlign = (_textAlign$get = _textAlign.get(this), _objectDestructuringEmpty(_textAlign$get), _textAlign$get);
+                _horizontalModule.get(this)._textLeftToRight = (_textLeftToRight$get = _textLeftToRight.get(this), _objectDestructuringEmpty(_textLeftToRight$get), _textLeftToRight$get);
+                _horizontalModule.get(this)._textTopToBottom = (_textTopToBottom$get = _textTopToBottom.get(this), _objectDestructuringEmpty(_textTopToBottom$get), _textTopToBottom$get);
+                _horizontalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge), _spaceBetweenLines$ge);
+                _horizontalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge), _spaceBetweenWords$ge);
+
+                _horizontalModule.get(this).relocate(this._text, this.children, _width.get(this), _height.get(this));
+
+                if (this.children.length > 0) {
+                    this.emit('textupdated', this.children[this.children.length - 1]);
+                } else {
+                    this.emit('textupdated', null);
+                }
+                _blurinessFix.get(this)();
+                return;
+            }
+
+            if (!_alignHorizontalPriority.get(this)) {
+                var _textAlign$get2, _textLeftToRight$get2, _textTopToBottom$get2, _spaceBetweenLines$ge2, _spaceBetweenWords$ge2;
+
+                if (_verticalModule.get(this) === null) {
+                    _verticalModule.set(this, new _VerticalModule2.default());
+                }
+
+                _verticalModule.get(this)._textAlign = (_textAlign$get2 = _textAlign.get(this), _objectDestructuringEmpty(_textAlign$get2), _textAlign$get2);
+                _verticalModule.get(this)._textLeftToRight = (_textLeftToRight$get2 = _textLeftToRight.get(this), _objectDestructuringEmpty(_textLeftToRight$get2), _textLeftToRight$get2);
+                _verticalModule.get(this)._textTopToBottom = (_textTopToBottom$get2 = _textTopToBottom.get(this), _objectDestructuringEmpty(_textTopToBottom$get2), _textTopToBottom$get2);
+                _verticalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge2 = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge2), _spaceBetweenLines$ge2);
+                _verticalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge2 = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge2), _spaceBetweenWords$ge2);
+
+                _verticalModule.get(this).relocate(this._text, this.children, _width.get(this), _height.get(this));
+
+                if (this.children.length > 0) {
+                    this.emit('textupdated', this.children[this.children.length - 1]);
+                } else {
+                    this.emit('textupdated', null);
+                }
+
+                _blurinessFix.get(this)();
+                return;
+            }
+        }.bind(_this));
+
+        _blurinessFix.set(_this, function () {
+            for (var i = 0; i < this.children.length; i++) {
+                this.children[i].x = Math.round(this.children[i].x);
+                this.children[i].y = Math.round(this.children[i].y);
+            }
+        }.bind(_this));
+
+        _width.set(_this, width);
+
+        _height.set(_this, height);
+
+        _hitArea.set(_this, new PIXI.Rectangle(0, 0, _width.get(_this), _height.get(_this)));
+
+        return _this;
+    }
+
+    _createClass(TextField, [{
+        key: 'setText',
+        value: function setText(text) {
+            var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            _customStyle.set(this, style);
+
+            if (_customStyle.get(this).align) {
+                _textAlign.set(this, _customStyle.get(this).align);
+            }
+
+            if (_customStyle.get(this).spaceBetweenWords) {
+                _spaceBetweenWords.set(this, _customStyle.get(this).spaceBetweenWords);
+            }
+
+            if (_customStyle.get(this).spaceBetweenLines) {
+                _spaceBetweenLines.set(this, _customStyle.get(this).spaceBetweenLines);
+            }
+
+            if (_customStyle.get(this).leftToRight) {
+                _textLeftToRight.set(this, _customStyle.get(this).leftToRight);
+            }
+
+            if (_customStyle.get(this).topToBottom) {
+                _textTopToBottom.set(this, _customStyle.get(this).topToBottom);
+            }
+
+            if (_customStyle.get(this).horizontalPriority) {
+                _alignHorizontalPriority.set(this, _customStyle.get(this).horizontalPriority);
+            }
+
+            _textSupport.get(this).innerHTML = text;
+
+            _mapStyle.get(this).splice(0, _mapStyle.get(this).length);
+
+            _getMap.get(this)(_textSupport.get(this).childNodes);
+
+            var oldText = this._text;
+            this._text = _textSupport.get(this).innerText;
+
+            var diff = JsDiff.diffChars(oldText, this._text);
+            _change.get(this)(JsDiff.convertChangesToDMP(diff));
+        }
+    }, {
+        key: 'getCharAt',
+        value: function getCharAt(x, y) {
+            var position = this.toLocal({ x: x, y: y });
+            for (var i = 0; i < this.children.length; i++) {
+                if (this.children[i].x < position.x && this.children[i].x + this.children[i].width > position.x && this.children[i].y < position.y && this.children[i].y + this.children[i].height > position.y) {
+                    return i;
+                }
+            }
+        }
+    }, {
+        key: 'getSelectionCoordinates',
+        value: function getSelectionCoordinates(charinicial, charfinal) {
+            var coordinates = [];
+            var iniCoord = {};
+            var endCoord = {};
+
+            var letraIni = null;
+            var letraFinal = null;
+
+            var lines = _horizontalModule.get(this).lines;
+
+            if (charinicial < charfinal) {
+                letraIni = this.children[charinicial];
+                letraFinal = this.children[charfinal];
+            } else {
+                letraIni = this.children[charfinal];
+                letraFinal = this.children[charinicial];
+            }
+            //coordenadas iniciais
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i];
+                if (letraIni.y >= line.y && letraIni.y < line.y + line.height) {
+                    iniCoord = {
+                        x: letraIni.x,
+                        up: line.y,
+                        down: line.height,
+                        lineIndex: i
+                    };
+                    break;
+                }
+            }
+            //coordenadas finais
+            for (i = 0; i < lines.length; i++) {
+                var line = lines[i];
+                if (letraFinal.y >= line.y && letraFinal.y < line.y + line.height) {
+                    endCoord = {
+                        x: letraFinal.x + letraFinal.vwidth,
+                        up: line.y,
+                        down: line.height,
+                        lineIndex: i
+                    };
+                    break;
+                }
+            }
+            //se for uma seleção na mesma linha desenha um retangulo
+            if (iniCoord.lineIndex == endCoord.lineIndex) {
+                coordinates.push({
+                    x: iniCoord.x,
+                    y: iniCoord.up,
+                    width: endCoord.x - iniCoord.x,
+                    height: endCoord.down
+                });
+                return coordinates;
+            }
+            //se for uma seleção de duas linhas desenha 2 retangulos
+            if (iniCoord.lineIndex == endCoord.lineIndex - 1) {
+                coordinates.push({
+                    x: iniCoord.x,
+                    y: iniCoord.up,
+                    width: self._width - iniCoord.x,
+                    height: iniCoord.down
+                });
+                coordinates.push({ x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down });
+                return coordinates;
+            }
+            //se for uma seleção de mais de duas linhas desenha 3 retangulos
+            coordinates.push({
+                x: iniCoord.x,
+                y: iniCoord.up,
+                width: self._width - iniCoord.x,
+                height: iniCoord.down
+            });
+            coordinates.push({
+                x: 0,
+                y: iniCoord.up + iniCoord.down,
+                width: self._width,
+                height: endCoord.up - iniCoord.up - iniCoord.down
+            });
+            coordinates.push({ x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down });
+            return coordinates;
+        }
+    }, {
+        key: 'text',
+        get: function get() {
+            return this._text;
+        },
+        set: function set(value) {
+            this._text = value;
+        }
+    }, {
+        key: 'defaultStyle',
+        get: function get() {
+            return _defaultStyle.get(this);
+        },
+        set: function set(value) {
+            _defaultStyle.set(this, value);
+        }
+    }, {
+        key: 'textLeftToRight',
+        get: function get() {
+            return _textLeftToRight.get(this);
+        },
+        set: function set(value) {
+            _textLeftToRight.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'textTopToBottom',
+        get: function get() {
+            return _textTopToBottom.get(this);
+        },
+        set: function set(value) {
+            _textTopToBottom.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'alignHorizontalPriority',
+        get: function get() {
+            return _alignHorizontalPriority.get(this);
+        },
+        set: function set(value) {
+            _alignHorizontalPriority.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'customAlign',
+        get: function get() {
+            return _customAlign.get(this);
+        },
+        set: function set(value) {
+            _customAlign.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'typeAlign',
+        get: function get() {
+            return this._typeAlign;
+        },
+        set: function set(value) {
+            this._typeAlign = value;
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'align',
+        get: function get() {
+            return _textAlign.get(this);
+        },
+        set: function set(value) {
+            _textAlign.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'spaceBetweenLines',
+        get: function get() {
+            return _spaceBetweenLines.get(this);
+        },
+        set: function set(value) {
+            _spaceBetweenLines.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }, {
+        key: 'spaceBetweenWords',
+        get: function get() {
+            return _spaceBetweenWords.get(this);
+        },
+        set: function set(value) {
+            _spaceBetweenWords.set(this, value);
+
+            _relocate.get(this)();
+        }
+    }]);
+
+    return TextField;
+}(PIXI.Container)) || _class;
+
+exports.default = TextField;
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 // Glyph encoding
 
 
@@ -1884,7 +2443,7 @@ exports.addGlyphNames = addGlyphNames;
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2756,7 +3315,7 @@ exports.sizeOf = sizeOf;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2928,7 +3487,6 @@ var Char = function (_PIXI$Container) {
         _style.set(_this, new PIXI.TextStyle({
             fill: 'black',
             fontSize: 20,
-            fontFamily: 'Arial',
             padding: 0
         }));
 
@@ -3021,554 +3579,6 @@ exports.default = Char;
 
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _class;
-
-var _autobindDecorator = __webpack_require__(3);
-
-var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
-
-var _Char = __webpack_require__(9);
-
-var _Char2 = _interopRequireDefault(_Char);
-
-var _HorizontalModule = __webpack_require__(69);
-
-var _HorizontalModule2 = _interopRequireDefault(_HorizontalModule);
-
-var _VerticalModule = __webpack_require__(70);
-
-var _VerticalModule2 = _interopRequireDefault(_VerticalModule);
-
-var _CustomModule = __webpack_require__(68);
-
-var _CustomModule2 = _interopRequireDefault(_CustomModule);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var JsDiff = __webpack_require__(46);
-
-var _width = new WeakMap();
-
-var _height = new WeakMap();
-
-var _hitArea = new WeakMap();
-
-var _box = new WeakMap();
-
-var _text = new WeakMap();
-
-var _map = new WeakMap();
-
-var _customAlign = new WeakMap();
-
-var _spaceBetweenLines = new WeakMap();
-
-var _spaceBetweenWords = new WeakMap();
-
-var _textAlign = new WeakMap();
-
-var _textLeftToRight = new WeakMap();
-
-var _textTopToBottom = new WeakMap();
-
-var _alignHorizontalPriority = new WeakMap();
-
-var _defaultStyle = new WeakMap();
-
-var _mapStyle = new WeakMap();
-
-var _customStyle = new WeakMap();
-
-var _textSupport = new WeakMap();
-
-var _horizontalModule = new WeakMap();
-
-var _verticalModule = new WeakMap();
-
-var _customModule = new WeakMap();
-
-var _getMap = new WeakMap();
-
-var _change = new WeakMap();
-
-var _buildStyle = new WeakMap();
-
-var _relocate = new WeakMap();
-
-var _blurinessFix = new WeakMap();
-
-var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container) {
-    _inherits(TextField, _PIXI$Container);
-
-    function TextField() {
-        var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 2048;
-        var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1152;
-
-        _classCallCheck(this, TextField);
-
-        var _this = _possibleConstructorReturn(this, (TextField.__proto__ || Object.getPrototypeOf(TextField)).call(this));
-
-        _width.set(_this, 0);
-
-        _height.set(_this, 0);
-
-        _hitArea.set(_this, null);
-
-        _box.set(_this, null);
-
-        _text.set(_this, "");
-
-        _map.set(_this, {});
-
-        _customAlign.set(_this, false);
-
-        _spaceBetweenLines.set(_this, 0);
-
-        _spaceBetweenWords.set(_this, -1);
-
-        _textAlign.set(_this, "left");
-
-        _textLeftToRight.set(_this, true);
-
-        _textTopToBottom.set(_this, true);
-
-        _alignHorizontalPriority.set(_this, true);
-
-        _defaultStyle.set(_this, {
-            fontFamily: 'Arial',
-            fontSize: 20,
-            fill: '#000000'
-        });
-
-        _mapStyle.set(_this, []);
-
-        _customStyle.set(_this, {});
-
-        _textSupport.set(_this, document.createElement('div'));
-
-        _horizontalModule.set(_this, null);
-
-        _verticalModule.set(_this, null);
-
-        _customModule.set(_this, null);
-
-        _getMap.set(_this, function (nodes) {
-            var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ["text"];
-
-            for (var i = 0; i < nodes.length; i++) {
-                var _n = nodes[i];
-                if (_n.nodeName == "#text") {
-                    for (var j = 0; j < _n.length; j++) {
-                        _mapStyle.get(this).push({ char: _n.nodeValue[j], style: parent });
-                    }
-                } else {
-                    var arr = [];
-                    if (parent[0] == "text") {
-                        arr[0] = _n.nodeName.toLowerCase();
-                    } else {
-                        arr = parent.concat([]);
-                        arr.push(_n.nodeName.toLowerCase());
-                    }
-                    _getMap.get(this)(_n.childNodes, arr);
-                }
-            }
-        }.bind(_this));
-
-        _change.set(_this, function (diff) {
-            var count = 0;
-
-            for (var i = 0; i < diff.length; i++) {
-                if (diff[i][0] === 0) {
-                    for (var zi = 0; zi < diff[i][1].length; zi++) {
-
-                        if (_mapStyle.get(this)[count] == "text") {
-                            count++;
-                            continue;
-                        }
-                        this.children[count].setStyle(_customStyle.get(this)[_mapStyle.get(this)[count]]);
-                        count++;
-                    }
-                }
-
-                if (diff[i][0] == 1) {
-                    for (var zj = 0; zj < diff[i][1].length; zj++) {
-                        var st = _mapStyle.get(this)[count].style;
-                        var style = _buildStyle.get(this)(st);
-
-                        var char = new _Char2.default(diff[i][1].charAt(zj), style);
-
-                        this.addChildAt(char, count);
-                        count++;
-                    }
-                }
-
-                if (diff[i][0] == -1) {
-                    for (var k = 0; k < diff[i][1].length; k++) {
-                        var c = this.children[count];
-                        this.removeChild(c);
-                        c.destroy(true);
-                        c = null;
-                    }
-                }
-            }
-
-            _relocate.get(this)();
-        }.bind(_this));
-
-        _buildStyle.set(_this, function (styleRefs) {
-            var temp = {};
-
-            for (var j in _defaultStyle.get(this)) {
-                temp[j] = _defaultStyle.get(this)[j];
-            }
-
-            for (var i = 0; i < styleRefs.length; i++) {
-                if (styleRefs[i] === "text") {
-                    continue;
-                } else {
-                    var st = _customStyle.get(this)[styleRefs[i]];
-                    for (var k in st) {
-                        temp[k] = st[k];
-                    }
-                }
-            }
-
-            return temp;
-        }.bind(_this));
-
-        _relocate.set(_this, function () {
-
-            if (_text.get(this) == "") return;
-
-            if (_customAlign.get(this)) {
-                if (_customModule.get(this) === null) {
-                    _customModule.set(this, new _CustomModule2.default());
-                }
-
-                _customModule.get(this).typeAlign = this._typeAlign;
-                _customModule.get(this).align(this.children);
-                _blurinessFix.get(this)();
-                return;
-            }
-
-            if (isNaN(parseInt(_spaceBetweenWords.get(this)))) {
-                _spaceBetweenWords.set(this, -1);
-            }
-
-            if (isNaN(parseInt(_spaceBetweenLines.get(this)))) {
-                _spaceBetweenLines.set(this, -1);
-            }
-
-            if (_alignHorizontalPriority.get(this)) {
-                var _textAlign$get, _textLeftToRight$get, _textTopToBottom$get, _spaceBetweenLines$ge, _spaceBetweenWords$ge;
-
-                if (_horizontalModule.get(this) === null) {
-                    _horizontalModule.set(this, new _HorizontalModule2.default());
-                }
-
-                _horizontalModule.get(this)._textAlign = (_textAlign$get = _textAlign.get(this), _objectDestructuringEmpty(_textAlign$get), _textAlign$get);
-                _horizontalModule.get(this)._textLeftToRight = (_textLeftToRight$get = _textLeftToRight.get(this), _objectDestructuringEmpty(_textLeftToRight$get), _textLeftToRight$get);
-                _horizontalModule.get(this)._textTopToBottom = (_textTopToBottom$get = _textTopToBottom.get(this), _objectDestructuringEmpty(_textTopToBottom$get), _textTopToBottom$get);
-                _horizontalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge), _spaceBetweenLines$ge);
-                _horizontalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge), _spaceBetweenWords$ge);
-
-                _horizontalModule.get(this).relocate(_text.get(this), this.children, _width.get(this), _height.get(this));
-
-                if (this.children.length > 0) {
-                    this.emit('textupdated', this.children[this.children.length - 1]);
-                } else {
-                    this.emit('textupdated', null);
-                }
-                _blurinessFix.get(this)();
-                return;
-            }
-
-            if (!_alignHorizontalPriority.get(this)) {
-                var _textAlign$get2, _textLeftToRight$get2, _textTopToBottom$get2, _spaceBetweenLines$ge2, _spaceBetweenWords$ge2;
-
-                if (_verticalModule.get(this) === null) {
-                    _verticalModule.set(this, new _VerticalModule2.default());
-                }
-
-                _verticalModule.get(this)._textAlign = (_textAlign$get2 = _textAlign.get(this), _objectDestructuringEmpty(_textAlign$get2), _textAlign$get2);
-                _verticalModule.get(this)._textLeftToRight = (_textLeftToRight$get2 = _textLeftToRight.get(this), _objectDestructuringEmpty(_textLeftToRight$get2), _textLeftToRight$get2);
-                _verticalModule.get(this)._textTopToBottom = (_textTopToBottom$get2 = _textTopToBottom.get(this), _objectDestructuringEmpty(_textTopToBottom$get2), _textTopToBottom$get2);
-                _verticalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge2 = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge2), _spaceBetweenLines$ge2);
-                _verticalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge2 = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge2), _spaceBetweenWords$ge2);
-
-                _verticalModule.get(this).relocate(_text.get(this), this.children, _width.get(this), _height.get(this));
-
-                if (this.children.length > 0) {
-                    this.emit('textupdated', this.children[this.children.length - 1]);
-                } else {
-                    this.emit('textupdated', null);
-                }
-
-                _blurinessFix.get(this)();
-                return;
-            }
-        }.bind(_this));
-
-        _blurinessFix.set(_this, function () {
-            for (var i = 0; i < this.children.length; i++) {
-                this.children[i].x = Math.round(this.children[i].x);
-                this.children[i].y = Math.round(this.children[i].y);
-            }
-        }.bind(_this));
-
-        _width.set(_this, width);
-
-        _height.set(_this, height);
-
-        _hitArea.set(_this, new PIXI.Rectangle(0, 0, _width.get(_this), _height.get(_this)));
-
-        return _this;
-    }
-
-    _createClass(TextField, [{
-        key: 'setText',
-        value: function setText(text) {
-            var style = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-            _customStyle.set(this, style);
-
-            if (_customStyle.get(this).align) {
-                _textAlign.set(this, _customStyle.get(this).align);
-            }
-
-            if (_customStyle.get(this).spaceBetweenWords) {
-                _spaceBetweenWords.set(this, _customStyle.get(this).spaceBetweenWords);
-            }
-
-            if (_customStyle.get(this).spaceBetweenLines) {
-                _spaceBetweenLines.set(this, _customStyle.get(this).spaceBetweenLines);
-            }
-
-            if (_customStyle.get(this).leftToRight) {
-                _textLeftToRight.set(this, _customStyle.get(this).leftToRight);
-            }
-
-            if (_customStyle.get(this).topToBottom) {
-                _textTopToBottom.set(this, _customStyle.get(this).topToBottom);
-            }
-
-            if (_customStyle.get(this).horizontalPriority) {
-                _alignHorizontalPriority.set(this, _customStyle.get(this).horizontalPriority);
-            }
-
-            _textSupport.get(this).innerHTML = text;
-
-            _mapStyle.get(this).splice(0, _mapStyle.get(this).length);
-
-            _getMap.get(this)(_textSupport.get(this).childNodes);
-
-            var oldText = _text.get(this);
-
-            _text.set(this, _textSupport.get(this).innerText);
-
-            var diff = JsDiff.diffChars(oldText, _text.get(this));
-            _change.get(this)(JsDiff.convertChangesToDMP(diff));
-        }
-    }, {
-        key: 'getCharAt',
-        value: function getCharAt(x, y) {
-            var position = this.toLocal({ x: x, y: y });
-            for (var i = 0; i < this.children.length; i++) {
-                if (this.children[i].x < position.x && this.children[i].x + this.children[i].width > position.x && this.children[i].y < position.y && this.children[i].y + this.children[i].height > position.y) {
-                    return i;
-                }
-            }
-        }
-    }, {
-        key: 'getSelectionCoordinates',
-        value: function getSelectionCoordinates(charinicial, charfinal) {
-            var coordinates = [];
-            var iniCoord = {};
-            var endCoord = {};
-
-            var letraIni = null;
-            var letraFinal = null;
-
-            var lines = _horizontalModule.get(this).lines;
-
-            if (charinicial < charfinal) {
-                letraIni = this.children[charinicial];
-                letraFinal = this.children[charfinal];
-            } else {
-                letraIni = this.children[charfinal];
-                letraFinal = this.children[charinicial];
-            }
-            //coordenadas iniciais
-            for (var i = 0; i < lines.length; i++) {
-                var line = lines[i];
-                if (letraIni.y >= line.y && letraIni.y < line.y + line.height) {
-                    iniCoord = {
-                        x: letraIni.x,
-                        up: line.y,
-                        down: line.height,
-                        lineIndex: i
-                    };
-                    break;
-                }
-            }
-            //coordenadas finais
-            for (i = 0; i < lines.length; i++) {
-                var line = lines[i];
-                if (letraFinal.y >= line.y && letraFinal.y < line.y + line.height) {
-                    endCoord = {
-                        x: letraFinal.x + letraFinal.width,
-                        up: line.y,
-                        down: line.height,
-                        lineIndex: i
-                    };
-                    break;
-                }
-            }
-            //se for uma seleção na mesma linha desenha um retangulo
-            if (iniCoord.lineIndex == endCoord.lineIndex) {
-                coordinates.push({
-                    x: iniCoord.x,
-                    y: iniCoord.up,
-                    width: endCoord.x - iniCoord.x,
-                    height: endCoord.down
-                });
-                return coordinates;
-            }
-            //se for uma seleção de duas linhas desenha 2 retangulos
-            if (iniCoord.lineIndex == endCoord.lineIndex - 1) {
-                coordinates.push({
-                    x: iniCoord.x,
-                    y: iniCoord.up,
-                    width: self._width - iniCoord.x,
-                    height: iniCoord.down
-                });
-                coordinates.push({ x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down });
-                return coordinates;
-            }
-            //se for uma seleção de mais de duas linhas desenha 3 retangulos
-            coordinates.push({
-                x: iniCoord.x,
-                y: iniCoord.up,
-                width: self._width - iniCoord.x,
-                height: iniCoord.down
-            });
-            coordinates.push({
-                x: 0,
-                y: iniCoord.up + iniCoord.down,
-                width: self._width,
-                height: endCoord.up - iniCoord.up - iniCoord.down
-            });
-            coordinates.push({ x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down });
-            return coordinates;
-        }
-    }, {
-        key: 'textLeftToRight',
-        get: function get() {
-            return _textLeftToRight.get(this);
-        },
-        set: function set(value) {
-            _textLeftToRight.set(this, value);
-
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'textTopToBottom',
-        get: function get() {
-            return _textTopToBottom.get(this);
-        },
-        set: function set(value) {
-            _textTopToBottom.set(this, value);
-
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'alignHorizontalPriority',
-        get: function get() {
-            return _alignHorizontalPriority.get(this);
-        },
-        set: function set(value) {
-            _alignHorizontalPriority.set(this, value);
-
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'customAlign',
-        get: function get() {
-            return _customAlign.get(this);
-        },
-        set: function set(value) {
-            _customAlign.set(this, value);
-
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'typeAlign',
-        get: function get() {
-            return this._typeAlign;
-        },
-        set: function set(value) {
-            this._typeAlign = value;
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'align',
-        get: function get() {
-            return _textAlign.get(this);
-        },
-        set: function set(value) {
-            _textAlign.set(this, value);
-
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'spaceBetweenLines',
-        get: function get() {
-            return _spaceBetweenLines.get(this);
-        },
-        set: function set(value) {
-            _spaceBetweenLines.set(this, value);
-
-            _relocate.get(this)();
-        }
-    }, {
-        key: 'spaceBetweenWords',
-        get: function get() {
-            return _spaceBetweenWords.get(this);
-        },
-        set: function set(value) {
-            _spaceBetweenWords.set(this, value);
-
-            _relocate.get(this)();
-        }
-    }]);
-
-    return TextField;
-}(PIXI.Container)) || _class;
-
-exports.default = TextField;
-
-
-/***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3586,7 +3596,7 @@ var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore en
 var _base2 = _interopRequireDefault(_base);
 
 /*istanbul ignore end*/
-var /*istanbul ignore start*/_params = __webpack_require__(16) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_params = __webpack_require__(17) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -3955,7 +3965,7 @@ if (true) {
 
 
 
-var _glyph = __webpack_require__(18);
+var _glyph = __webpack_require__(19);
 
 // Define a property on the glyph that depends on the path being loaded.
 function defineDependentProperty(glyph, externalName, internalName) {
@@ -4093,6 +4103,122 @@ exports.cffGlyphLoader = cffGlyphLoader;
 
 /***/ }),
 /* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _class2, _temp;
+
+var _autobindDecorator = __webpack_require__(3);
+
+var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
+
+var _eventemitter = __webpack_require__(12);
+
+var _eventemitter2 = _interopRequireDefault(_eventemitter);
+
+var _Font = __webpack_require__(37);
+
+var _Font2 = _interopRequireDefault(_Font);
+
+var _Metrics = __webpack_require__(5);
+
+var _Metrics2 = _interopRequireDefault(_Metrics);
+
+var _TextField = __webpack_require__(7);
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _library = new WeakMap();
+
+var _count = new WeakMap();
+
+var _metrics = new WeakMap();
+
+var Loader = (0, _autobindDecorator2.default)(_class = (_temp = _class2 = function (_EventEmiter) {
+    _inherits(Loader, _EventEmiter);
+
+    function Loader() {
+        _classCallCheck(this, Loader);
+
+        var _this = _possibleConstructorReturn(this, (Loader.__proto__ || Object.getPrototypeOf(Loader)).call(this));
+
+        _library.set(_this, {});
+
+        _count.set(_this, 0);
+
+        _metrics.set(_this, new _Metrics2.default());
+
+        return _this;
+    }
+
+    _createClass(Loader, [{
+        key: 'add',
+        value: function add(name, url) {
+            _library.get(this)[name] = url;
+
+            if (Loader.defaultStyle.fontFamily === undefined) {
+                Loader.defaultStyle.fontFamily = name;
+            }
+        }
+    }, {
+        key: 'load',
+        value: function load() {
+            for (var i in _library.get(this)) {
+                var f = new _Font2.default();
+                f.fontFamily = i;
+                f.onload = this.tempLoad;
+                f.src = _library.get(this)[i];
+
+                _metrics.get(this).once('metricsLoaded', this.tempLoad);
+                _metrics.get(this).load(i, _library.get(this)[i]);
+            }
+        }
+    }, {
+        key: 'tempLoad',
+        value: function tempLoad() {
+            _count.set(this, _count.get(this) + 1);
+
+            if (_count.get(this) >= Object.keys(_library.get(this)).length * 2) {
+                this.emit('loadComplete');
+            }
+        }
+    }], [{
+        key: 'defaultStyle',
+        get: function get() {
+            return this._defaultStyle;
+        },
+        set: function set(value) {
+            this.setText(_defaultStyle);
+        }
+    }]);
+
+    return Loader;
+}(_eventemitter2.default), _class2._defaultStyle = {
+    fontSize: 20,
+    fill: '#000000'
+}, _temp)) || _class;
+
+exports.default = Loader;
+
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4242,7 +4368,7 @@ function parsePatch(uniDiff) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4267,7 +4393,7 @@ function generateOptions(options, defaults) {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4434,7 +4560,7 @@ exports.BoundingBox = BoundingBox;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4782,7 +4908,7 @@ exports.Glyph = Glyph;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4793,7 +4919,7 @@ exports.Glyph = Glyph;
 
 
 
-var encoding = __webpack_require__(7);
+var encoding = __webpack_require__(8);
 var glyphset = __webpack_require__(13);
 var parse = __webpack_require__(0);
 var path = __webpack_require__(6);
@@ -5901,7 +6027,7 @@ exports.make = makeCFFTable;
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6130,7 +6256,7 @@ exports.make = makeCmapTable;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6395,7 +6521,7 @@ exports.make = makeGsubTable;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6468,7 +6594,7 @@ exports.make = makeHeadTable;
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6528,7 +6654,7 @@ exports.make = makeHheaTable;
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6577,7 +6703,7 @@ exports.make = makeHmtxTable;
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6645,7 +6771,7 @@ exports.parse = parseLtagTable;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6695,7 +6821,7 @@ exports.make = makeMaxpTable;
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6704,7 +6830,7 @@ exports.make = makeMaxpTable;
 
 
 
-var types = __webpack_require__(8);
+var types = __webpack_require__(9);
 var decode = types.decode;
 var check = __webpack_require__(1);
 var parse = __webpack_require__(0);
@@ -6763,7 +6889,7 @@ exports.make = makeMetaTable;
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6772,7 +6898,7 @@ exports.make = makeMetaTable;
 
 
 
-var types = __webpack_require__(8);
+var types = __webpack_require__(9);
 var decode = types.decode;
 var encode = types.encode;
 var parse = __webpack_require__(0);
@@ -7605,7 +7731,7 @@ exports.make = makeNameTable;
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7866,7 +7992,7 @@ exports.make = makeOS2Table;
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7875,7 +8001,7 @@ exports.make = makeOS2Table;
 
 
 
-var encoding = __webpack_require__(7);
+var encoding = __webpack_require__(8);
 var parse = __webpack_require__(0);
 var table = __webpack_require__(2);
 
@@ -7944,7 +8070,7 @@ exports.make = makePostTable;
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7987,7 +8113,7 @@ exports.checkArgument = function(expression, message) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(63).Buffer))
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8071,7 +8197,7 @@ exports.default = Phrase;
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8158,103 +8284,6 @@ exports.default = Word;
 
 
 /***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _class;
-
-var _autobindDecorator = __webpack_require__(3);
-
-var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
-
-var _eventemitter = __webpack_require__(12);
-
-var _eventemitter2 = _interopRequireDefault(_eventemitter);
-
-var _Font = __webpack_require__(37);
-
-var _Font2 = _interopRequireDefault(_Font);
-
-var _Metrics = __webpack_require__(5);
-
-var _Metrics2 = _interopRequireDefault(_Metrics);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _library = new WeakMap();
-
-var _count = new WeakMap();
-
-var _metrics = new WeakMap();
-
-var Loader = (0, _autobindDecorator2.default)(_class = function (_EventEmiter) {
-    _inherits(Loader, _EventEmiter);
-
-    function Loader() {
-        _classCallCheck(this, Loader);
-
-        var _this = _possibleConstructorReturn(this, (Loader.__proto__ || Object.getPrototypeOf(Loader)).call(this));
-
-        _library.set(_this, {});
-
-        _count.set(_this, 0);
-
-        _metrics.set(_this, new _Metrics2.default());
-
-        return _this;
-    }
-
-    _createClass(Loader, [{
-        key: 'add',
-        value: function add(name, url) {
-            _library.get(this)[name] = url;
-        }
-    }, {
-        key: 'load',
-        value: function load() {
-            for (var i in _library.get(this)) {
-                var f = new _Font2.default();
-                f.fontFamily = i;
-                f.onload = this.tempLoad;
-                f.src = _library.get(this)[i];
-
-                _metrics.get(this).once('metricsLoaded', this.tempLoad);
-                _metrics.get(this).load(i, _library.get(this)[i]);
-            }
-        }
-    }, {
-        key: 'tempLoad',
-        value: function tempLoad() {
-            _count.set(this, _count.get(this) + 1);
-
-            if (_count.get(this) >= Object.keys(_library.get(this)).length * 2) {
-                this.emit('loadComplete');
-            }
-        }
-    }]);
-
-    return Loader;
-}(_eventemitter2.default)) || _class;
-
-exports.default = Loader;
-
-
-/***/ }),
 /* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8273,11 +8302,11 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _TextField = __webpack_require__(10);
+var _TextField = __webpack_require__(7);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
-var _Char = __webpack_require__(9);
+var _Char = __webpack_require__(10);
 
 var _Char2 = _interopRequireDefault(_Char);
 
@@ -8309,11 +8338,7 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
         _this.field = new _TextField2.default(_width, _height);
         _this.field.align = align;
         _this.addChild(_this.field);
-        _this.cursorStyle = {
-            fontFamily: 'arial',
-            fontSize: 20,
-            fill: "#000000"
-        };
+        _this._allowSelection = true;
         //configurando o cursor
         _this.cursor = new _Char2.default("I", _this.cursorStyle);
         _this.addChild(_this.cursor);
@@ -8400,12 +8425,16 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
             this.initialChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
 
             this.keyboardHandler = _KeyboardHandler2.default.getInstance();
+            this.keyboardHandler.focusedInput = this;
         }
     }, {
         key: 'select',
         value: function select(e) {
-            if (this.selectionStarted) {
-                this.finalChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
+            if (this._allowSelection && this.selectionStarted) {
+                var character = this.field.getCharAt(e.data.global.x, e.data.global.y);
+
+                if (character !== undefined) this.finalChar = character;
+
                 if (this.initialChar !== undefined && this.finalChar !== undefined && this.initialChar != this.finalChar) {
                     this.drawSelection(this.field.getSelectionCoordinates(this.initialChar, this.finalChar));
                 }
@@ -8414,9 +8443,18 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
     }, {
         key: 'stopSelecting',
         value: function stopSelecting(e) {
-            if (this.selectionStarted) {
+            var character = this.field.getCharAt(e.data.global.x, e.data.global.y);
+            if (character !== undefined) this.finalChar = character;
+
+            if (this.finalChar < this.initialChar) {
+                var charstorage;
+                charstorage = this.finalChar;
+                this.finalChar = this.initialChar;
+                this.initialChar = charstorage;
+            }
+
+            if (this._allowSelection && this.selectionStarted) {
                 this.selectionStarted = false;
-                this.finalChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
                 if (this.initialChar !== undefined && this.finalChar !== undefined && this.initialChar != this.finalChar) {
                     this.drawSelection(this.field.getSelectionCoordinates(this.initialChar, this.finalChar));
                 }
@@ -8440,7 +8478,13 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
         key: 'showCursor',
         value: function showCursor() {
             this.positionCursor(this.field.children[this.field.children.length - 1]);
+            this.initialChar = this.field.children.length - 1;
+            this.finalChar = this.field.children.length - 1;
             this.cursorDirection = 1;
+
+            this.keyboardHandler = _KeyboardHandler2.default.getInstance();
+            this.keyboardHandler.focusedInput = this;
+
             this.cursorAnimation();
         }
     }, {
@@ -8486,6 +8530,9 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
                 character = null;
             }
             if (character === null) {
+
+                if (this.field.text.length !== 0) return;
+
                 if (this.field.align == "left" || this.field.align == "justify") {
                     this.cursor.x = 2;
                     this.cursor.y = 0;
@@ -8534,6 +8581,14 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
             this.field.align = value;
         }
     }, {
+        key: 'defaultStyle',
+        get: function get() {
+            return this.field.defaultStyle;
+        },
+        set: function set(value) {
+            this.field.defaultStyle = value;
+        }
+    }, {
         key: 'width',
         get: function get() {
             return this._width;
@@ -8578,6 +8633,14 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
         },
         set: function set(value) {
             this.field._customAlign = value;
+        }
+    }, {
+        key: 'allowSelection',
+        get: function get() {
+            return this._allowSelection;
+        },
+        set: function set(value) {
+            this._allowSelection;
         }
     }]);
 
@@ -9897,7 +9960,7 @@ var /*istanbul ignore start*/_base = __webpack_require__(4) /*istanbul ignore en
 var _base2 = _interopRequireDefault(_base);
 
 /*istanbul ignore end*/
-var /*istanbul ignore start*/_params = __webpack_require__(16) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_params = __webpack_require__(17) /*istanbul ignore end*/;
 
 /*istanbul ignore start*/
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -9988,7 +10051,7 @@ var /*istanbul ignore start*/_array = __webpack_require__(40) /*istanbul ignore 
 
 var /*istanbul ignore start*/_apply = __webpack_require__(47) /*istanbul ignore end*/;
 
-var /*istanbul ignore start*/_parse = __webpack_require__(15) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_parse = __webpack_require__(16) /*istanbul ignore end*/;
 
 var /*istanbul ignore start*/_create = __webpack_require__(48) /*istanbul ignore end*/;
 
@@ -10047,7 +10110,7 @@ exports.__esModule = true;
 exports. /*istanbul ignore end*/applyPatch = applyPatch;
 /*istanbul ignore start*/exports. /*istanbul ignore end*/applyPatches = applyPatches;
 
-var /*istanbul ignore start*/_parse = __webpack_require__(15) /*istanbul ignore end*/;
+var /*istanbul ignore start*/_parse = __webpack_require__(16) /*istanbul ignore end*/;
 
 var /*istanbul ignore start*/_distanceIterator = __webpack_require__(49) /*istanbul ignore end*/;
 
@@ -10849,10 +10912,10 @@ exports.line = line;
 
 var path = __webpack_require__(6);
 var sfnt = __webpack_require__(61);
-var encoding = __webpack_require__(7);
+var encoding = __webpack_require__(8);
 var glyphset = __webpack_require__(13);
 var Substitution = __webpack_require__(55);
-var util = __webpack_require__(31);
+var util = __webpack_require__(32);
 
 /**
  * @typedef FontOptions
@@ -11678,31 +11741,31 @@ module.exports = Layout;
 
 var inflate = __webpack_require__(50);
 
-var encoding = __webpack_require__(7);
+var encoding = __webpack_require__(8);
 var _font = __webpack_require__(52);
-var glyph = __webpack_require__(18);
+var glyph = __webpack_require__(19);
 var parse = __webpack_require__(0);
-var bbox = __webpack_require__(17);
+var bbox = __webpack_require__(18);
 var path = __webpack_require__(6);
-var util = __webpack_require__(31);
+var util = __webpack_require__(32);
 
-var cmap = __webpack_require__(20);
-var cff = __webpack_require__(19);
+var cmap = __webpack_require__(21);
+var cff = __webpack_require__(20);
 var fvar = __webpack_require__(56);
 var glyf = __webpack_require__(57);
 var gpos = __webpack_require__(58);
-var gsub = __webpack_require__(21);
-var head = __webpack_require__(22);
-var hhea = __webpack_require__(23);
-var hmtx = __webpack_require__(24);
+var gsub = __webpack_require__(22);
+var head = __webpack_require__(23);
+var hhea = __webpack_require__(24);
+var hmtx = __webpack_require__(25);
 var kern = __webpack_require__(59);
-var ltag = __webpack_require__(25);
+var ltag = __webpack_require__(26);
 var loca = __webpack_require__(60);
-var maxp = __webpack_require__(26);
-var _name = __webpack_require__(28);
-var os2 = __webpack_require__(29);
-var post = __webpack_require__(30);
-var meta = __webpack_require__(27);
+var maxp = __webpack_require__(27);
+var _name = __webpack_require__(29);
+var os2 = __webpack_require__(30);
+var post = __webpack_require__(31);
+var meta = __webpack_require__(28);
 
 /**
  * The opentype library.
@@ -13233,18 +13296,18 @@ exports.parse = parseLocaTable;
 var check = __webpack_require__(1);
 var table = __webpack_require__(2);
 
-var cmap = __webpack_require__(20);
-var cff = __webpack_require__(19);
-var head = __webpack_require__(22);
-var hhea = __webpack_require__(23);
-var hmtx = __webpack_require__(24);
-var ltag = __webpack_require__(25);
-var maxp = __webpack_require__(26);
-var _name = __webpack_require__(28);
-var os2 = __webpack_require__(29);
-var post = __webpack_require__(30);
-var gsub = __webpack_require__(21);
-var meta = __webpack_require__(27);
+var cmap = __webpack_require__(21);
+var cff = __webpack_require__(20);
+var head = __webpack_require__(23);
+var hhea = __webpack_require__(24);
+var hmtx = __webpack_require__(25);
+var ltag = __webpack_require__(26);
+var maxp = __webpack_require__(27);
+var _name = __webpack_require__(29);
+var os2 = __webpack_require__(30);
+var post = __webpack_require__(31);
+var gsub = __webpack_require__(22);
+var meta = __webpack_require__(28);
 
 function log2(v) {
     return Math.log(v) / Math.log(2) | 0;
@@ -15625,13 +15688,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _class;
+var _class, _class2, _temp;
 
 var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _TextField = __webpack_require__(10);
+var _TextField = __webpack_require__(7);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -15647,7 +15710,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var KeyboardHandler = (0, _autobindDecorator2.default)(_class = function (_EventEmiter) {
+var KeyboardHandler = (0, _autobindDecorator2.default)(_class = (_temp = _class2 = function (_EventEmiter) {
     _inherits(KeyboardHandler, _EventEmiter);
 
     function KeyboardHandler() {
@@ -15655,10 +15718,7 @@ var KeyboardHandler = (0, _autobindDecorator2.default)(_class = function (_Event
 
         var _this = _possibleConstructorReturn(this, (KeyboardHandler.__proto__ || Object.getPrototypeOf(KeyboardHandler)).call(this));
 
-        _this._instance = null;
-
-
-        if (_this.instance) {
+        if (KeyboardHandler.instance !== null) {
             throw "Singleton:: use KeyboardHandler.getInstance()";
         }
 
@@ -15683,13 +15743,105 @@ var KeyboardHandler = (0, _autobindDecorator2.default)(_class = function (_Event
     }, {
         key: '_hardKeyboard',
         value: function _hardKeyboard(e) {
-            if (e.key.match(/arrow/i) === null && e.key.match(/control/i) === null && e.key.match(/shift/i) === null && e.key.match(/dead/i) === null && e.key.match(/alt/i) === null) {
+
+            this._focusedInput.selectionGraphics.clear();
+
+            if (e.key.match(/backspace/i) !== null) {
+
+                var text = this._focusedInput.text;
+                var textSliced = "";
+
+                if (this._focusedInput.initialChar <= this._focusedInput.finalChar) {
+                    if (this._focusedInput.initialChar == this._focusedInput.finalChar) {
+                        textSliced = text.substring(0, this._focusedInput.initialChar) + text.substring(++this._focusedInput.finalChar);
+                    } else {
+                        textSliced = text.substring(0, this._focusedInput.initialChar) + text.substring(++this._focusedInput.finalChar);
+                        this._focusedInput.finalChar = this._focusedInput.initialChar;
+                    }
+                } else {
+                    textSliced = text.substring(0, this._focusedInput.finalChar) + text.substring(++this._focusedInput.initialChar);
+                    this._focusedInput.initialChar = this._focusedInput.finalChar;
+                }
+
+                this._focusedInput.setText(textSliced);
+                this._focusedInput.initialChar--;
+                if (this._focusedInput.initialChar < 0) this._focusedInput.initialChar = 0;
+                this._focusedInput.finalChar = this._focusedInput.initialChar;
+                this._focusedInput.positionCursor(this._focusedInput.field.children[this._focusedInput.initialChar]);
+
+                return;
+            }
+
+            if (e.key.match(/delete/i) !== null) {
+                var text = this._focusedInput.text;
+                var textSliced = "";
+
+                if (this._focusedInput.initialChar <= this._focusedInput.finalChar) {
+                    if (this._focusedInput.initialChar == this._focusedInput.finalChar) {
+                        textSliced = text.substring(0, ++this._focusedInput.initialChar) + text.substring(this._focusedInput.finalChar + 2);
+                    } else {
+                        textSliced = text.substring(0, this._focusedInput.initialChar) + text.substring(++this._focusedInput.finalChar);
+                        this._focusedInput.finalChar = this._focusedInput.initialChar;
+                    }
+                } else {
+                    textSliced = text.substring(0, this._focusedInput.finalChar) + text.substring(this._focusedInput.initialChar + 2);
+                    this._focusedInput.initialChar = this._focusedInput.finalChar;
+                }
+
+                this._focusedInput.setText(textSliced);
+                this._focusedInput.initialChar--;
+                if (this._focusedInput.initialChar < 0) this._focusedInput.initialChar = 0;
+                this._focusedInput.finalChar = this._focusedInput.initialChar;
+                this._focusedInput.positionCursor(this._focusedInput.field.children[this._focusedInput.initialChar]);
+
+                return;
+            }
+
+            if (e.key.match(/arrow/i) !== null) {
+
+                if (e.key.match(/left/i) !== null) {
+                    if (this._focusedInput.initialChar != 0) this._focusedInput.initialChar--;
+
+                    this._focusedInput.positionCursor(this._focusedInput.field.children[this._focusedInput.initialChar]);
+                    this._focusedInput.finalChar = this._focusedInput.initialChar;
+                }
+
+                if (e.key.match(/right/i) !== null) {
+                    if (this._focusedInput.finalChar < this._focusedInput.text.length) this._focusedInput.finalChar++;
+                    this._focusedInput.positionCursor(this._focusedInput.field.children[this._focusedInput.finalChar]);
+                    this._focusedInput.initialChar = this._focusedInput.finalChar;
+                }
+
+                return;
+            }
+
+            if (e.key.match(/control/i) === null && e.key.match(/shift/i) === null && e.key.match(/dead/i) === null && e.key.match(/alt/i) === null && e.key.match(/meta/i) === null && e.key.match(/contextmenu/i) === null && (e.key.length == 1 || e.key.match(/enter/i) !== null)) {
                 var value = e.key;
                 if (value.match(/enter/i) !== null) {
                     value = "\n";
                 }
-                //this.emit('keyPressed', {value: value});
-                console.log(value);
+
+                var text = this._focusedInput.text;
+
+                var textSliced = "";
+
+                if (this._focusedInput.initialChar <= this._focusedInput.finalChar) {
+                    if (this._focusedInput.initialChar == this._focusedInput.finalChar) {
+                        textSliced = text.substring(0, ++this._focusedInput.initialChar) + value + text.substring(++this._focusedInput.finalChar);
+                    } else {
+
+                        textSliced = text.substring(0, this._focusedInput.initialChar) + value + text.substring(++this._focusedInput.finalChar);
+                        this._focusedInput.finalChar = this._focusedInput.initialChar;
+                    }
+                } else {
+                    textSliced = text.substring(0, this._focusedInput.finalChar) + value + text.substring(++this._focusedInput.initialChar);
+                    this._focusedInput.initialChar = this._focusedInput.finalChar;
+                }
+
+                this._focusedInput.setText(textSliced);
+                this._focusedInput.positionCursor(this._focusedInput.field.children[this._focusedInput.initialChar]);
+
+                return;
             }
         }
     }, {
@@ -15703,9 +15855,8 @@ var KeyboardHandler = (0, _autobindDecorator2.default)(_class = function (_Event
     }], [{
         key: 'getInstance',
         value: function getInstance() {
-            console.log("getinstance");
-            if (!KeyboardHandler.instance) {
-                new KeyboardHandler();
+            if (KeyboardHandler.instance === null) {
+                KeyboardHandler.instance = new KeyboardHandler();
             }
 
             return KeyboardHandler.instance;
@@ -15721,7 +15872,7 @@ var KeyboardHandler = (0, _autobindDecorator2.default)(_class = function (_Event
     }]);
 
     return KeyboardHandler;
-}(_eventemitter2.default)) || _class;
+}(_eventemitter2.default), _class2._instance = null, _temp)) || _class;
 
 exports.default = KeyboardHandler;
 
@@ -15848,11 +15999,11 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _Phrase = __webpack_require__(32);
+var _Phrase = __webpack_require__(33);
 
 var _Phrase2 = _interopRequireDefault(_Phrase);
 
-var _Word = __webpack_require__(33);
+var _Word = __webpack_require__(34);
 
 var _Word2 = _interopRequireDefault(_Word);
 
@@ -16956,11 +17107,11 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _Phrase = __webpack_require__(32);
+var _Phrase = __webpack_require__(33);
 
 var _Phrase2 = _interopRequireDefault(_Phrase);
 
-var _Word = __webpack_require__(33);
+var _Word = __webpack_require__(34);
 
 var _Word2 = _interopRequireDefault(_Word);
 
@@ -17993,7 +18144,7 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _Loader = __webpack_require__(34);
+var _Loader = __webpack_require__(15);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
@@ -18001,11 +18152,11 @@ var _Metrics = __webpack_require__(5);
 
 var _Metrics2 = _interopRequireDefault(_Metrics);
 
-var _Char = __webpack_require__(9);
+var _Char = __webpack_require__(10);
 
 var _Char2 = _interopRequireDefault(_Char);
 
-var _TextField = __webpack_require__(10);
+var _TextField = __webpack_require__(7);
 
 var _TextField2 = _interopRequireDefault(_TextField);
 

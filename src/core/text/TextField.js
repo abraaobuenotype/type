@@ -3,7 +3,8 @@ import autobind from 'autobind-decorator';
 import Char from './Char';
 import HorizontalModule from './align/HorizontalModule';
 import VerticalModule from './align/VerticalModule';
-import CustomModule from './align/CustomModule'
+import CustomModule from './align/CustomModule';
+import Loader from '../Loader';
 
 @autobind
 class TextField extends PIXI.Container {
@@ -13,7 +14,7 @@ class TextField extends PIXI.Container {
     @Private _hitArea = null;
 
     @Private _box = null;
-    @Private _text = "";
+    _text = "";
     @Private _map = {};
 
     @Private _customAlign = false;
@@ -24,11 +25,7 @@ class TextField extends PIXI.Container {
     @Private _textTopToBottom = true;
     @Private _alignHorizontalPriority = true;
 
-    @Private _defaultStyle = {
-        fontFamily: 'Arial',
-        fontSize: 20,
-        fill: '#000000'
-    };
+    @Private _defaultStyle = Loader.defaultStyle;
 
     @Private _mapStyle = [];
     @Private _customStyle = {};
@@ -46,6 +43,23 @@ class TextField extends PIXI.Container {
 
         this._hitArea = new PIXI.Rectangle(0, 0, this._width, this._height);
     }
+
+    get text() {
+        return this._text;
+    }
+
+    set text(value) {
+        this._text = value;
+    }
+
+    get defaultStyle() {
+        return this._defaultStyle;
+    }
+
+    set defaultStyle(value) {
+        this._defaultStyle = value;
+    }
+
 
     get textLeftToRight() {
         return this._textLeftToRight;
@@ -199,7 +213,6 @@ class TextField extends PIXI.Container {
                 for (var zj = 0; zj < diff[i][1].length; zj++) {
                     var st = this._mapStyle[count].style;
                     var style = this.buildStyle(st);
-
                     var char = new Char(diff[i][1].charAt(zj), style);
 
                     this.addChildAt(char, count);
@@ -363,7 +376,7 @@ class TextField extends PIXI.Container {
             var line = lines[i];
             if (letraFinal.y >= line.y && letraFinal.y < line.y + line.height) {
                 endCoord = {
-                    x: letraFinal.x + letraFinal.width,
+                    x: letraFinal.x + letraFinal.vwidth,
                     up: line.y,
                     down: line.height,
                     lineIndex: i

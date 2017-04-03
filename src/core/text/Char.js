@@ -27,7 +27,6 @@ class Char extends PIXI.Container{
         this._style = new PIXI.TextStyle({
             fill: 'black',
             fontSize: 20,
-            fontFamily: 'Arial',
             padding: 0
         });
 

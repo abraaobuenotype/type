@@ -15,11 +15,7 @@ class Input extends PIXI.Container{
         this.field = new TextField(_width, _height);
         this.field.align = align;
         this.addChild(this.field);
-        this.cursorStyle = {
-            fontFamily: 'arial',
-            fontSize: 20,
-            fill: "#000000"
-        };
+        this._allowSelection = true;
         //configurando o cursor
         this.cursor = new Char("I", this.cursorStyle);
         this.addChild(this.cursor);
@@ -71,6 +67,14 @@ class Input extends PIXI.Container{
         this.field.align = value;
     }
 
+    get defaultStyle(){
+        return this.field.defaultStyle;
+    }
+
+    set defaultStyle(value){
+        this.field.defaultStyle = value;
+    }
+
     get width(){
         return this._width;
     }
@@ -115,6 +119,14 @@ class Input extends PIXI.Container{
 
     set customAlign(value){
         this.field._customAlign = value;
+    }
+
+    get allowSelection(){
+        return this._allowSelection;
+    }
+
+    set allowSelection(value){
+        this._allowSelection;
     }
 
     animateCursor(){
@@ -166,16 +178,20 @@ class Input extends PIXI.Container{
     focus(e){
 
         this.selectionStarted = true;
-        
+
         this.initialChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
 
         this.keyboardHandler = KeyboardHandler.getInstance();
+        this.keyboardHandler.focusedInput = this;
 
     }
 
     select(e){
-        if (this.selectionStarted) {
-            this.finalChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
+        if (this._allowSelection && this.selectionStarted) {
+            var character = this.field.getCharAt(e.data.global.x, e.data.global.y);
+
+            if (character !== undefined) this.finalChar = character;
+
             if (this.initialChar !== undefined && this.finalChar !== undefined && this.initialChar != this.finalChar) {
                 this.drawSelection(this.field.getSelectionCoordinates(this.initialChar, this.finalChar));
             }
@@ -183,9 +199,18 @@ class Input extends PIXI.Container{
     }
 
     stopSelecting(e){
-        if (this.selectionStarted) {
+        var character = this.field.getCharAt(e.data.global.x, e.data.global.y);
+        if (character !== undefined) this.finalChar = character;
+
+        if (this.finalChar < this.initialChar){
+            var charstorage;
+            charstorage = this.finalChar;
+            this.finalChar = this.initialChar;
+            this.initialChar = charstorage;
+        }
+
+        if (this._allowSelection && this.selectionStarted) {
             this.selectionStarted = false;
-            this.finalChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
             if (this.initialChar !== undefined && this.finalChar !== undefined && this.initialChar != this.finalChar) {
                 this.drawSelection(this.field.getSelectionCoordinates(this.initialChar, this.finalChar));
             }
@@ -207,7 +232,13 @@ class Input extends PIXI.Container{
 
     showCursor(){
         this.positionCursor(this.field.children[this.field.children.length - 1]);
+        this.initialChar = this.field.children.length - 1;
+        this.finalChar = this.field.children.length - 1;
         this.cursorDirection = 1;
+
+        this.keyboardHandler = KeyboardHandler.getInstance();
+        this.keyboardHandler.focusedInput = this;
+
         this.cursorAnimation();
     }
 
@@ -248,6 +279,9 @@ class Input extends PIXI.Container{
             character = null;
         }
         if (character === null) {
+
+            if (this.field.text.length !== 0) return;
+
             if (this.field.align == "left" || this.field.align == "justify") {
                 this.cursor.x = 2;
                 this.cursor.y = 0;
