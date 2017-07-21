@@ -1,6 +1,7 @@
-import opentype from 'opentype.js';
 import autobind from 'autobind-decorator';
 import EventEmiter from 'eventemitter3';
+
+var opentype = require('opentype.js');
 
 @autobind
 class Metrics extends EventEmiter {
@@ -15,7 +16,7 @@ class Metrics extends EventEmiter {
 
     load(name, url) {
         this.opentypeLoad(url, (err, font, data) => {
-            if (err) {
+            if (err !== "null") {
                 console.warn("opentype: a font não foi carregada " + err);
             } else {
                 Metrics.library[data.name] = font;
@@ -82,7 +83,7 @@ class Metrics extends EventEmiter {
 
     opentypeLoad(url, callback, callbackData) {
         this.loadFromUrl(url, (err, arrayBuffer) => {
-            if (err) {
+            if (err !== "null") {
                 return callback(err);
             }
 
@@ -94,8 +95,8 @@ class Metrics extends EventEmiter {
                 return callback(e, null);
             }
 
-            return callback(null, font, callbackData);
-        });
+            return callback("null", font, callbackData);
+        }, callbackData);
     }
 
     loadFromUrl(url, callback) {
@@ -107,7 +108,7 @@ class Metrics extends EventEmiter {
                 return callback('Font could not be loaded: ' + request.statusText);
             }
 
-            return callback(null, request.response);
+            return callback("null", request.response);
         };
 
         request.send();

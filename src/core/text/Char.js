@@ -24,11 +24,11 @@ class Char extends PIXI.Container{
             this._text = this._text.charAt(0);
         }
 
-        this._style = new PIXI.TextStyle({
+        this._style = {
             fill: 'black',
             fontSize: 20,
             padding: 0
-        });
+        };
 
         this._textObject = new PIXI.Text(this._text, this._style);
         this.setStyle(style);

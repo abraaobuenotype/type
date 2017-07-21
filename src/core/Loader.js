@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 import EventEmiter from 'eventemitter3';
-import Font from '../../lib/Font';
+var Font = require('../../lib/Font');
 
 import Metrics from './Metrics';
 import TextField from './text/TextField.js'

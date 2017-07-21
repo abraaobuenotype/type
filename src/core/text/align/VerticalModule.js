@@ -51,8 +51,9 @@ class VerticalModule {
             var objectChar = [];
             for (var j = 0; j < w.length; j++) {
                 var c = chars[count];
-                ff.push(c.style.fontFamily);
-                fs.push(c.style.fontSize);
+                var data = c.style.font.split(" ");
+                ff.push(data[1]);
+                fs.push(parseFloat(data[0]));
 
                 objectChar.push(c);
 
