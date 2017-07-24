@@ -8583,7 +8583,7 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '__VERSION__';
+        this.version = '1.4.0';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
