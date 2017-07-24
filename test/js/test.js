@@ -202,6 +202,8 @@ window.onload = function() {
 
         stage.addChild(texto);
 
+        texto.tint = 0xFF0000;
+
         texto.setWordStyle("joao");
 
         var s = new PIXI.Graphics;
