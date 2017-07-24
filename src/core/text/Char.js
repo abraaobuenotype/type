@@ -1,6 +1,6 @@
 import autobind from 'autobind-decorator';
 
-class Char extends PIXI.Container{
+class Char extends PIXI.Container {
 
     @Private _text = null;
     @Private _style = null;
@@ -16,11 +16,11 @@ class Char extends PIXI.Container{
     @Private _vwidth = 0;
     @Private _vheight = 0;
 
-    constructor(text = '', style = {}, debug = false){
+    constructor(text = '', style = {}, debug = false) {
         super();
 
         this._text = text;
-        if(this._text.length > 1){
+        if (this._text.length > 1) {
             this._text = this._text.charAt(0);
         }
 
@@ -37,51 +37,58 @@ class Char extends PIXI.Container{
         this.debug = debug;
     }
 
-    get vwidth(){
+    get vwidth() {
         return this._vwidth;
     }
 
-    set vwidth(value){
-        if(value != "last"){
+    set vwidth(value) {
+        if (value != "last") {
             this._vwidth = value;
-        }
-        else{
+        } else {
             this._vwidth = this._textObject.width;
         }
 
         this.createDebug();
     }
 
-    get vheight(){
+    get vheight() {
         return this._vheight;
     }
 
-    set vheight(value){
+    set vheight(value) {
         this._vheight = value;
         this.createDebug();
     }
 
-    get debug(){
+    get debug() {
         return this._debug;
     }
 
-    set debug(value){
+    set debug(value) {
         this._debug = value;
         this.createDebug();
     }
 
-    get style(){
+    get style() {
         return this._style;
     }
 
-    get text(){
+    get text() {
         return this._text;
     }
 
-    setStyle(style){
-        for(var p in style){
-            if(p == 'underscore'){
-                if(style[p] === true){
+    get tint() {
+        return this._textObject.tint;
+    }
+
+    set tint(color) {
+        this._textObject.tint = color;
+    }
+
+    setStyle(style) {
+        for (var p in style) {
+            if (p == 'underscore') {
+                if (style[p] === true) {
                     this._underscore = true;
                 }
                 continue;
@@ -94,21 +101,22 @@ class Char extends PIXI.Container{
 
         this._textObject.style = {} = this._style;
 
-        if(this._underscore === true){
+        if (this._underscore === true) {
             this.clearUnderscore();
             this.createUnderscore();
-        }
-        else{
+        } else {
             this.clearUnderscore();
         }
     }
 
-    @Private createUnderscore(){
+    @Private createUnderscore() {
         this._underscoreObj = new PIXI.Graphics();
         this._underscoreObj.beginFill(this._style.fill);
 
-        var size = this._style.fontSize < 40 ? 1 : 2;
-        if(this._style.underscoreSize){
+        var size = this._style.fontSize < 40
+            ? 1
+            : 2;
+        if (this._style.underscoreSize) {
             size = this._style.underscoreSize;
         }
 
@@ -121,11 +129,12 @@ class Char extends PIXI.Container{
         this.addChild(this._underscoreObj);
     }
 
-    @Private clearUnderscore(){
-        if(this._underscoreObj === null) return;
+    @Private clearUnderscore() {
+        if (this._underscoreObj === null)
+            return;
 
         var p = this._underscoreObj.parent;
-        if(p){
+        if (p) {
             p.removeChild(this._underscoreObj);
         }
 
@@ -133,13 +142,13 @@ class Char extends PIXI.Container{
         this._underscoreObj = null;
     }
 
-    @Private createDebug(){
-        if(!this._debug){
+    @Private createDebug() {
+        if (!this._debug) {
             this.clearDebug();
             return;
         }
 
-        if(this._debugObj){
+        if (this._debugObj) {
             this.clearDebug();
         }
 
@@ -158,8 +167,8 @@ class Char extends PIXI.Container{
         this.addChildAt(this._debugObjV, 0);
     }
 
-    @Private clearDebug(){
-        if(this._debugObj === null){
+    @Private clearDebug() {
+        if (this._debugObj === null) {
             return;
         }
 

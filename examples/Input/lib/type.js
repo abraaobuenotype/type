@@ -2060,28 +2060,45 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
     }, {
         key: 'setWordStyle',
         value: function setWordStyle(word, style) {
-            var reg = new RegExp(word, 'g');
-            var match = this.text.match(reg);
-            console.log(match);
 
-            if (match) {
-                var len = match.length;
-                var start = [];
+            var matches = [];
 
-                for (var i = 0; i < len; i++) {
-                    var index;
-                    if (i == 0) {
-                        index = text.text.indexOf(word);
-                    } else {
-                        index = text.text.indexOf(word, start[i - 1] + word.length);
-                    }
+            var supString = this._text;
 
-                    for (var j = index; j < word.length; j++) {
-                        // var c = this.
-                    }
-                    start.push(index);
+            function RecursiveFindWord(remainingString) {
+
+                var matchIndex = remainingString.indexOf(word);
+
+                if (matchIndex == -1) {
+                    return;
+                }
+
+                matches.push(matchIndex);
+
+                supString = supString.substring(matchIndex + word.length);
+
+                if (supString.length > word.length) {
+                    RecursiveFindWord(supString);
+                } else {
+                    return;
                 }
             }
+
+            RecursiveFindWord(supString);
+
+            var index = 0;
+            for (var i = 0; i < matches.length; i++) {
+
+                index = index + matches[i];
+
+                for (var j = 0; j < word.length; j++) {
+                    this.children[index + j].setStyle(style);
+                }
+
+                index = index + word.length;
+            }
+
+            _relocate.get(this)();
         }
     }, {
         key: 'getCharAt',
@@ -2279,7 +2296,7 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
             this._tint = color;
 
             for (var i = 0; i < this.children.length; i++) {
-                this.children[i].setStyle({ fill: color });
+                this.children[i].tint = color;
             }
         }
     }]);
@@ -3984,6 +4001,14 @@ var Char = function (_PIXI$Container) {
         key: 'text',
         get: function get() {
             return _text.get(this);
+        }
+    }, {
+        key: 'tint',
+        get: function get() {
+            return _textObject.get(this).tint;
+        },
+        set: function set(color) {
+            _textObject.get(this).tint = color;
         }
     }]);
 

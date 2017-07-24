@@ -195,6 +195,7 @@ window.onload = function() {
             spaceBetweenLines: 0,
             spaceBetweenWords: -1,
             a: {
+                fill: 0xffffff,
                 fontFamily: "century",
                 fontSize: 18
             }
@@ -204,7 +205,7 @@ window.onload = function() {
 
         texto.tint = 0xFF0000;
 
-        texto.setWordStyle("joao");
+        texto.setWordStyle("sem", {fontSize: 30, fill:0x000000});
 
         var s = new PIXI.Graphics;
         s.lineStyle(1, 0x00ff59);
