@@ -196,11 +196,13 @@ window.onload = function() {
             spaceBetweenWords: -1,
             a: {
                 fontFamily: "century",
-                fontSize: 50
+                fontSize: 18
             }
         });
 
         stage.addChild(texto);
+
+        texto.setWordStyle("joao");
 
         var s = new PIXI.Graphics;
         s.lineStyle(1, 0x00ff59);

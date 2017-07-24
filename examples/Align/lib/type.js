@@ -2058,6 +2058,32 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
             _change.get(this)(JsDiff.convertChangesToDMP(diff));
         }
     }, {
+        key: 'setWordStyle',
+        value: function setWordStyle(word, style) {
+            var reg = new RegExp(word, 'g');
+            var match = this.text.match(reg);
+            console.log(match);
+
+            if (match) {
+                var len = match.length;
+                var start = [];
+
+                for (var i = 0; i < len; i++) {
+                    var index;
+                    if (i == 0) {
+                        index = text.text.indexOf(word);
+                    } else {
+                        index = text.text.indexOf(word, start[i - 1] + word.length);
+                    }
+
+                    for (var j = index; j < word.length; j++) {
+                        // var c = this.
+                    }
+                    start.push(index);
+                }
+            }
+        }
+    }, {
         key: 'getCharAt',
         value: function getCharAt(x, y) {
             var position = this.toLocal({ x: x, y: y });
@@ -3827,6 +3853,7 @@ var Char = function (_PIXI$Container) {
 
             _debugObjV.set(this, new PIXI.Graphics());
 
+            _debugObjV.get(this).lineStyle(1, 0xff0000);
             _debugObjV.get(this).beginFill(0x3ae218, 0.3);
             _debugObjV.get(this).drawRect(0, 0, _vwidth.get(this), _textObject.get(this).height);
             _debugObjV.get(this).endFill();
@@ -17473,7 +17500,7 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
                     // ff.push(data[1]);
                     // fs.push(parseFloat(data[0]));
                     ff.push(c.style.fontFamily);
-                    fs.push(c.style.fontStyle);
+                    fs.push(c.style.fontSize);
 
                     objectChar.push(c);
 

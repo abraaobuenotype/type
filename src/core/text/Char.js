@@ -149,6 +149,7 @@ class Char extends PIXI.Container{
         this._debugObj.endFill();
 
         this._debugObjV = new PIXI.Graphics();
+        this._debugObjV.lineStyle(1, 0xff0000)
         this._debugObjV.beginFill(0x3ae218, 0.3);
         this._debugObjV.drawRect(0, 0, this._vwidth, this._textObject.height);
         this._debugObjV.endFill();

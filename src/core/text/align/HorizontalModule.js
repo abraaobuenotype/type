@@ -59,7 +59,7 @@ class HorizontalModule {
                 // ff.push(data[1]);
                 // fs.push(parseFloat(data[0]));
                 ff.push(c.style.fontFamily);
-                fs.push(c.style.fontStyle);
+                fs.push(c.style.fontSize);
 
                 objectChar.push(c);
 

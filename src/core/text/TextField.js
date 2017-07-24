@@ -172,6 +172,32 @@ class TextField extends PIXI.Container {
         this._change(JsDiff.convertChangesToDMP(diff));
     }
 
+    setWordStyle(word, style){
+        var reg = new RegExp(word, 'g');
+        var match = this.text.match(reg);
+        console.log(match);
+
+        if(match){
+            var len = match.length;
+            var start = [];
+
+            for(var i = 0; i < len; i++){
+                var index;
+                if(i == 0){
+                    index = text.text.indexOf(word);
+                }
+                else{
+                    index = text.text.indexOf(word, start[i - 1] + word.length);
+                }
+
+                for(var j = index; j < word.length; j++){
+                    // var c = this.
+                }
+                start.push(index);
+            }
+        }
+    }
+
     @Private getMap(nodes, parent = ["text"]) {
         for (var i = 0; i < nodes.length; i++) {
             var _n = nodes[i];
