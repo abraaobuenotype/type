@@ -1,50 +1,15 @@
 module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-chokidar');
     grunt.loadNpmTasks('grunt-jsdoc');
-    grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-webpack');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-shell');
 
     var path = 'bin/';
     var lib = '../lib/';
 
     grunt.initConfig({
-        webpack: {
-            someName: {
-                entry: './temp/Main.js',
-                output: {
-                    path: "bin/",
-                    filename: "type.js"
-                },
-                stats: {
-                    // Configure the console output
-                    colors: false,
-                    modules: true,
-                    reasons: true
-                }
-            }
-        },
-
-        babel: {
-            options: {
-                presets: ['es2015'],
-                plugins: ['transform-decorators-legacy', 'transform-class-properties', 'babel-plugin-transform-private-properties']
-            },
-            dist: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: 'src',
-                        src: ['**/*.js'],
-                        dest: 'temp/',
-                        ext: '.js'
-                    }
-                ]
-            }
-        },
-
         copy: {
             target: {
                 files: [
@@ -80,6 +45,12 @@ module.exports = function(grunt) {
             }
         },
 
+        shell: {
+            script: {
+                command: 'webpack'
+            }
+        },
+
         clean: {
             temp: ['temp']
         },
@@ -87,7 +58,7 @@ module.exports = function(grunt) {
         chokidar: {
             scripts: {
                 files: ['src/**/*.js'],
-                tasks: ['build', 'copy']
+                tasks: ['shell', 'copy']
             }
         },
 
@@ -119,7 +90,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', ['chokidar']);
-    grunt.registerTask('build', ['babel', 'webpack', 'version', 'uglify', 'clean']);
+    grunt.registerTask('build', ['version', 'uglify', 'clean']);
 
     grunt.registerTask('version', 'adiciona a versão pelo package', function() {
         var pkg = grunt.file.readJSON('package.json');

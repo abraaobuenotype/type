@@ -189,18 +189,23 @@ window.onload = function() {
         var texto = new type.text.TextField(600, 800);
         texto.setText('<a>Nada do que é social e humano é mais real que as utopias. Na sua vertente eutópica, as utopias constituíram sempre o fundamento simbólico e mítico sem o qual nenhuma forma o fundamento simbólico e mítico sem o qual nenhuma forma de organização social se sustenta, justifica ou sobrevive. E criam, tanto na vertente eutópica como na distópica, o vocabulário da revolução e da mudança: sem os amanhãs que cantam (ou choram) teríamos, em vez de História, um presente intemporal e eterno - como o dos faraós ou o de Fran\n tres</a>', {
             align: 'left',
-            leftToRight: true,
-            topToBottom: true,
+            leftToRight: false,
+            topToBottom: false,
             horizontalPriority: true,
             spaceBetweenLines: 0,
             spaceBetweenWords: -1,
             a: {
-                fontFamily: "playtime",
-                fontSize: 50
+                fill: 0xffffff,
+                fontFamily: "century",
+                fontSize: 18
             }
         });
 
         stage.addChild(texto);
+
+        texto.tint = 0xFF0000;
+
+        texto.setWordStyle("sem", {fontSize: 30, fill:0x000000});
 
         var s = new PIXI.Graphics;
         s.lineStyle(1, 0x00ff59);

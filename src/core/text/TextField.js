@@ -60,7 +60,6 @@ class TextField extends PIXI.Container {
         this._defaultStyle = value;
     }
 
-
     get textLeftToRight() {
         return this._textLeftToRight;
     }
@@ -132,6 +131,19 @@ class TextField extends PIXI.Container {
         this.relocate();
     }
 
+    get tint() {
+        return this._tint;
+    }
+
+    set tint(color) {
+        this._tint = color;
+
+        for (var i = 0; i < this.children.length; i++) {
+            this.children[i].tint = color;
+        }
+
+    }
+
     setText(text, style = {}) {
         this._customStyle = style;
 
@@ -170,6 +182,50 @@ class TextField extends PIXI.Container {
 
         var diff = JsDiff.diffChars(oldText, this._text);
         this._change(JsDiff.convertChangesToDMP(diff));
+    }
+
+    setWordStyle(word, style) {
+
+        var matches = [];
+
+        var supString = this._text;
+
+        function RecursiveFindWord(remainingString) {
+
+            var matchIndex = remainingString.indexOf(word)
+
+            if (matchIndex == -1) {
+                return;
+            }
+
+            matches.push(matchIndex);
+
+            supString = supString.substring(matchIndex + word.length);
+
+            if (supString.length > word.length) {
+                RecursiveFindWord(supString)
+            } else {
+                return;
+            }
+
+        }
+
+        RecursiveFindWord(supString);
+
+        var index = 0;
+        for (var i = 0; i < matches.length; i++) {
+
+            index = index + matches[i];
+
+            for (var j = 0; j < word.length; j++) {
+                this.children[index + j].setStyle(style);
+            }
+
+            index = index + word.length;
+
+        }
+
+        this.relocate();
     }
 
     @Private getMap(nodes, parent = ["text"]) {
@@ -349,7 +405,6 @@ class TextField extends PIXI.Container {
         var letraFinal = null;
 
         var lines = this.horizontalModule.lines
-
 
         if (charinicial < charfinal) {
             letraIni = this.children[charinicial];
