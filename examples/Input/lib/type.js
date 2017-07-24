@@ -2244,6 +2244,18 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
 
             _relocate.get(this)();
         }
+    }, {
+        key: 'tint',
+        get: function get() {
+            return this._tint;
+        },
+        set: function set(color) {
+            this._tint = color;
+
+            for (var i = 0; i < this.children.length; i++) {
+                this.children[i].setStyle({ fill: color });
+            }
+        }
     }]);
 
     return TextField;
@@ -18880,7 +18892,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/*istanbul ignore start*/'use strict';
 
 	exports.__esModule = true;
-	exports.canonicalize = exports.convertChangesToXML = exports.convertChangesToDMP = exports.merge = exports.parsePatch = exports.applyPatches = exports.applyPatch = exports.createPatch = exports.createTwoFilesPatch = exports.structuredPatch = exports.diffArrays = exports.diffJson = exports.diffCss = exports.diffSentences = exports.diffTrimmedLines = exports.diffLines = exports.diffWordsWithSpace = exports.diffWords = exports.diffChars = exports.Diff = undefined;
+	exports.canonicalize = exports.convertChangesToDMP = exports.merge = exports.parsePatch = exports.applyPatches = exports.applyPatch = exports.createPatch = exports.createTwoFilesPatch = exports.structuredPatch = exports.diffArrays = exports.diffJson = exports.diffCss = exports.diffSentences = exports.diffTrimmedLines = exports.diffLines = exports.diffWordsWithSpace = exports.diffWords = exports.diffChars = exports.Diff = undefined;
 	/*istanbul ignore end*/
 	var /*istanbul ignore start*/_base = __webpack_require__(1) /*istanbul ignore end*/;
 
@@ -20623,6 +20635,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
+
 
 /***/ }),
 /* 54 */

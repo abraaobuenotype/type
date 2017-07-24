@@ -132,6 +132,20 @@ class TextField extends PIXI.Container {
         this.relocate();
     }
 
+    get tint() {
+        return this._tint;
+    }
+
+    set tint(color) {
+        this._tint = color;
+
+        for (var i = 0; i < this.children.length; i++) {
+            this.children[i].setStyle({fill: color});
+        }
+
+
+    }
+
     setText(text, style = {}) {
         this._customStyle = style;
 

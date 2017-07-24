@@ -202,6 +202,8 @@ window.onload = function() {
 
         stage.addChild(texto);
 
+        texto.tint = 0xFF0000;
+
         var s = new PIXI.Graphics;
         s.lineStyle(1, 0x00ff59);
         s.drawRect(0, 0, 600, 800);
