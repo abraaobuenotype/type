@@ -4,12 +4,12 @@ import Char from './Char';
 import KeyboardHandler from '../KeyboardHandler';
 
 @autobind
-class Input extends PIXI.Container{
-    constructor(_width, _height, align, maxChars){
+class Input extends PIXI.Container {
+    constructor(_width, _height, align, maxChars) {
         super();
         this._width = _width || 2048;
         this._height = _height || 1152;
-        this.hitArea = new PIXI.Rectangle(0,0,this._width, this._height);
+        this.hitArea = new PIXI.Rectangle(0, 0, this._width, this._height);
         this.debug = false;
         this.maxChars = maxChars || 0;
         this.field = new TextField(_width, _height);
@@ -36,50 +36,50 @@ class Input extends PIXI.Container{
         this.selectionGraphics = new PIXI.Graphics();
         this.addChild(this.selectionGraphics);
         this.field.on("textUpdated", function(char) {
+            console.log("parte -1");
             this.positionCursor(char);
         });
     }
 
-    get text(){
+    get text() {
         return this.field._text;
     }
 
-    set text(text){
+    set text(text) {
         this.field.setText(text);
     }
 
-
     //TODO
-    get textStyle(){
+    get textStyle() {
         return this.field._text;
     }
 
-    set textStyle(text){
+    set textStyle(text) {
         this.field.setText(text);
     }
     //TODO
 
-    get align(){
+    get align() {
         return this.field.align;
     }
 
-    set align(value){
+    set align(value) {
         this.field.align = value;
     }
 
-    get defaultStyle(){
+    get defaultStyle() {
         return this.field.defaultStyle;
     }
 
-    set defaultStyle(value){
+    set defaultStyle(value) {
         this.field.defaultStyle = value;
     }
 
-    get width(){
+    get width() {
         return this._width;
     }
 
-    set width(value){
+    set width(value) {
         var width = this.getLocalBounds().width;
         if (width !== 0) {
             this.scale.x = value / width;
@@ -89,69 +89,69 @@ class Input extends PIXI.Container{
         this._width = value;
     }
 
-    get textLeftToRight(){
+    get textLeftToRight() {
         return this.field.textLeftToRight;
     }
 
-    set textLeftToRight(value){
+    set textLeftToRight(value) {
         this.field.textLeftToRight = value;
     }
 
-    get textTopToBottom(){
+    get textTopToBottom() {
         return this.field.textTopToBottom;
     }
 
-    set textTopToBottom(value){
+    set textTopToBottom(value) {
         this.field.textTopToBottom = value;
     }
 
-    get alignHorizontalPriority(){
+    get alignHorizontalPriority() {
         return this.field._alignHorizontalPriority;
     }
 
-    set alignHorizontalPriority(value){
+    set alignHorizontalPriority(value) {
         this.field._alignHorizontalPriority = value;
     }
 
-    get customAlign(){
+    get customAlign() {
         return this.field._customAlign;
     }
 
-    set customAlign(value){
+    set customAlign(value) {
         this.field._customAlign = value;
     }
 
-    get allowSelection(){
+    get allowSelection() {
         return this._allowSelection;
     }
 
-    set allowSelection(value){
+    set allowSelection(value) {
         this._allowSelection;
     }
 
-    animateCursor(){
+    animateCursor() {
         TweenMax.to(this.cursor, 0.5, {
             alpha: 0,
             yoyo: true,
             repeat: -1
-        },this);
+        }, this);
     }
 
-    setText(text, style){
+    setText(text, style) {
         this.field.setText(text, style);
     }
 
-    cursorSize(size){
+    cursorSize(size) {
         this.cursor.setStyle({fontSize: size});
     }
 
-    hideCursor(size){
+    hideCursor(size) {
         this.interactive = false;
         TweenMax.killTweensOf(this.cursor);
         this.cursor.alpha = 0;
     }
 
-    addEvents(){
+    addEvents() {
         this.interactive = true;
         this.on('mousedown', this.focus, this);
         this.on('touchstart', this.focus, this);
@@ -163,7 +163,7 @@ class Input extends PIXI.Container{
         this.on('touchendoutside', this.stopSelecting, this);
     }
 
-    removeEvents(){
+    removeEvents() {
         this.interactive = false;
         this.removeListener('mousedown');
         this.removeListener('touchstart');
@@ -175,22 +175,28 @@ class Input extends PIXI.Container{
         this.removeListener('touchendoutside');
     }
 
-    focus(e){
+    focus(e) {
 
         this.selectionStarted = true;
 
-        this.initialChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
+        if (this.field.getCharAt(e.data.global.x, e.data.global.y) !== undefined) {
+            this.initialChar = this.field.getCharAt(e.data.global.x, e.data.global.y);
+        }
 
         this.keyboardHandler = KeyboardHandler.getInstance();
         this.keyboardHandler.focusedInput = this;
 
     }
 
-    select(e){
+    select(e) {
         if (this._allowSelection && this.selectionStarted) {
-            var character = this.field.getCharAt(e.data.global.x, e.data.global.y);
+            var character;
+            if (this.field.getCharAt(e.data.global.x, e.data.global.y) !== undefined) {
+                character = this.field.getCharAt(e.data.global.x, e.data.global.y);
+            }
 
-            if (character !== undefined) this.finalChar = character;
+            if (character !== undefined)
+                this.finalChar = character;
 
             if (this.initialChar !== undefined && this.finalChar !== undefined && this.initialChar != this.finalChar) {
                 this.drawSelection(this.field.getSelectionCoordinates(this.initialChar, this.finalChar));
@@ -198,11 +204,16 @@ class Input extends PIXI.Container{
         }
     }
 
-    stopSelecting(e){
-        var character = this.field.getCharAt(e.data.global.x, e.data.global.y);
-        if (character !== undefined) this.finalChar = character;
+    stopSelecting(e) {
+        var character;
+        if (this.field.getCharAt(e.data.global.x, e.data.global.y) !== undefined) {
+            character = this.field.getCharAt(e.data.global.x, e.data.global.y);
+        }
 
-        if (this.finalChar < this.initialChar){
+        if (character !== undefined)
+            this.finalChar = character;
+
+        if (this.finalChar < this.initialChar) {
             var charstorage;
             charstorage = this.finalChar;
             this.finalChar = this.initialChar;
@@ -216,12 +227,13 @@ class Input extends PIXI.Container{
             }
         }
         if (this.initialChar == this.finalChar) {
+            console.log("parte 1");
             this.selectionGraphics.clear();
             this.positionCursor(this.field.children[this.finalChar]);
         }
     }
 
-    drawSelection(coords){
+    drawSelection(coords) {
         this.selectionGraphics.clear();
         for (var i = 0; i < coords.length; i++) {
             this.selectionGraphics.beginFill(0x0000ff, 0.1);
@@ -230,7 +242,8 @@ class Input extends PIXI.Container{
         }
     }
 
-    showCursor(){
+    showCursor() {
+        console.log("parte 2");
         this.positionCursor(this.field.children[this.field.children.length - 1]);
         this.initialChar = this.field.children.length - 1;
         this.finalChar = this.field.children.length - 1;
@@ -242,14 +255,14 @@ class Input extends PIXI.Container{
         this.cursorAnimation();
     }
 
-    cursorAnimation(){
+    cursorAnimation() {
         this.cursor.alpha = 1;
         var cursor = this.cursor;
 
         this.showCursor = setInterval(function() {
             if (this.cursorDirection == 1) {
                 cursor.alpha += 0.3;
-            } else{
+            } else {
                 cursor.alpha -= 0.3;
             }
             if (cursor.alpha >= 1) {
@@ -261,26 +274,29 @@ class Input extends PIXI.Container{
         }, 130);
     }
 
-    setWordStyle(word, style){
+    setWordStyle(word, style) {
         this.field.setWordStyle(word, style);
     }
 
-    setStyle(style){
+    setStyle(style) {
         this.field.setStyle(style);
     }
 
-    hideCursor(){
+    hideCursor() {
         clearInterval(this.showCursor);
         this.cursor.alpha = 0;
     }
 
-    positionCursor(character){
+    positionCursor(character) {
+        console.log(character.text);
+        console.log(character.y);
         if (character === undefined) {
             character = null;
         }
         if (character === null) {
 
-            if (this.field.text.length !== 0) return;
+            if (this.field.text.length !== 0)
+                return;
 
             if (this.field.align == "left" || this.field.align == "justify") {
                 this.cursor.x = 2;
@@ -294,7 +310,7 @@ class Input extends PIXI.Container{
                 this.cursor.x = this.width - 3;
                 this.cursor.y = 0;
             }
-        }else{
+        } else {
             this.cursor.setStyle({fontSize: character.style.fontSize});
             this.cursor.x = Math.round(character.x + character.vwidth - character.style.fontSize / 10);
             this.cursor.y = character.y;

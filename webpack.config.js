@@ -1,10 +1,15 @@
 const path = require('path');
 
+var isProd = process.env.NODE_ENV === 'production';
+console.log(isProd);
+var folder = isProd ? 'examples/js' : 'bin';
+var name = isProd ? 'type.min.js' : 'type.js';
+
 module.exports = {
     entry: './src/Main.js',
     output: {
-        path: path.resolve(__dirname, 'bin'),
-        filename: 'type.js'
+        path: path.resolve(__dirname, folder),
+        filename: name
     },
 
     module: {
@@ -25,5 +30,13 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+
+    resolve:{
+        alias:{
+            Font: path.resolve(__dirname, 'lib/Font.js')
+        }
+    },
+
+    watch: isProd
 }

@@ -1,0 +1,86 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Type exemple</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
+    <script src="../js/type.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <script>
+
+        var loader = new type.Loader();
+        loader.add('playtime', '../fonts/playtime.ttf');
+        loader.add('escolar', '../fonts/escolar8.ttf');
+        loader.add('century', '../fonts/century.ttf');
+        loader.once('loadComplete', init);
+        loader.load();
+
+        var count = 0;
+
+        function init() {
+            var renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, {
+                transparent: true
+            });
+
+            document.body.appendChild(renderer.view);
+            var dom = renderer.view;
+            dom.style.position = "absolute";
+            document.body.style.margin = '0px';
+
+
+            var stage = new PIXI.Container();
+            var txField = new type.text.Input(window.innerWidth - 100, window.innerHeight - 100);
+
+            txField.x += 50;
+            txField.spaceBetweenLines = 20;
+            txField.align = "center";
+
+
+            txField.setText(
+                "<a>Nada do que é social e</a>",
+                {
+                    a: {
+                        fontFamily: "playtime",
+                        fontSize: 50
+                    }
+                }
+            );
+
+            txField.defaultStyle = {
+                fontFamily: "playtime",
+                fontSize: 50
+            };
+
+
+            stage.addChild(txField);
+
+
+            animate();
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                renderer.render(stage);
+            }
+
+            function startDemo() {
+
+                txField.addEvents();
+                txField.showCursor();
+
+
+            }
+
+            startDemo();
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>

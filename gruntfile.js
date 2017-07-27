@@ -1,10 +1,7 @@
 module.exports = function(grunt) {
-    grunt.loadNpmTasks('grunt-chokidar');
     grunt.loadNpmTasks('grunt-jsdoc');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-shell');
 
     var path = 'bin/';
     var lib = '../lib/';
@@ -16,50 +13,16 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         cwd: 'bin/',
-                        src: ["type.js"],
-                        dest: 'examples/Align/lib',
-                        filter: 'isFile'
-                    },
-                    {
-                        expand: true,
-                        cwd: 'bin/',
-                        src: ["type.js"],
-                        dest: 'examples/CustomAlign/lib',
-                        filter: 'isFile'
-                    },
-                    {
-                        expand: true,
-                        cwd: 'bin/',
-                        src: ["type.js"],
-                        dest: 'examples/Input/lib',
-                        filter: 'isFile'
-                    },
-                    {
-                        expand: true,
-                        cwd: 'bin/',
-                        src: ["type.js"],
-                        dest: 'examples/Tween/lib',
+                        src: ["type.min.js"],
+                        dest: 'examples/js/',
                         filter: 'isFile'
                     }
                 ]
             }
         },
 
-        shell: {
-            script: {
-                command: 'webpack'
-            }
-        },
-
         clean: {
-            temp: ['temp']
-        },
-
-        chokidar: {
-            scripts: {
-                files: ['src/**/*.js'],
-                tasks: ['shell', 'copy']
-            }
+            bin: ['bin/**']
         },
 
         jsdoc: {
@@ -73,24 +36,8 @@ module.exports = function(grunt) {
                     configure: "jsdoc.conf.json"
                 }
             }
-        },
-
-        uglify: {
-            minify: {
-                options: {
-                    compress: {
-                        drop_console: true
-                    }
-                },
-                files: {
-                    'bin/type.min.js': 'bin/type.js'
-                }
-            }
         }
     });
-
-    grunt.registerTask('default', ['chokidar']);
-    grunt.registerTask('build', ['version', 'uglify', 'clean']);
 
     grunt.registerTask('version', 'adiciona a versão pelo package', function() {
         var pkg = grunt.file.readJSON('package.json');

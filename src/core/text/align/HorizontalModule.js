@@ -100,9 +100,13 @@ class HorizontalModule {
                 w.indexWord = 0;
                 line.words.push(w);
 
+                if(this._lines[this._lines.length - 2].height == 0){
+                    this._lines[this._lines.length - 2].height = c.style.fontSize;
+                }
+
                 if (breakMultiControl) {
-                    line.height = c.vheight;
-                    w.height = c.vheight;
+                    // line.height = c.vheight;
+                    // w.height = c.vheight;
                 } else {
                     c.vheight = 0;
                 }
