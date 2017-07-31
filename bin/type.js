@@ -8583,7 +8583,7 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.4.3';
+        this.version = '1.4.4';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
@@ -21901,7 +21901,7 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
             this.cursor.alpha = 1;
             var cursor = this.cursor;
 
-            this.showCursor = setInterval(function () {
+            this.showCursor_enterframe = setInterval(function () {
                 if (this.cursorDirection == 1) {
                     cursor.alpha += 0.3;
                 } else {
@@ -21928,7 +21928,7 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
     }, {
         key: 'hideCursor',
         value: function hideCursor() {
-            clearInterval(this.showCursor);
+            clearInterval(this.showCursor_enterframe);
             this.cursor.alpha = 0;
         }
     }, {

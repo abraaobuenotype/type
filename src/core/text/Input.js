@@ -256,7 +256,7 @@ class Input extends PIXI.Container {
         this.cursor.alpha = 1;
         var cursor = this.cursor;
 
-        this.showCursor = setInterval(function() {
+        this.showCursor_enterframe = setInterval(function() {
             if (this.cursorDirection == 1) {
                 cursor.alpha += 0.3;
             } else {
@@ -280,7 +280,7 @@ class Input extends PIXI.Container {
     }
 
     hideCursor() {
-        clearInterval(this.showCursor);
+        clearInterval(this.showCursor_enterframe);
         this.cursor.alpha = 0;
     }
 
