@@ -279,7 +279,7 @@ class Input extends PIXI.Container {
     }
 
     setStyle(style) {
-        this.field.setStyle(style);
+        this.field.setText(this.field.text, style);
     }
 
     hideCursor() {
