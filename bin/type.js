@@ -8583,7 +8583,7 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.4.2';
+        this.version = '1.4.3';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
@@ -21758,7 +21758,6 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
         _this.selectionGraphics = new PIXI.Graphics();
         _this.addChild(_this.selectionGraphics);
         _this.field.on("textUpdated", function (char) {
-            console.log("parte -1");
             this.positionCursor(char);
         });
         return _this;
@@ -21869,7 +21868,6 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
                 }
             }
             if (this.initialChar == this.finalChar) {
-                console.log("parte 1");
                 this.selectionGraphics.clear();
                 this.positionCursor(this.field.children[this.finalChar]);
             }
@@ -21887,7 +21885,6 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
     }, {
         key: 'showCursor',
         value: function showCursor() {
-            console.log("parte 2");
             this.positionCursor(this.field.children[this.field.children.length - 1]);
             this.initialChar = this.field.children.length - 1;
             this.finalChar = this.field.children.length - 1;
@@ -21937,8 +21934,6 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
     }, {
         key: 'positionCursor',
         value: function positionCursor(character) {
-            console.log(character.text);
-            console.log(character.y);
             if (character === undefined) {
                 character = null;
             }

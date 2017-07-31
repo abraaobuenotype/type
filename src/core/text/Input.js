@@ -36,7 +36,6 @@ class Input extends PIXI.Container {
         this.selectionGraphics = new PIXI.Graphics();
         this.addChild(this.selectionGraphics);
         this.field.on("textUpdated", function(char) {
-            console.log("parte -1");
             this.positionCursor(char);
         });
     }
@@ -227,7 +226,6 @@ class Input extends PIXI.Container {
             }
         }
         if (this.initialChar == this.finalChar) {
-            console.log("parte 1");
             this.selectionGraphics.clear();
             this.positionCursor(this.field.children[this.finalChar]);
         }
@@ -243,7 +241,6 @@ class Input extends PIXI.Container {
     }
 
     showCursor() {
-        console.log("parte 2");
         this.positionCursor(this.field.children[this.field.children.length - 1]);
         this.initialChar = this.field.children.length - 1;
         this.finalChar = this.field.children.length - 1;
@@ -288,8 +285,6 @@ class Input extends PIXI.Container {
     }
 
     positionCursor(character) {
-        console.log(character.text);
-        console.log(character.y);
         if (character === undefined) {
             character = null;
         }
