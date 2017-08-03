@@ -1,6 +1,6 @@
 {
     "name": "type-for-pixi",
-    "version": "1.4.4",
+    "version": "1.4.5",
     "description": "Type for PIXI is a powerfull tool for working with texts on HTML 5 canvas.",
     "author": [
         {
@@ -41,7 +41,7 @@
         "diff": "^3.3.0",
         "eventemitter3": "^2.0.3",
         "opentype.js": "^0.7.3",
-        "pixi.js": "^4.5.3"
+        "pixi.js": "^4.5.4"
     },
     "scripts": {
         "dev": "cross-env NODE_ENV=production webpack",

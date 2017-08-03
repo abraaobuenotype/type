@@ -397,6 +397,8 @@ class TextField extends PIXI.Container {
     }
 
     getSelectionCoordinates(charinicial, charfinal) {
+        //TODO respect the line borders
+
         var coordinates = [];
         var iniCoord = {};
         var endCoord = {};
@@ -454,7 +456,7 @@ class TextField extends PIXI.Container {
             coordinates.push({
                 x: iniCoord.x,
                 y: iniCoord.up,
-                width: self._width - iniCoord.x,
+                width: this._width - iniCoord.x,
                 height: iniCoord.down
             });
             coordinates.push({x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down});
@@ -464,13 +466,13 @@ class TextField extends PIXI.Container {
         coordinates.push({
             x: iniCoord.x,
             y: iniCoord.up,
-            width: self._width - iniCoord.x,
+            width: this._width - iniCoord.x,
             height: iniCoord.down
         });
         coordinates.push({
             x: 0,
             y: iniCoord.up + iniCoord.down,
-            width: self._width,
+            width: this._width,
             height: endCoord.up - iniCoord.up - iniCoord.down
         });
         coordinates.push({x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down});

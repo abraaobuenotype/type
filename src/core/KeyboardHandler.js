@@ -143,10 +143,11 @@ class KeyboardHandler extends EventEmiter{
 
         if (e.key.match(/control/i) === null && e.key.match(/shift/i) === null && e.key.match(/dead/i) === null && e.key.match(/alt/i) === null && e.key.match(/meta/i) === null
             && e.key.match(/contextmenu/i) === null && (e.key.length == 1 || e.key.match(/enter/i) !== null)) {
-            var value = e.key
+            var value = e.key;
             if (value.match(/enter/i) !== null) {
-                value = "\n"
+                value = "\n";
             }
+
 
 
             var text = this._focusedInput.text;
@@ -160,7 +161,6 @@ class KeyboardHandler extends EventEmiter{
                     }
 
                     else{
-
                         textSliced = text.substring(0, this._focusedInput.initialChar) + value + text.substring(++this._focusedInput.finalChar);
                         this._focusedInput.finalChar = this._focusedInput.initialChar;
                     }
@@ -172,6 +172,7 @@ class KeyboardHandler extends EventEmiter{
 
 
             this._focusedInput.setText(textSliced);
+
             this._focusedInput.positionCursor(this._focusedInput.field.children[this._focusedInput.initialChar]);
 
             return;

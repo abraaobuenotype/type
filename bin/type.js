@@ -2113,6 +2113,8 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
     }, {
         key: 'getSelectionCoordinates',
         value: function getSelectionCoordinates(charinicial, charfinal) {
+            //TODO respect the line borders
+
             var coordinates = [];
             var iniCoord = {};
             var endCoord = {};
@@ -2170,7 +2172,7 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
                 coordinates.push({
                     x: iniCoord.x,
                     y: iniCoord.up,
-                    width: self._width - iniCoord.x,
+                    width: _width.get(this) - iniCoord.x,
                     height: iniCoord.down
                 });
                 coordinates.push({ x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down });
@@ -2180,13 +2182,13 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
             coordinates.push({
                 x: iniCoord.x,
                 y: iniCoord.up,
-                width: self._width - iniCoord.x,
+                width: _width.get(this) - iniCoord.x,
                 height: iniCoord.down
             });
             coordinates.push({
                 x: 0,
                 y: iniCoord.up + iniCoord.down,
-                width: self._width,
+                width: _width.get(this),
                 height: endCoord.up - iniCoord.up - iniCoord.down
             });
             coordinates.push({ x: 0, y: endCoord.up, width: endCoord.x, height: endCoord.down });
@@ -8583,7 +8585,7 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.4.4';
+        this.version = '1.4.5';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
@@ -17514,14 +17516,17 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
             var d_spaces = defaultText.match(/\s+(?=[^\n])/g);
 
             var __words = [];
-            for (var i = 0; i < d_words.length; i++) {
-                var w = '';
-                if (d_spaces !== null && d_spaces[i]) {
-                    w = d_words[i] + d_spaces[i];
-                } else {
-                    w = d_words[i];
+            if (d_words !== null) {
+
+                for (var i = 0; i < d_words.length; i++) {
+                    var w = '';
+                    if (d_spaces !== null && d_spaces[i]) {
+                        w = d_words[i] + d_spaces[i];
+                    } else {
+                        w = d_words[i];
+                    }
+                    __words.push(w);
                 }
-                __words.push(w);
             }
 
             var count = 0;
@@ -17566,6 +17571,7 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
             var breakMultiControl = false;
 
             for (i = 0; i < chars.length; i++) {
+
                 var line = _lines.get(this)[_lines.get(this).length - 1];
                 var word = line.words[line.words.length - 1];
 
@@ -18948,7 +18954,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/*istanbul ignore start*/'use strict';
 
 	exports.__esModule = true;
-	exports.canonicalize = exports.convertChangesToXML = exports.convertChangesToDMP = exports.merge = exports.parsePatch = exports.applyPatches = exports.applyPatch = exports.createPatch = exports.createTwoFilesPatch = exports.structuredPatch = exports.diffArrays = exports.diffJson = exports.diffCss = exports.diffSentences = exports.diffTrimmedLines = exports.diffLines = exports.diffWordsWithSpace = exports.diffWords = exports.diffChars = exports.Diff = undefined;
+	exports.canonicalize = exports.convertChangesToDMP = exports.merge = exports.parsePatch = exports.applyPatches = exports.applyPatch = exports.createPatch = exports.createTwoFilesPatch = exports.structuredPatch = exports.diffArrays = exports.diffJson = exports.diffCss = exports.diffSentences = exports.diffTrimmedLines = exports.diffLines = exports.diffWordsWithSpace = exports.diffWords = exports.diffChars = exports.Diff = undefined;
 	/*istanbul ignore end*/
 	var /*istanbul ignore start*/_base = __webpack_require__(1) /*istanbul ignore end*/;
 
@@ -20692,6 +20698,7 @@ return /******/ (function(modules) { // webpackBootstrap
 });
 ;
 
+
 /***/ }),
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -21933,13 +21940,33 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
         }
     }, {
         key: 'positionCursor',
-        value: function positionCursor(character) {
+        value: function positionCursor(character, left) {
+
+            if (left == true) {
+
+                this.cursor.setStyle({ fontSize: character.style.fontSize });
+                this.cursor.x = Math.round(character.x + character.vwidth - character.style.fontSize / 10);
+                this.cursor.y = character.y;
+
+                return;
+            }
+
             if (character === undefined) {
                 character = null;
             }
             if (character === null) {
 
-                if (this.field.text.length !== 0) return;
+                if (this.field.text.length > 0) {
+                    var lastChar = this.field.children[this.field.children.length - 1];
+                    if (lastChar == undefined) {
+                        return;
+                    }
+                    this.cursor.setStyle({ fontSize: lastChar.style.fontSize });
+                    this.cursor.x = Math.round(lastChar.x + lastChar.vwidth - lastChar.style.fontSize / 10);
+                    this.cursor.y = lastChar.y;
+
+                    return;
+                }
 
                 if (this.field.align == "left" || this.field.align == "justify") {
                     this.cursor.x = 2;
@@ -22211,7 +22238,6 @@ var KeyboardHandler = (0, _autobindDecorator2.default)(_class = (_temp = _class2
                     if (this._focusedInput.initialChar == this._focusedInput.finalChar) {
                         textSliced = text.substring(0, ++this._focusedInput.initialChar) + value + text.substring(++this._focusedInput.finalChar);
                     } else {
-
                         textSliced = text.substring(0, this._focusedInput.initialChar) + value + text.substring(++this._focusedInput.finalChar);
                         this._focusedInput.finalChar = this._focusedInput.initialChar;
                     }

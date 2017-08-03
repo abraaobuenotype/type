@@ -79,27 +79,27 @@
 
         var fontLibrary = [{
             name: 'arcena',
-            url: 'fonts/arcena.ttf'
+            url: '../fonts/arcena.ttf'
         }, {
             name: 'playtime',
-            url: 'fonts/playtime-webfont.ttf'
+            url: '../fonts/playtime-webfont.ttf'
         }, {
             name: 'maria',
-            url: 'fonts/maria_lucia.ttf'
+            url: '../fonts/maria_lucia.ttf'
         }, {
             name: 'century',
-            url: 'fonts/century.ttf'
+            url: '../fonts/century.ttf'
         }, {
             name: 'escolar',
-            url: 'fonts/escolar8.ttf'
+            url: '../fonts/escolar8.ttf'
         }];
 
         var count = 0;
 
         var loader = new type.Loader();
-        loader.add('playtime', 'fonts/playtime-webfont.ttf');
-        loader.add('escolar', 'fonts/escolar8.ttf');
-        loader.add('century', 'fonts/century.ttf');
+        loader.add('playtime', '../fonts/playtime.ttf');
+        loader.add('escolar', '../fonts/escolar8.ttf');
+        loader.add('century', '../fonts/century.ttf');
         loader.once('loadComplete', init);
         loader.load();
 

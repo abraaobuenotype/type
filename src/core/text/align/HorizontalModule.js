@@ -22,7 +22,7 @@ class HorizontalModule {
 
     constructor() {}
 
-    get lines(){
+    get lines() {
         return this._lines;
     }
 
@@ -36,14 +36,17 @@ class HorizontalModule {
         var d_spaces = defaultText.match(/\s+(?=[^\n])/g);
 
         var __words = [];
-        for (var i = 0; i < d_words.length; i++) {
-            var w = '';
-            if (d_spaces !== null && d_spaces[i]) {
-                w = d_words[i] + d_spaces[i];
-            } else {
-                w = d_words[i];
+        if (d_words !== null) {
+
+            for (var i = 0; i < d_words.length; i++) {
+                var w = '';
+                if (d_spaces !== null && d_spaces[i]) {
+                    w = d_words[i] + d_spaces[i];
+                } else {
+                    w = d_words[i];
+                }
+                __words.push(w);
             }
-            __words.push(w);
         }
 
         var count = 0;
@@ -88,6 +91,7 @@ class HorizontalModule {
         var breakMultiControl = false;
 
         for (i = 0; i < chars.length; i++) {
+
             var line = this._lines[this._lines.length - 1];
             var word = line.words[line.words.length - 1];
 
@@ -100,7 +104,7 @@ class HorizontalModule {
                 w.indexWord = 0;
                 line.words.push(w);
 
-                if(this._lines[this._lines.length - 2].height == 0){
+                if (this._lines[this._lines.length - 2].height == 0) {
                     this._lines[this._lines.length - 2].height = c.style.fontSize;
                 }
 
@@ -129,6 +133,8 @@ class HorizontalModule {
                 if (this._spaceBetweenWords != -1) {
                     c.vwidth += this._spaceBetweenWords;
                 }
+                c.vheight = c.height;
+                c.vwidth = c.width;
             }
 
             if (isSpace && c.text != " ") {
@@ -269,7 +275,7 @@ class HorizontalModule {
                     default:
                         this._leftAlignLRDU(lines);
                 }
-            }else {
+            } else {
                 switch (this._textAlign) {
                     case "center":
                         this._centerAlignRLDU(lines);
@@ -309,7 +315,6 @@ class HorizontalModule {
                     }
 
                     if (k === 0) {
-
                         line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x + line.words[j - 1].chars[line.words[j - 1].chars.length - 1].vwidth;
                         line.words[j].chars[k].y = y + ((line.height - line.words[j].chars[k].height) * 0.8);
                         continue;
@@ -351,7 +356,9 @@ class HorizontalModule {
                     }
 
                     lines[i].words[j].chars[k].x = lines[i].words[j].chars[k - 1].x + lines[i].words[j].chars[k - 1].vwidth;
+
                     lines[i].words[j].chars[k].y = y + ((line.height - lines[i].words[j].chars[k].vheight) * 0.8);
+
                 }
 
             }

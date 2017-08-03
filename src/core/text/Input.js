@@ -284,14 +284,28 @@ class Input extends PIXI.Container {
         this.cursor.alpha = 0;
     }
 
-    positionCursor(character) {
+    positionCursor(character, left) {
+
+        console.log(character.y);
+
+
         if (character === undefined) {
             character = null;
         }
         if (character === null) {
 
-            if (this.field.text.length !== 0)
+            if (this.field.text.length > 0) {
+                var lastChar = this.field.children[this.field.children.length -1];
+                if (lastChar == undefined) {
+                    return;
+                }
+                this.cursor.setStyle({fontSize: lastChar.style.fontSize});
+                this.cursor.x = Math.round(lastChar.x + lastChar.vwidth - lastChar.style.fontSize / 10);
+                this.cursor.y = lastChar.y;
+
                 return;
+            }
+
 
             if (this.field.align == "left" || this.field.align == "justify") {
                 this.cursor.x = 2;
