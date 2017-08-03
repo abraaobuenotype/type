@@ -286,9 +286,6 @@ class Input extends PIXI.Container {
 
     positionCursor(character, left) {
 
-        console.log(character.y);
-
-
         if (character === undefined) {
             character = null;
         }
