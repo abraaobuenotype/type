@@ -8585,7 +8585,7 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.4.6';
+        this.version = '1.4.7';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
@@ -18636,9 +18636,11 @@ var VerticalModule = (0, _autobindDecorator2.default)(_class = function () {
                 var objectChar = [];
                 for (var j = 0; j < w.length; j++) {
                     var c = chars[count];
-                    var data = c.style.font.split(" ");
-                    ff.push(data[1]);
-                    fs.push(parseFloat(data[0]));
+                    // var data = c.style.font.split(" ");
+                    // ff.push(data[1]);
+                    // fs.push(parseFloat(data[0]));
+                    ff.push(c.style.fontFamily);
+                    fs.push(c.style.fontSize);
 
                     objectChar.push(c);
 
