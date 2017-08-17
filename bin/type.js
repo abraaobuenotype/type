@@ -8585,7 +8585,7 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.4.7';
+        this.version = '1.4.8';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
@@ -16701,13 +16701,12 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
                     _lines.get(this)[_lines.get(this).length - 1].words.push(novaWord);
                 }
             } else {
-                if (line.width + charWidth > _width.get(this)) {
+                if (_width.get(this) < line.width + charWidth) {
                     _lines.get(this).push(new _Phrase2.default());
 
                     var widthTotal = 0;
                     for (var i = 0; i < line.words.length; i++) {
                         widthTotal += line.words[i].width;
-
                         if (_width.get(this) < widthTotal + charWidth) {
                             var wordAntiga = line.words[line.words.length - 1];
 
@@ -17613,8 +17612,8 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
                     if (this._spaceBetweenWords != -1) {
                         c.vwidth += this._spaceBetweenWords;
                     }
-                    c.vheight = c.height;
-                    c.vwidth = c.width;
+                    // c.vheight = c.height;
+                    // c.vwidth = c.width;
                 }
 
                 if (isSpace && c.text != " ") {
@@ -17651,6 +17650,7 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
                 line = _lines.get(this)[_lines.get(this).length - 1];
 
                 word.width += c.vwidth;
+
                 line.width += c.vwidth;
 
                 if (c.vheight > word.height) {

@@ -133,8 +133,8 @@ class HorizontalModule {
                 if (this._spaceBetweenWords != -1) {
                     c.vwidth += this._spaceBetweenWords;
                 }
-                c.vheight = c.height;
-                c.vwidth = c.width;
+                // c.vheight = c.height;
+                // c.vwidth = c.width;
             }
 
             if (isSpace && c.text != " ") {
@@ -170,7 +170,9 @@ class HorizontalModule {
 
             line = this._lines[this._lines.length - 1];
 
+
             word.width += c.vwidth;
+
             line.width += c.vwidth;
 
             if (c.vheight > word.height) {
@@ -198,13 +200,12 @@ class HorizontalModule {
                 this._lines[this._lines.length - 1].words.push(novaWord);
             }
         } else {
-            if (line.width + charWidth > this._width) {
+            if (this._width < line.width + charWidth) {
                 this._lines.push(new Phrase());
 
                 var widthTotal = 0;
                 for (var i = 0; i < line.words.length; i++) {
                     widthTotal += line.words[i].width;
-
                     if (this._width < widthTotal + charWidth) {
                         var wordAntiga = line.words[line.words.length - 1];
 
