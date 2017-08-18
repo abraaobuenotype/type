@@ -345,7 +345,9 @@ class TextField extends PIXI.Container {
             this.horizontalModule._spaceBetweenLines = {} = this._spaceBetweenLines;
             this.horizontalModule._spaceBetweenWords = {} = this._spaceBetweenWords;
 
+            console.log(this.height);
             this.horizontalModule.relocate(this._text, this.children, this._width, this._height);
+            console.log(this.height);
 
             if (this.children.length > 0) {
                 this.emit('textupdated', this.children[this.children.length - 1]);

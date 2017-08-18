@@ -1961,7 +1961,9 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
                 _horizontalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge), _spaceBetweenLines$ge);
                 _horizontalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge), _spaceBetweenWords$ge);
 
+                console.log(this.height);
                 _horizontalModule.get(this).relocate(this._text, this.children, _width.get(this), _height.get(this));
+                console.log(this.height);
 
                 if (this.children.length > 0) {
                     this.emit('textupdated', this.children[this.children.length - 1]);
@@ -8585,7 +8587,7 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.4.8';
+        this.version = '1.4.9';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
@@ -16848,18 +16850,17 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
 
                         if (k === 0 && j === 0) {
                             lines[i].words[j].chars[k].x = _width.get(this) / 2 - lines[i].width / 2;
-                            lines[i].words[j].chars[k].y = y + (line.height - lines[i].words[j].chars[k].vheight) * 0.8;
+                            lines[i].words[j].chars[k].y = y + (line.height - lines[i].words[j].chars[k].height) * 0.8;
                             continue;
                         }
                         if (k === 0) {
                             lines[i].words[j].chars[k].x = lines[i].words[j - 1].chars[lines[i].words[j - 1].chars.length - 1].x + lines[i].words[j - 1].chars[lines[i].words[j - 1].chars.length - 1].vwidth;
-                            lines[i].words[j].chars[k].y = y + (line.height - lines[i].words[j].chars[k].vheight) * 0.8;
+                            lines[i].words[j].chars[k].y = y + (line.height - lines[i].words[j].chars[k].height) * 0.8;
                             continue;
                         }
 
                         lines[i].words[j].chars[k].x = lines[i].words[j].chars[k - 1].x + lines[i].words[j].chars[k - 1].vwidth;
-
-                        lines[i].words[j].chars[k].y = y + (line.height - lines[i].words[j].chars[k].vheight) * 0.8;
+                        lines[i].words[j].chars[k].y = y + (line.height - lines[i].words[j].chars[k].height) * 0.8;
                     }
                 }
 
@@ -16885,18 +16886,18 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
 
                         if (k == line.words[j].chars.length - 1 && j == line.words.length - 1) {
                             line.words[j].chars[k].x = _width.get(this) - line.words[j].chars[k].vwidth;
-                            line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].vheight) * 0.8;
+                            line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].height) * 0.8;
                             continue;
                         }
                         if (k == line.words[j].chars.length - 1) {
                             line.words[j].chars[k].x = line.words[j + 1].chars[0].x - line.words[j].chars[k].vwidth;
-                            line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].vheight) * 0.8;
+                            line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].height) * 0.8;
                             continue;
                         }
 
                         line.words[j].chars[k].x = line.words[j].chars[k + 1].x - line.words[j].chars[k].vwidth;
 
-                        line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].vheight) * 0.8;
+                        line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].height) * 0.8;
                     }
                 }
 
@@ -16930,12 +16931,12 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
                                 for (var k = line.words[j].chars.length - 1; k >= 0; k--) {
                                     if (k == line.words[j].chars.length - 1) {
                                         line.words[j].chars[k].x = _width.get(this) - line.words[j].chars[k].vwidth;
-                                        line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].vheight) * 0.8;
+                                        line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].height) * 0.8;
                                         continue;
                                     }
 
                                     line.words[j].chars[k].x = line.words[j].chars[k + 1].x - line.words[j].chars[k].vwidth;
-                                    line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].vheight) * 0.8;
+                                    line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].height) * 0.8;
                                 }
                                 break;
                             }
@@ -16945,12 +16946,12 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
 
                             if (k === 0 && j === 0) {
                                 line.words[j].chars[k].x = 0;
-                                line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].vheight) * 0.8;
+                                line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].height) * 0.8;
                                 continue;
                             }
                             if (k === 0) {
                                 line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x + line.words[j - 1].chars[line.words[j - 1].chars.length - 1].vwidth + difEspacoLinha;
-                                line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].vheight) * 0.8;
+                                line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].height) * 0.8;
                                 continue;
                             }
 
@@ -16976,7 +16977,7 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
                     }
                     if (k === 0) {
                         line.words[j].chars[k].x = line.words[j - 1].chars[line.words[j - 1].chars.length - 1].x + line.words[j - 1].chars[line.words[j - 1].chars.length - 1].vwidth;
-                        line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].vheight) * 0.8;
+                        line.words[j].chars[k].y = y + (line.height - line.words[j].chars[k].height) * 0.8;
                         continue;
                     }
 
@@ -17588,10 +17589,10 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
                     }
 
                     if (breakMultiControl) {
-                        // line.height = c.vheight;
-                        // w.height = c.vheight;
+                        // line.height = c.height;
+                        // w.height = c.height;
                     } else {
-                        c.vheight = 0;
+                        c.height = 0;
                     }
 
                     c.width = 0;
@@ -17612,7 +17613,7 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
                     if (this._spaceBetweenWords != -1) {
                         c.vwidth += this._spaceBetweenWords;
                     }
-                    // c.vheight = c.height;
+                    // c.height = c.height;
                     // c.vwidth = c.width;
                 }
 
@@ -17635,11 +17636,11 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
                     w.chars.push(c);
 
                     w.width = c.vwidth;
-                    w.height = c.vheight;
+                    w.height = c.height;
                     line.width += c.vwidth;
 
-                    if (c.vheight > line.height) {
-                        line.height = c.vheight;
+                    if (c.height > line.height) {
+                        line.height = c.height;
                     }
 
                     continue;
@@ -17653,12 +17654,12 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
 
                 line.width += c.vwidth;
 
-                if (c.vheight > word.height) {
-                    word.height = c.vheight;
+                if (c.height > word.height) {
+                    word.height = c.height;
                 }
 
-                if (c.vheight > line.height) {
-                    line.height = c.vheight;
+                if (c.height > line.height) {
+                    line.height = c.height;
                 }
 
                 word.chars.push(c);
