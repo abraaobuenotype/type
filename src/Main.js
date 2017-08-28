@@ -1,5 +1,3 @@
-import "babel-polyfill";
-
 import autobind from 'autobind-decorator';
 import Loader from './core/Loader';
 import Metrics from './core/Metrics';
