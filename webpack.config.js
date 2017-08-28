@@ -24,7 +24,6 @@ module.exports = {
                 loader: "babel-loader",
                 options: {
                     presets: ["env"],
-
                     plugins: ['babel-plugin-transform-private-properties', 'transform-decorators-legacy', 'transform-class-properties']
                 }
             }
