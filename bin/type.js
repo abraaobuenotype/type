@@ -1853,9 +1853,7 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
                 _horizontalModule.get(this)._spaceBetweenLines = (_spaceBetweenLines$ge = _spaceBetweenLines.get(this), _objectDestructuringEmpty(_spaceBetweenLines$ge), _spaceBetweenLines$ge);
                 _horizontalModule.get(this)._spaceBetweenWords = (_spaceBetweenWords$ge = _spaceBetweenWords.get(this), _objectDestructuringEmpty(_spaceBetweenWords$ge), _spaceBetweenWords$ge);
 
-                console.log(this.height);
                 _horizontalModule.get(this).relocate(this._text, this.children, _width.get(this), _height.get(this));
-                console.log(this.height);
 
                 if (this.children.length > 0) {
                     this.emit('textupdated', this.children[this.children.length - 1]);
@@ -8432,7 +8430,7 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.6.1';
+        this.version = '1.6.2';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
