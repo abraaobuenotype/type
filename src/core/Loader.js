@@ -5,6 +5,7 @@ var Font = require('Font');
 import Metrics from './Metrics';
 import TextField from './text/TextField.js'
 
+var opentype = require('opentype.js');
 
 @autobind
 class Loader extends EventEmiter{
@@ -39,17 +40,32 @@ class Loader extends EventEmiter{
         this.setText(_defaultStyle);
     }
 
-    load(){
+    //Workaround URL should be used in conjunction with the method to load fonts in APKs
+    load(workAroundURL){
         for(var i in this.library){
             var f = new Font();
             f.fontFamily = i;
             f.onload = this.tempLoad;
             f.src = this.library[i];
 
-            this.metrics.once('metricsLoaded', this.tempLoad);
-            this.metrics.load(i, this.library[i]);
+            if (!workAroundURL || workAroundURL == undefined) {
+                this.metrics.once('metricsLoaded', this.tempLoad);
+                this.metrics.load(i, this.library[i]);
+            }
+
         }
     }
+
+    //this method should be called to load fonts from an array buffer ///// USE to work around xmlhttprequest on native APKs
+    workAroundLoad(name, fontArayBuffer){
+
+        var font = opentype.parse(fontArayBuffer);
+
+        Metrics.library[name] = font;
+        this.tempLoad();
+    }
+
+
 
     tempLoad(){
         this.count = this.count + 1;

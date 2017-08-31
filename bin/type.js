@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 32);
+/******/ 	return __webpack_require__(__webpack_require__.s = 33);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -930,7 +930,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var opentype = __webpack_require__(33);
+var opentype = __webpack_require__(14);
 
 var Metrics = (0, _autobindDecorator2.default)(_class = (_temp = _class2 = function (_EventEmiter) {
     _inherits(Metrics, _EventEmiter);
@@ -1076,7 +1076,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _bbox = __webpack_require__(14);
+var _bbox = __webpack_require__(15);
 
 var _bbox2 = _interopRequireDefault(_bbox);
 
@@ -3501,7 +3501,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _glyph = __webpack_require__(17);
+var _glyph = __webpack_require__(18);
 
 var _glyph2 = _interopRequireDefault(_glyph);
 
@@ -3952,6 +3952,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var Font = __webpack_require__(54);
 
+var opentype = __webpack_require__(14);
+
 var _library = new WeakMap();
 
 var _count = new WeakMap();
@@ -3986,16 +3988,33 @@ var Loader = (0, _autobindDecorator2.default)(_class = (_temp = _class2 = functi
         }
     }, {
         key: 'load',
-        value: function load() {
+
+
+        //Workaround URL should be used in conjunction with the method to load fonts in APKs
+        value: function load(workAroundURL) {
             for (var i in _library.get(this)) {
                 var f = new Font();
                 f.fontFamily = i;
                 f.onload = this.tempLoad;
                 f.src = _library.get(this)[i];
 
-                _metrics.get(this).once('metricsLoaded', this.tempLoad);
-                _metrics.get(this).load(i, _library.get(this)[i]);
+                if (!workAroundURL || workAroundURL == undefined) {
+                    _metrics.get(this).once('metricsLoaded', this.tempLoad);
+                    _metrics.get(this).load(i, _library.get(this)[i]);
+                }
             }
+        }
+
+        //this method should be called to load fonts from an array buffer ///// USE to work around xmlhttprequest on native APKs
+
+    }, {
+        key: 'workAroundLoad',
+        value: function workAroundLoad(name, fontArayBuffer) {
+
+            var font = opentype.parse(fontArayBuffer);
+
+            _Metrics2.default.library[name] = font;
+            this.tempLoad();
         }
     }, {
         key: 'tempLoad',
@@ -4026,6 +4045,497 @@ exports.default = Loader;
 
 /***/ }),
 /* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.loadSync = exports.load = exports.parse = exports._parse = exports.BoundingBox = exports.Path = exports.Glyph = exports.Font = undefined;
+
+var _tinyInflate = __webpack_require__(34);
+
+var _tinyInflate2 = _interopRequireDefault(_tinyInflate);
+
+var _font = __webpack_require__(35);
+
+var _font2 = _interopRequireDefault(_font);
+
+var _glyph = __webpack_require__(18);
+
+var _glyph2 = _interopRequireDefault(_glyph);
+
+var _encoding = __webpack_require__(6);
+
+var _parse = __webpack_require__(0);
+
+var _parse2 = _interopRequireDefault(_parse);
+
+var _bbox = __webpack_require__(15);
+
+var _bbox2 = _interopRequireDefault(_bbox);
+
+var _path = __webpack_require__(5);
+
+var _path2 = _interopRequireDefault(_path);
+
+var _util = __webpack_require__(30);
+
+var _cmap = __webpack_require__(16);
+
+var _cmap2 = _interopRequireDefault(_cmap);
+
+var _cff = __webpack_require__(17);
+
+var _cff2 = _interopRequireDefault(_cff);
+
+var _fvar = __webpack_require__(46);
+
+var _fvar2 = _interopRequireDefault(_fvar);
+
+var _glyf = __webpack_require__(19);
+
+var _glyf2 = _interopRequireDefault(_glyf);
+
+var _gpos = __webpack_require__(47);
+
+var _gpos2 = _interopRequireDefault(_gpos);
+
+var _gsub = __webpack_require__(28);
+
+var _gsub2 = _interopRequireDefault(_gsub);
+
+var _head = __webpack_require__(20);
+
+var _head2 = _interopRequireDefault(_head);
+
+var _hhea = __webpack_require__(21);
+
+var _hhea2 = _interopRequireDefault(_hhea);
+
+var _hmtx = __webpack_require__(22);
+
+var _hmtx2 = _interopRequireDefault(_hmtx);
+
+var _kern = __webpack_require__(48);
+
+var _kern2 = _interopRequireDefault(_kern);
+
+var _ltag = __webpack_require__(23);
+
+var _ltag2 = _interopRequireDefault(_ltag);
+
+var _loca = __webpack_require__(49);
+
+var _loca2 = _interopRequireDefault(_loca);
+
+var _maxp = __webpack_require__(24);
+
+var _maxp2 = _interopRequireDefault(_maxp);
+
+var _name2 = __webpack_require__(25);
+
+var _name3 = _interopRequireDefault(_name2);
+
+var _os = __webpack_require__(26);
+
+var _os2 = _interopRequireDefault(_os);
+
+var _post = __webpack_require__(27);
+
+var _post2 = _interopRequireDefault(_post);
+
+var _meta = __webpack_require__(29);
+
+var _meta2 = _interopRequireDefault(_meta);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The opentype library.
+ * @namespace opentype
+ */
+
+// File loaders /////////////////////////////////////////////////////////
+/**
+ * Loads a font from a file. The callback throws an error message as the first parameter if it fails
+ * and the font as an ArrayBuffer in the second parameter if it succeeds.
+ * @param  {string} path - The path of the file
+ * @param  {Function} callback - The function to call when the font load completes
+ */
+function loadFromFile(path, callback) {
+    var fs = __webpack_require__(11);
+    fs.readFile(path, function (err, buffer) {
+        if (err) {
+            return callback(err.message);
+        }
+
+        callback(null, (0, _util.nodeBufferToArrayBuffer)(buffer));
+    });
+}
+/**
+ * Loads a font from a URL. The callback throws an error message as the first parameter if it fails
+ * and the font as an ArrayBuffer in the second parameter if it succeeds.
+ * @param  {string} url - The URL of the font file.
+ * @param  {Function} callback - The function to call when the font load completes
+ */
+// opentype.js
+// https://github.com/nodebox/opentype.js
+// (c) 2015 Frederik De Bleser
+// opentype.js may be freely distributed under the MIT license.
+
+/* global DataView, Uint8Array, XMLHttpRequest  */
+
+function loadFromUrl(url, callback) {
+    var request = new XMLHttpRequest();
+    request.open('get', url, true);
+    request.responseType = 'arraybuffer';
+    request.onload = function () {
+        if (request.status !== 200) {
+            return callback('Font could not be loaded: ' + request.statusText);
+        }
+
+        return callback(null, request.response);
+    };
+
+    request.onerror = function () {
+        callback('Font could not be loaded');
+    };
+
+    request.send();
+}
+
+// Table Directory Entries //////////////////////////////////////////////
+/**
+ * Parses OpenType table entries.
+ * @param  {DataView}
+ * @param  {Number}
+ * @return {Object[]}
+ */
+function parseOpenTypeTableEntries(data, numTables) {
+    var tableEntries = [];
+    var p = 12;
+    for (var i = 0; i < numTables; i += 1) {
+        var tag = _parse2.default.getTag(data, p);
+        var checksum = _parse2.default.getULong(data, p + 4);
+        var offset = _parse2.default.getULong(data, p + 8);
+        var length = _parse2.default.getULong(data, p + 12);
+        tableEntries.push({ tag: tag, checksum: checksum, offset: offset, length: length, compression: false });
+        p += 16;
+    }
+
+    return tableEntries;
+}
+
+/**
+ * Parses WOFF table entries.
+ * @param  {DataView}
+ * @param  {Number}
+ * @return {Object[]}
+ */
+function parseWOFFTableEntries(data, numTables) {
+    var tableEntries = [];
+    var p = 44; // offset to the first table directory entry.
+    for (var i = 0; i < numTables; i += 1) {
+        var tag = _parse2.default.getTag(data, p);
+        var offset = _parse2.default.getULong(data, p + 4);
+        var compLength = _parse2.default.getULong(data, p + 8);
+        var origLength = _parse2.default.getULong(data, p + 12);
+        var compression = void 0;
+        if (compLength < origLength) {
+            compression = 'WOFF';
+        } else {
+            compression = false;
+        }
+
+        tableEntries.push({ tag: tag, offset: offset, compression: compression,
+            compressedLength: compLength, length: origLength });
+        p += 20;
+    }
+
+    return tableEntries;
+}
+
+/**
+ * @typedef TableData
+ * @type Object
+ * @property {DataView} data - The DataView
+ * @property {number} offset - The data offset.
+ */
+
+/**
+ * @param  {DataView}
+ * @param  {Object}
+ * @return {TableData}
+ */
+function uncompressTable(data, tableEntry) {
+    if (tableEntry.compression === 'WOFF') {
+        var inBuffer = new Uint8Array(data.buffer, tableEntry.offset + 2, tableEntry.compressedLength - 2);
+        var outBuffer = new Uint8Array(tableEntry.length);
+        (0, _tinyInflate2.default)(inBuffer, outBuffer);
+        if (outBuffer.byteLength !== tableEntry.length) {
+            throw new Error('Decompression error: ' + tableEntry.tag + ' decompressed length doesn\'t match recorded length');
+        }
+
+        var view = new DataView(outBuffer.buffer, 0);
+        return { data: view, offset: 0 };
+    } else {
+        return { data: data, offset: tableEntry.offset };
+    }
+}
+
+// Public API ///////////////////////////////////////////////////////////
+
+/**
+ * Parse the OpenType file data (as an ArrayBuffer) and return a Font object.
+ * Throws an error if the font could not be parsed.
+ * @param  {ArrayBuffer}
+ * @return {opentype.Font}
+ */
+function parseBuffer(buffer) {
+    var indexToLocFormat = void 0;
+    var ltagTable = void 0;
+
+    // Since the constructor can also be called to create new fonts from scratch, we indicate this
+    // should be an empty font that we'll fill with our own data.
+    var font = new _font2.default({ empty: true });
+
+    // OpenType fonts use big endian byte ordering.
+    // We can't rely on typed array view types, because they operate with the endianness of the host computer.
+    // Instead we use DataViews where we can specify endianness.
+    var data = new DataView(buffer, 0);
+    var numTables = void 0;
+    var tableEntries = [];
+    var signature = _parse2.default.getTag(data, 0);
+    if (signature === String.fromCharCode(0, 1, 0, 0) || signature === 'true' || signature === 'typ1') {
+        font.outlinesFormat = 'truetype';
+        numTables = _parse2.default.getUShort(data, 4);
+        tableEntries = parseOpenTypeTableEntries(data, numTables);
+    } else if (signature === 'OTTO') {
+        font.outlinesFormat = 'cff';
+        numTables = _parse2.default.getUShort(data, 4);
+        tableEntries = parseOpenTypeTableEntries(data, numTables);
+    } else if (signature === 'wOFF') {
+        var flavor = _parse2.default.getTag(data, 4);
+        if (flavor === String.fromCharCode(0, 1, 0, 0)) {
+            font.outlinesFormat = 'truetype';
+        } else if (flavor === 'OTTO') {
+            font.outlinesFormat = 'cff';
+        } else {
+            throw new Error('Unsupported OpenType flavor ' + signature);
+        }
+
+        numTables = _parse2.default.getUShort(data, 12);
+        tableEntries = parseWOFFTableEntries(data, numTables);
+    } else {
+        throw new Error('Unsupported OpenType signature ' + signature);
+    }
+
+    var cffTableEntry = void 0;
+    var fvarTableEntry = void 0;
+    var glyfTableEntry = void 0;
+    var gposTableEntry = void 0;
+    var gsubTableEntry = void 0;
+    var hmtxTableEntry = void 0;
+    var kernTableEntry = void 0;
+    var locaTableEntry = void 0;
+    var nameTableEntry = void 0;
+    var metaTableEntry = void 0;
+    var p = void 0;
+
+    for (var i = 0; i < numTables; i += 1) {
+        var tableEntry = tableEntries[i];
+        var table = void 0;
+        switch (tableEntry.tag) {
+            case 'cmap':
+                table = uncompressTable(data, tableEntry);
+                font.tables.cmap = _cmap2.default.parse(table.data, table.offset);
+                font.encoding = new _encoding.CmapEncoding(font.tables.cmap);
+                break;
+            case 'cvt ':
+                table = uncompressTable(data, tableEntry);
+                p = new _parse2.default.Parser(table.data, table.offset);
+                font.tables.cvt = p.parseShortList(tableEntry.length / 2);
+                break;
+            case 'fvar':
+                fvarTableEntry = tableEntry;
+                break;
+            case 'fpgm':
+                table = uncompressTable(data, tableEntry);
+                p = new _parse2.default.Parser(table.data, table.offset);
+                font.tables.fpgm = p.parseByteList(tableEntry.length);
+                break;
+            case 'head':
+                table = uncompressTable(data, tableEntry);
+                font.tables.head = _head2.default.parse(table.data, table.offset);
+                font.unitsPerEm = font.tables.head.unitsPerEm;
+                indexToLocFormat = font.tables.head.indexToLocFormat;
+                break;
+            case 'hhea':
+                table = uncompressTable(data, tableEntry);
+                font.tables.hhea = _hhea2.default.parse(table.data, table.offset);
+                font.ascender = font.tables.hhea.ascender;
+                font.descender = font.tables.hhea.descender;
+                font.numberOfHMetrics = font.tables.hhea.numberOfHMetrics;
+                break;
+            case 'hmtx':
+                hmtxTableEntry = tableEntry;
+                break;
+            case 'ltag':
+                table = uncompressTable(data, tableEntry);
+                ltagTable = _ltag2.default.parse(table.data, table.offset);
+                break;
+            case 'maxp':
+                table = uncompressTable(data, tableEntry);
+                font.tables.maxp = _maxp2.default.parse(table.data, table.offset);
+                font.numGlyphs = font.tables.maxp.numGlyphs;
+                break;
+            case 'name':
+                nameTableEntry = tableEntry;
+                break;
+            case 'OS/2':
+                table = uncompressTable(data, tableEntry);
+                font.tables.os2 = _os2.default.parse(table.data, table.offset);
+                break;
+            case 'post':
+                table = uncompressTable(data, tableEntry);
+                font.tables.post = _post2.default.parse(table.data, table.offset);
+                font.glyphNames = new _encoding.GlyphNames(font.tables.post);
+                break;
+            case 'prep':
+                table = uncompressTable(data, tableEntry);
+                p = new _parse2.default.Parser(table.data, table.offset);
+                font.tables.prep = p.parseByteList(tableEntry.length);
+                break;
+            case 'glyf':
+                glyfTableEntry = tableEntry;
+                break;
+            case 'loca':
+                locaTableEntry = tableEntry;
+                break;
+            case 'CFF ':
+                cffTableEntry = tableEntry;
+                break;
+            case 'kern':
+                kernTableEntry = tableEntry;
+                break;
+            case 'GPOS':
+                gposTableEntry = tableEntry;
+                break;
+            case 'GSUB':
+                gsubTableEntry = tableEntry;
+                break;
+            case 'meta':
+                metaTableEntry = tableEntry;
+                break;
+        }
+    }
+
+    var nameTable = uncompressTable(data, nameTableEntry);
+    font.tables.name = _name3.default.parse(nameTable.data, nameTable.offset, ltagTable);
+    font.names = font.tables.name;
+
+    if (glyfTableEntry && locaTableEntry) {
+        var shortVersion = indexToLocFormat === 0;
+        var locaTable = uncompressTable(data, locaTableEntry);
+        var locaOffsets = _loca2.default.parse(locaTable.data, locaTable.offset, font.numGlyphs, shortVersion);
+        var glyfTable = uncompressTable(data, glyfTableEntry);
+        font.glyphs = _glyf2.default.parse(glyfTable.data, glyfTable.offset, locaOffsets, font);
+    } else if (cffTableEntry) {
+        var cffTable = uncompressTable(data, cffTableEntry);
+        _cff2.default.parse(cffTable.data, cffTable.offset, font);
+    } else {
+        throw new Error('Font doesn\'t contain TrueType or CFF outlines.');
+    }
+
+    var hmtxTable = uncompressTable(data, hmtxTableEntry);
+    _hmtx2.default.parse(hmtxTable.data, hmtxTable.offset, font.numberOfHMetrics, font.numGlyphs, font.glyphs);
+    (0, _encoding.addGlyphNames)(font);
+
+    if (kernTableEntry) {
+        var kernTable = uncompressTable(data, kernTableEntry);
+        font.kerningPairs = _kern2.default.parse(kernTable.data, kernTable.offset);
+    } else {
+        font.kerningPairs = {};
+    }
+
+    if (gposTableEntry) {
+        var gposTable = uncompressTable(data, gposTableEntry);
+        _gpos2.default.parse(gposTable.data, gposTable.offset, font);
+    }
+
+    if (gsubTableEntry) {
+        var gsubTable = uncompressTable(data, gsubTableEntry);
+        font.tables.gsub = _gsub2.default.parse(gsubTable.data, gsubTable.offset);
+    }
+
+    if (fvarTableEntry) {
+        var fvarTable = uncompressTable(data, fvarTableEntry);
+        font.tables.fvar = _fvar2.default.parse(fvarTable.data, fvarTable.offset, font.names);
+    }
+
+    if (metaTableEntry) {
+        var metaTable = uncompressTable(data, metaTableEntry);
+        font.tables.meta = _meta2.default.parse(metaTable.data, metaTable.offset);
+        font.metas = font.tables.meta;
+    }
+
+    return font;
+}
+
+/**
+ * Asynchronously load the font from a URL or a filesystem. When done, call the callback
+ * with two arguments `(err, font)`. The `err` will be null on success,
+ * the `font` is a Font object.
+ * We use the node.js callback convention so that
+ * opentype.js can integrate with frameworks like async.js.
+ * @alias opentype.load
+ * @param  {string} url - The URL of the font to load.
+ * @param  {Function} callback - The callback.
+ */
+function load(url, callback) {
+    var isNode = typeof window === 'undefined';
+    var loadFn = isNode ? loadFromFile : loadFromUrl;
+    loadFn(url, function (err, arrayBuffer) {
+        if (err) {
+            return callback(err);
+        }
+        var font = void 0;
+        try {
+            font = parseBuffer(arrayBuffer);
+        } catch (e) {
+            return callback(e, null);
+        }
+        return callback(null, font);
+    });
+}
+
+/**
+ * Synchronously load the font from a URL or file.
+ * When done, returns the font object or throws an error.
+ * @alias opentype.loadSync
+ * @param  {string} url - The URL of the font to load.
+ * @return {opentype.Font}
+ */
+function loadSync(url) {
+    var fs = __webpack_require__(11);
+    var buffer = fs.readFileSync(url);
+    return parseBuffer((0, _util.nodeBufferToArrayBuffer)(buffer));
+}
+
+exports.Font = _font2.default;
+exports.Glyph = _glyph2.default;
+exports.Path = _path2.default;
+exports.BoundingBox = _bbox2.default;
+exports._parse = _parse2.default;
+exports.parse = parseBuffer;
+exports.load = load;
+exports.loadSync = loadSync;
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4191,7 +4701,7 @@ BoundingBox.prototype.addQuad = function (x0, y0, x1, y1, x, y) {
 exports.default = BoundingBox;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4406,7 +4916,7 @@ function makeCmapTable(glyphs) {
 exports.default = { parse: parseCmapTable, make: makeCmapTable };
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5658,7 +6168,7 @@ function makeCFFTable(glyphs, options) {
 exports.default = { parse: parseCFFTable, make: makeCFFTable };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5680,7 +6190,7 @@ var _path2 = __webpack_require__(5);
 
 var _path3 = _interopRequireDefault(_path2);
 
-var _glyf = __webpack_require__(18);
+var _glyf = __webpack_require__(19);
 
 var _glyf2 = _interopRequireDefault(_glyf);
 
@@ -6041,7 +6551,7 @@ Glyph.prototype.drawMetrics = function (ctx, x, y, fontSize) {
 exports.default = Glyph;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6392,7 +6902,7 @@ function parseGlyfTable(data, start, loca, font) {
 exports.default = { getPath: getPath, parse: parseGlyfTable };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6457,7 +6967,7 @@ function makeHeadTable(options) {
 exports.default = { parse: parseHeadTable, make: makeHeadTable };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6508,7 +7018,7 @@ function makeHheaTable(options) {
 exports.default = { parse: parseHheaTable, make: makeHheaTable };
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6566,7 +7076,7 @@ function makeHmtxTable(glyphs) {
 exports.default = { parse: parseHmtxTable, make: makeHmtxTable };
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6640,7 +7150,7 @@ function parseLtagTable(data, start) {
 exports.default = { make: makeLtagTable, parse: parseLtagTable };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6696,7 +7206,7 @@ function makeMaxpTable(numGlyphs) {
 exports.default = { parse: parseMaxpTable, make: makeMaxpTable };
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7533,7 +8043,7 @@ function makeNameTable(names, ltag) {
 exports.default = { parse: parseNameTable, make: makeNameTable };
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7753,7 +8263,7 @@ function makeOS2Table(options) {
 exports.default = { parse: parseOS2Table, make: makeOS2Table, unicodeRanges: unicodeRanges, getUnicodeRange: getUnicodeRange };
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7828,7 +8338,7 @@ function makePostTable() {
 exports.default = { parse: parsePostTable, make: makePostTable };
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8083,7 +8593,7 @@ function makeGsubTable(gsub) {
 exports.default = { parse: parseGsubTable, make: makeGsubTable };
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8158,7 +8668,7 @@ function makeMetaTable(tags) {
 exports.default = { parse: parseMetaTable, make: makeMetaTable };
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8209,7 +8719,7 @@ exports.checkArgument = checkArgument;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40).Buffer))
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8292,7 +8802,7 @@ var Phrase = function () {
 exports.default = Phrase;
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8378,7 +8888,7 @@ var Word = (0, _autobindDecorator2.default)(_class = function () {
 exports.default = Word;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8430,7 +8940,7 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.6.2';
+        this.version = '1.7.0';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
@@ -8468,497 +8978,6 @@ exports.default = type;
 
 
 window.type = new type();
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.loadSync = exports.load = exports.parse = exports._parse = exports.BoundingBox = exports.Path = exports.Glyph = exports.Font = undefined;
-
-var _tinyInflate = __webpack_require__(34);
-
-var _tinyInflate2 = _interopRequireDefault(_tinyInflate);
-
-var _font = __webpack_require__(35);
-
-var _font2 = _interopRequireDefault(_font);
-
-var _glyph = __webpack_require__(17);
-
-var _glyph2 = _interopRequireDefault(_glyph);
-
-var _encoding = __webpack_require__(6);
-
-var _parse = __webpack_require__(0);
-
-var _parse2 = _interopRequireDefault(_parse);
-
-var _bbox = __webpack_require__(14);
-
-var _bbox2 = _interopRequireDefault(_bbox);
-
-var _path = __webpack_require__(5);
-
-var _path2 = _interopRequireDefault(_path);
-
-var _util = __webpack_require__(29);
-
-var _cmap = __webpack_require__(15);
-
-var _cmap2 = _interopRequireDefault(_cmap);
-
-var _cff = __webpack_require__(16);
-
-var _cff2 = _interopRequireDefault(_cff);
-
-var _fvar = __webpack_require__(46);
-
-var _fvar2 = _interopRequireDefault(_fvar);
-
-var _glyf = __webpack_require__(18);
-
-var _glyf2 = _interopRequireDefault(_glyf);
-
-var _gpos = __webpack_require__(47);
-
-var _gpos2 = _interopRequireDefault(_gpos);
-
-var _gsub = __webpack_require__(27);
-
-var _gsub2 = _interopRequireDefault(_gsub);
-
-var _head = __webpack_require__(19);
-
-var _head2 = _interopRequireDefault(_head);
-
-var _hhea = __webpack_require__(20);
-
-var _hhea2 = _interopRequireDefault(_hhea);
-
-var _hmtx = __webpack_require__(21);
-
-var _hmtx2 = _interopRequireDefault(_hmtx);
-
-var _kern = __webpack_require__(48);
-
-var _kern2 = _interopRequireDefault(_kern);
-
-var _ltag = __webpack_require__(22);
-
-var _ltag2 = _interopRequireDefault(_ltag);
-
-var _loca = __webpack_require__(49);
-
-var _loca2 = _interopRequireDefault(_loca);
-
-var _maxp = __webpack_require__(23);
-
-var _maxp2 = _interopRequireDefault(_maxp);
-
-var _name2 = __webpack_require__(24);
-
-var _name3 = _interopRequireDefault(_name2);
-
-var _os = __webpack_require__(25);
-
-var _os2 = _interopRequireDefault(_os);
-
-var _post = __webpack_require__(26);
-
-var _post2 = _interopRequireDefault(_post);
-
-var _meta = __webpack_require__(28);
-
-var _meta2 = _interopRequireDefault(_meta);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * The opentype library.
- * @namespace opentype
- */
-
-// File loaders /////////////////////////////////////////////////////////
-/**
- * Loads a font from a file. The callback throws an error message as the first parameter if it fails
- * and the font as an ArrayBuffer in the second parameter if it succeeds.
- * @param  {string} path - The path of the file
- * @param  {Function} callback - The function to call when the font load completes
- */
-function loadFromFile(path, callback) {
-    var fs = __webpack_require__(11);
-    fs.readFile(path, function (err, buffer) {
-        if (err) {
-            return callback(err.message);
-        }
-
-        callback(null, (0, _util.nodeBufferToArrayBuffer)(buffer));
-    });
-}
-/**
- * Loads a font from a URL. The callback throws an error message as the first parameter if it fails
- * and the font as an ArrayBuffer in the second parameter if it succeeds.
- * @param  {string} url - The URL of the font file.
- * @param  {Function} callback - The function to call when the font load completes
- */
-// opentype.js
-// https://github.com/nodebox/opentype.js
-// (c) 2015 Frederik De Bleser
-// opentype.js may be freely distributed under the MIT license.
-
-/* global DataView, Uint8Array, XMLHttpRequest  */
-
-function loadFromUrl(url, callback) {
-    var request = new XMLHttpRequest();
-    request.open('get', url, true);
-    request.responseType = 'arraybuffer';
-    request.onload = function () {
-        if (request.status !== 200) {
-            return callback('Font could not be loaded: ' + request.statusText);
-        }
-
-        return callback(null, request.response);
-    };
-
-    request.onerror = function () {
-        callback('Font could not be loaded');
-    };
-
-    request.send();
-}
-
-// Table Directory Entries //////////////////////////////////////////////
-/**
- * Parses OpenType table entries.
- * @param  {DataView}
- * @param  {Number}
- * @return {Object[]}
- */
-function parseOpenTypeTableEntries(data, numTables) {
-    var tableEntries = [];
-    var p = 12;
-    for (var i = 0; i < numTables; i += 1) {
-        var tag = _parse2.default.getTag(data, p);
-        var checksum = _parse2.default.getULong(data, p + 4);
-        var offset = _parse2.default.getULong(data, p + 8);
-        var length = _parse2.default.getULong(data, p + 12);
-        tableEntries.push({ tag: tag, checksum: checksum, offset: offset, length: length, compression: false });
-        p += 16;
-    }
-
-    return tableEntries;
-}
-
-/**
- * Parses WOFF table entries.
- * @param  {DataView}
- * @param  {Number}
- * @return {Object[]}
- */
-function parseWOFFTableEntries(data, numTables) {
-    var tableEntries = [];
-    var p = 44; // offset to the first table directory entry.
-    for (var i = 0; i < numTables; i += 1) {
-        var tag = _parse2.default.getTag(data, p);
-        var offset = _parse2.default.getULong(data, p + 4);
-        var compLength = _parse2.default.getULong(data, p + 8);
-        var origLength = _parse2.default.getULong(data, p + 12);
-        var compression = void 0;
-        if (compLength < origLength) {
-            compression = 'WOFF';
-        } else {
-            compression = false;
-        }
-
-        tableEntries.push({ tag: tag, offset: offset, compression: compression,
-            compressedLength: compLength, length: origLength });
-        p += 20;
-    }
-
-    return tableEntries;
-}
-
-/**
- * @typedef TableData
- * @type Object
- * @property {DataView} data - The DataView
- * @property {number} offset - The data offset.
- */
-
-/**
- * @param  {DataView}
- * @param  {Object}
- * @return {TableData}
- */
-function uncompressTable(data, tableEntry) {
-    if (tableEntry.compression === 'WOFF') {
-        var inBuffer = new Uint8Array(data.buffer, tableEntry.offset + 2, tableEntry.compressedLength - 2);
-        var outBuffer = new Uint8Array(tableEntry.length);
-        (0, _tinyInflate2.default)(inBuffer, outBuffer);
-        if (outBuffer.byteLength !== tableEntry.length) {
-            throw new Error('Decompression error: ' + tableEntry.tag + ' decompressed length doesn\'t match recorded length');
-        }
-
-        var view = new DataView(outBuffer.buffer, 0);
-        return { data: view, offset: 0 };
-    } else {
-        return { data: data, offset: tableEntry.offset };
-    }
-}
-
-// Public API ///////////////////////////////////////////////////////////
-
-/**
- * Parse the OpenType file data (as an ArrayBuffer) and return a Font object.
- * Throws an error if the font could not be parsed.
- * @param  {ArrayBuffer}
- * @return {opentype.Font}
- */
-function parseBuffer(buffer) {
-    var indexToLocFormat = void 0;
-    var ltagTable = void 0;
-
-    // Since the constructor can also be called to create new fonts from scratch, we indicate this
-    // should be an empty font that we'll fill with our own data.
-    var font = new _font2.default({ empty: true });
-
-    // OpenType fonts use big endian byte ordering.
-    // We can't rely on typed array view types, because they operate with the endianness of the host computer.
-    // Instead we use DataViews where we can specify endianness.
-    var data = new DataView(buffer, 0);
-    var numTables = void 0;
-    var tableEntries = [];
-    var signature = _parse2.default.getTag(data, 0);
-    if (signature === String.fromCharCode(0, 1, 0, 0) || signature === 'true' || signature === 'typ1') {
-        font.outlinesFormat = 'truetype';
-        numTables = _parse2.default.getUShort(data, 4);
-        tableEntries = parseOpenTypeTableEntries(data, numTables);
-    } else if (signature === 'OTTO') {
-        font.outlinesFormat = 'cff';
-        numTables = _parse2.default.getUShort(data, 4);
-        tableEntries = parseOpenTypeTableEntries(data, numTables);
-    } else if (signature === 'wOFF') {
-        var flavor = _parse2.default.getTag(data, 4);
-        if (flavor === String.fromCharCode(0, 1, 0, 0)) {
-            font.outlinesFormat = 'truetype';
-        } else if (flavor === 'OTTO') {
-            font.outlinesFormat = 'cff';
-        } else {
-            throw new Error('Unsupported OpenType flavor ' + signature);
-        }
-
-        numTables = _parse2.default.getUShort(data, 12);
-        tableEntries = parseWOFFTableEntries(data, numTables);
-    } else {
-        throw new Error('Unsupported OpenType signature ' + signature);
-    }
-
-    var cffTableEntry = void 0;
-    var fvarTableEntry = void 0;
-    var glyfTableEntry = void 0;
-    var gposTableEntry = void 0;
-    var gsubTableEntry = void 0;
-    var hmtxTableEntry = void 0;
-    var kernTableEntry = void 0;
-    var locaTableEntry = void 0;
-    var nameTableEntry = void 0;
-    var metaTableEntry = void 0;
-    var p = void 0;
-
-    for (var i = 0; i < numTables; i += 1) {
-        var tableEntry = tableEntries[i];
-        var table = void 0;
-        switch (tableEntry.tag) {
-            case 'cmap':
-                table = uncompressTable(data, tableEntry);
-                font.tables.cmap = _cmap2.default.parse(table.data, table.offset);
-                font.encoding = new _encoding.CmapEncoding(font.tables.cmap);
-                break;
-            case 'cvt ':
-                table = uncompressTable(data, tableEntry);
-                p = new _parse2.default.Parser(table.data, table.offset);
-                font.tables.cvt = p.parseShortList(tableEntry.length / 2);
-                break;
-            case 'fvar':
-                fvarTableEntry = tableEntry;
-                break;
-            case 'fpgm':
-                table = uncompressTable(data, tableEntry);
-                p = new _parse2.default.Parser(table.data, table.offset);
-                font.tables.fpgm = p.parseByteList(tableEntry.length);
-                break;
-            case 'head':
-                table = uncompressTable(data, tableEntry);
-                font.tables.head = _head2.default.parse(table.data, table.offset);
-                font.unitsPerEm = font.tables.head.unitsPerEm;
-                indexToLocFormat = font.tables.head.indexToLocFormat;
-                break;
-            case 'hhea':
-                table = uncompressTable(data, tableEntry);
-                font.tables.hhea = _hhea2.default.parse(table.data, table.offset);
-                font.ascender = font.tables.hhea.ascender;
-                font.descender = font.tables.hhea.descender;
-                font.numberOfHMetrics = font.tables.hhea.numberOfHMetrics;
-                break;
-            case 'hmtx':
-                hmtxTableEntry = tableEntry;
-                break;
-            case 'ltag':
-                table = uncompressTable(data, tableEntry);
-                ltagTable = _ltag2.default.parse(table.data, table.offset);
-                break;
-            case 'maxp':
-                table = uncompressTable(data, tableEntry);
-                font.tables.maxp = _maxp2.default.parse(table.data, table.offset);
-                font.numGlyphs = font.tables.maxp.numGlyphs;
-                break;
-            case 'name':
-                nameTableEntry = tableEntry;
-                break;
-            case 'OS/2':
-                table = uncompressTable(data, tableEntry);
-                font.tables.os2 = _os2.default.parse(table.data, table.offset);
-                break;
-            case 'post':
-                table = uncompressTable(data, tableEntry);
-                font.tables.post = _post2.default.parse(table.data, table.offset);
-                font.glyphNames = new _encoding.GlyphNames(font.tables.post);
-                break;
-            case 'prep':
-                table = uncompressTable(data, tableEntry);
-                p = new _parse2.default.Parser(table.data, table.offset);
-                font.tables.prep = p.parseByteList(tableEntry.length);
-                break;
-            case 'glyf':
-                glyfTableEntry = tableEntry;
-                break;
-            case 'loca':
-                locaTableEntry = tableEntry;
-                break;
-            case 'CFF ':
-                cffTableEntry = tableEntry;
-                break;
-            case 'kern':
-                kernTableEntry = tableEntry;
-                break;
-            case 'GPOS':
-                gposTableEntry = tableEntry;
-                break;
-            case 'GSUB':
-                gsubTableEntry = tableEntry;
-                break;
-            case 'meta':
-                metaTableEntry = tableEntry;
-                break;
-        }
-    }
-
-    var nameTable = uncompressTable(data, nameTableEntry);
-    font.tables.name = _name3.default.parse(nameTable.data, nameTable.offset, ltagTable);
-    font.names = font.tables.name;
-
-    if (glyfTableEntry && locaTableEntry) {
-        var shortVersion = indexToLocFormat === 0;
-        var locaTable = uncompressTable(data, locaTableEntry);
-        var locaOffsets = _loca2.default.parse(locaTable.data, locaTable.offset, font.numGlyphs, shortVersion);
-        var glyfTable = uncompressTable(data, glyfTableEntry);
-        font.glyphs = _glyf2.default.parse(glyfTable.data, glyfTable.offset, locaOffsets, font);
-    } else if (cffTableEntry) {
-        var cffTable = uncompressTable(data, cffTableEntry);
-        _cff2.default.parse(cffTable.data, cffTable.offset, font);
-    } else {
-        throw new Error('Font doesn\'t contain TrueType or CFF outlines.');
-    }
-
-    var hmtxTable = uncompressTable(data, hmtxTableEntry);
-    _hmtx2.default.parse(hmtxTable.data, hmtxTable.offset, font.numberOfHMetrics, font.numGlyphs, font.glyphs);
-    (0, _encoding.addGlyphNames)(font);
-
-    if (kernTableEntry) {
-        var kernTable = uncompressTable(data, kernTableEntry);
-        font.kerningPairs = _kern2.default.parse(kernTable.data, kernTable.offset);
-    } else {
-        font.kerningPairs = {};
-    }
-
-    if (gposTableEntry) {
-        var gposTable = uncompressTable(data, gposTableEntry);
-        _gpos2.default.parse(gposTable.data, gposTable.offset, font);
-    }
-
-    if (gsubTableEntry) {
-        var gsubTable = uncompressTable(data, gsubTableEntry);
-        font.tables.gsub = _gsub2.default.parse(gsubTable.data, gsubTable.offset);
-    }
-
-    if (fvarTableEntry) {
-        var fvarTable = uncompressTable(data, fvarTableEntry);
-        font.tables.fvar = _fvar2.default.parse(fvarTable.data, fvarTable.offset, font.names);
-    }
-
-    if (metaTableEntry) {
-        var metaTable = uncompressTable(data, metaTableEntry);
-        font.tables.meta = _meta2.default.parse(metaTable.data, metaTable.offset);
-        font.metas = font.tables.meta;
-    }
-
-    return font;
-}
-
-/**
- * Asynchronously load the font from a URL or a filesystem. When done, call the callback
- * with two arguments `(err, font)`. The `err` will be null on success,
- * the `font` is a Font object.
- * We use the node.js callback convention so that
- * opentype.js can integrate with frameworks like async.js.
- * @alias opentype.load
- * @param  {string} url - The URL of the font to load.
- * @param  {Function} callback - The callback.
- */
-function load(url, callback) {
-    var isNode = typeof window === 'undefined';
-    var loadFn = isNode ? loadFromFile : loadFromUrl;
-    loadFn(url, function (err, arrayBuffer) {
-        if (err) {
-            return callback(err);
-        }
-        var font = void 0;
-        try {
-            font = parseBuffer(arrayBuffer);
-        } catch (e) {
-            return callback(e, null);
-        }
-        return callback(null, font);
-    });
-}
-
-/**
- * Synchronously load the font from a URL or file.
- * When done, returns the font object or throws an error.
- * @alias opentype.loadSync
- * @param  {string} url - The URL of the font to load.
- * @return {opentype.Font}
- */
-function loadSync(url) {
-    var fs = __webpack_require__(11);
-    var buffer = fs.readFileSync(url);
-    return parseBuffer((0, _util.nodeBufferToArrayBuffer)(buffer));
-}
-
-exports.Font = _font2.default;
-exports.Glyph = _glyph2.default;
-exports.Path = _path2.default;
-exports.BoundingBox = _bbox2.default;
-exports._parse = _parse2.default;
-exports.parse = parseBuffer;
-exports.load = load;
-exports.loadSync = loadSync;
 
 /***/ }),
 /* 34 */
@@ -9370,7 +9389,7 @@ var _substitution = __webpack_require__(38);
 
 var _substitution2 = _interopRequireDefault(_substitution);
 
-var _util = __webpack_require__(29);
+var _util = __webpack_require__(30);
 
 var _hintingtt = __webpack_require__(45);
 
@@ -9942,51 +9961,51 @@ var _table = __webpack_require__(2);
 
 var _table2 = _interopRequireDefault(_table);
 
-var _cmap = __webpack_require__(15);
+var _cmap = __webpack_require__(16);
 
 var _cmap2 = _interopRequireDefault(_cmap);
 
-var _cff = __webpack_require__(16);
+var _cff = __webpack_require__(17);
 
 var _cff2 = _interopRequireDefault(_cff);
 
-var _head = __webpack_require__(19);
+var _head = __webpack_require__(20);
 
 var _head2 = _interopRequireDefault(_head);
 
-var _hhea = __webpack_require__(20);
+var _hhea = __webpack_require__(21);
 
 var _hhea2 = _interopRequireDefault(_hhea);
 
-var _hmtx = __webpack_require__(21);
+var _hmtx = __webpack_require__(22);
 
 var _hmtx2 = _interopRequireDefault(_hmtx);
 
-var _ltag = __webpack_require__(22);
+var _ltag = __webpack_require__(23);
 
 var _ltag2 = _interopRequireDefault(_ltag);
 
-var _maxp = __webpack_require__(23);
+var _maxp = __webpack_require__(24);
 
 var _maxp2 = _interopRequireDefault(_maxp);
 
-var _name2 = __webpack_require__(24);
+var _name2 = __webpack_require__(25);
 
 var _name3 = _interopRequireDefault(_name2);
 
-var _os = __webpack_require__(25);
+var _os = __webpack_require__(26);
 
 var _os2 = _interopRequireDefault(_os);
 
-var _post = __webpack_require__(26);
+var _post = __webpack_require__(27);
 
 var _post2 = _interopRequireDefault(_post);
 
-var _gsub = __webpack_require__(27);
+var _gsub = __webpack_require__(28);
 
 var _gsub2 = _interopRequireDefault(_gsub);
 
-var _meta = __webpack_require__(28);
+var _meta = __webpack_require__(29);
 
 var _meta2 = _interopRequireDefault(_meta);
 
@@ -16516,11 +16535,11 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _Phrase = __webpack_require__(30);
+var _Phrase = __webpack_require__(31);
 
 var _Phrase2 = _interopRequireDefault(_Phrase);
 
-var _Word = __webpack_require__(31);
+var _Word = __webpack_require__(32);
 
 var _Word2 = _interopRequireDefault(_Word);
 
@@ -17635,11 +17654,11 @@ var _autobindDecorator = __webpack_require__(3);
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _Phrase = __webpack_require__(30);
+var _Phrase = __webpack_require__(31);
 
 var _Phrase2 = _interopRequireDefault(_Phrase);
 
-var _Word = __webpack_require__(31);
+var _Word = __webpack_require__(32);
 
 var _Word2 = _interopRequireDefault(_Word);
 
