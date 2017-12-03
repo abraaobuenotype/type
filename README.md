@@ -84,13 +84,13 @@ Type for PIXI is a powerfull tool to work with texts on HTML 5 canvas.
 	}
 </script>
 ```
-####NPM install
+#### NPM install
 
 ```
 npm install type-for-pixi --save
 ```
 
-> ####Type is writen using es2015+ features
+#### Type is writen using es2015+ features
 
 > compile with browserify and babelify with presset es2015 and plugins:
 > - babel-plugin-transform-decorators-legacy
@@ -141,7 +141,7 @@ Then, to build the source, run:
 
 -------------
 
-####Plans
+#### Plans
 
 - More customizations
 - Softkeyboard
@@ -150,7 +150,7 @@ Then, to build the source, run:
 
 -------------
 
-####Special thanks
+#### Special thanks
 
 PIXI.js - goodboy  
 font.js - Pomax  
