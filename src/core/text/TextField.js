@@ -44,6 +44,10 @@ class TextField extends PIXI.Container {
         this._hitArea = new PIXI.Rectangle(0, 0, this._width, this._height);
     }
 
+    get width(){
+        return this._width;
+    }
+
     get text() {
         return this._text;
     }

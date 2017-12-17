@@ -2087,6 +2087,11 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
             return coordinates;
         }
     }, {
+        key: 'width',
+        get: function get() {
+            return _width.get(this);
+        }
+    }, {
         key: 'text',
         get: function get() {
             return this._text;
@@ -8940,7 +8945,7 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.7.0';
+        this.version = '1.7.3';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
