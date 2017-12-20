@@ -148,6 +148,18 @@ class TextField extends PIXI.Container {
 
     }
 
+    get horizontalModule(){
+        return this.horizontalModule;
+    }
+
+    get verticalModule(){
+        return this.verticalModule;
+    }
+
+    get customModule(){
+        return this.customModule;
+    }
+
     setText(text, style = {}) {
         this._customStyle = style;
 

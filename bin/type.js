@@ -2198,6 +2198,21 @@ var TextField = (0, _autobindDecorator2.default)(_class = function (_PIXI$Contai
                 this.children[i].tint = color;
             }
         }
+    }, {
+        key: 'horizontalModule',
+        get: function get() {
+            return _horizontalModule.get(this);
+        }
+    }, {
+        key: 'verticalModule',
+        get: function get() {
+            return _verticalModule.get(this);
+        }
+    }, {
+        key: 'customModule',
+        get: function get() {
+            return _customModule.get(this);
+        }
     }]);
 
     return TextField;
@@ -8945,7 +8960,7 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.7.3';
+        this.version = '1.7.4';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
