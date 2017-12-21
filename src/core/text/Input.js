@@ -172,6 +172,10 @@ class Input extends PIXI.Container {
         this.removeListener('touchmove');
         this.removeListener('mouseupoutside');
         this.removeListener('touchendoutside');
+
+        if(this.keyboardHandler){
+            this.keyboardHandler.stopMonitor();
+        }
     }
 
     focus(e) {

@@ -13,10 +13,6 @@ class KeyboardHandler extends EventEmiter{
         }
 
         this.instance = this;
-
-        this._focusedInput = null;
-
-        this.startMonitor();
     }
 
     set focusedInput(value) {
@@ -37,12 +33,18 @@ class KeyboardHandler extends EventEmiter{
         this._instance = value;
     }
 
-    static getInstance() {
+    static
+    getInstance() {
         if (KeyboardHandler.instance === null) {
              KeyboardHandler.instance = new KeyboardHandler();
         }
 
-        return KeyboardHandler.instance;
+        var instance = KeyboardHandler.instance;
+
+        instance._focusedInput = null;
+        instance.startMonitor();
+
+        return instance;
     }
 
     startMonitor() {
@@ -55,7 +57,13 @@ class KeyboardHandler extends EventEmiter{
 
     }
 
+    stopMonitor(){
+        window.document.onkeydown = null;
+        this._focusedInput = null;
+    }
+
     _hardKeyboard(e) {
+        if(!this._focusedInput) return;
 
         this._focusedInput.selectionGraphics.clear();
 

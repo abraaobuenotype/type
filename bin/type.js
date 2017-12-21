@@ -8960,7 +8960,7 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.7.4';
+        this.version = '1.7.5';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
@@ -21762,6 +21762,10 @@ var Input = (0, _autobindDecorator2.default)(_class = function (_PIXI$Container)
             this.removeListener('touchmove');
             this.removeListener('mouseupoutside');
             this.removeListener('touchendoutside');
+
+            if (this.keyboardHandler) {
+                this.keyboardHandler.stopMonitor();
+            }
         }
     }, {
         key: 'focus',
@@ -22064,10 +22068,6 @@ var KeyboardHandler = (0, _autobindDecorator2.default)(_class = (_temp = _class2
         }
 
         _this.instance = _this;
-
-        _this._focusedInput = null;
-
-        _this.startMonitor();
         return _this;
     }
 
@@ -22082,8 +22082,15 @@ var KeyboardHandler = (0, _autobindDecorator2.default)(_class = (_temp = _class2
             };
         }
     }, {
+        key: 'stopMonitor',
+        value: function stopMonitor() {
+            window.document.onkeydown = null;
+            this._focusedInput = null;
+        }
+    }, {
         key: '_hardKeyboard',
         value: function _hardKeyboard(e) {
+            if (!this._focusedInput) return;
 
             this._focusedInput.selectionGraphics.clear();
 
@@ -22200,7 +22207,12 @@ var KeyboardHandler = (0, _autobindDecorator2.default)(_class = (_temp = _class2
                 KeyboardHandler.instance = new KeyboardHandler();
             }
 
-            return KeyboardHandler.instance;
+            var instance = KeyboardHandler.instance;
+
+            instance._focusedInput = null;
+            instance.startMonitor();
+
+            return instance;
         }
     }, {
         key: 'instance',
