@@ -16,7 +16,8 @@ Type for PIXI is a powerfull tool to work with texts on HTML 5 canvas.
 - Suports any Font
 - Line Spacing
 - Word Spacing
-- Input
+- stacked align
+- Input with text selection (it's not an html bridge)
 
 -------------
 

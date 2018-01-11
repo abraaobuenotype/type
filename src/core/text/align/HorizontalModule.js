@@ -189,7 +189,8 @@ class HorizontalModule {
         this._alignLines(this._lines);
     }
 
-    @Private _arrangeLines(line, charWidth) {
+    @Private
+    _arrangeLines(line, charWidth) {
         if (line.words.length == 1) {
             if (line.width + charWidth > this._width) {
                 this._lines.push(new Phrase());
@@ -230,7 +231,8 @@ class HorizontalModule {
         return this._lines[this._lines.length - 1].words[this._lines[this._lines.length - 1].words.length - 1];
     }
 
-    @Private _alignLines(lines) {
+    @Private
+    _alignLines(lines) {
         if (this._textTopToBottom) {
             if (this._textLeftToRight) {
                 switch (this._textAlign) {
@@ -242,6 +244,10 @@ class HorizontalModule {
                         break;
                     case "justify":
                         this._justifyAlignLRUD(lines);
+                        break;
+                    case "stacked":
+                        this._leftAlignLRUD(lines);
+                        this._stackedAlignLRUD(lines);
                         break;
                     default:
                         this._leftAlignLRUD(lines);
@@ -294,7 +300,8 @@ class HorizontalModule {
         }
     }
 
-    @Private _leftAlignLRUD(lines) {
+    @Private
+    _leftAlignLRUD(lines) {
         var y = 0;
 
         for (var i = 0; i < lines.length; i++) {
@@ -330,7 +337,66 @@ class HorizontalModule {
         }
     }
 
-    @Private _centerAlignLRUD(lines) {
+    @Private
+    _stackedAlignLRUD(lines){
+        var mxWidth = 0;
+        console.log(lines);
+        lines.map(el => {
+            if(el.width > mxWidth){
+                mxWidth = el.width;
+            }
+        });
+
+        var y = 0;
+
+        for(var i = 0; i < lines.length; i++){
+            var el = lines[i];
+            var scale = mxWidth / el.width;
+
+            var lineHeight = 0;
+            if (i !== 0) {
+                y += lines[i - 1].height;
+            }
+
+            for(var j = 0; j < el.words.length; j++){
+                var w = el.words[j];
+                var wY = 2048;
+                var wHeight = 0;
+
+                for(var k = 0; k < w.chars.length; k++){
+                    var c = w.chars[k];
+
+                    c.x = c.x * scale;
+                    c.y = (c.y - el.y) * scale;
+
+                    c.setStyle({fontSize: c.style.fontSize * scale});
+
+                    if(c.y < wY) wY = c.y;
+                    if(c.y + c.height > wHeight) wHeight = c.y + c.height;
+
+                    c.y += y;
+                }
+
+                var firstChar = w.chars[0];
+                var lastChar = w.chars[w.chars.length - 1];
+
+                w.x = firstChar.x;
+                w.width = lastChar.x + lastChar.width;
+                w.height = wHeight;
+
+                if(w.height > lineHeight) lineHeight = w.height;
+            }
+
+            el.width = mxWidth;
+            el.height = lineHeight;
+            el.y = y;
+
+            y += this._spaceBetweenLines;
+        }
+    }
+
+    @Private
+    _centerAlignLRUD(lines) {
         var y = 0;
 
         for (var i = 0; i < lines.length; i++) {
@@ -366,7 +432,8 @@ class HorizontalModule {
         }
     }
 
-    @Private _rightAlignLRUD(lines) {
+    @Private
+    _rightAlignLRUD(lines) {
         var y = 0;
 
         for (var i = 0; i < lines.length; i++) {
@@ -405,7 +472,8 @@ class HorizontalModule {
         }
     }
 
-    @Private _justifyAlignLRUD(lines) {
+    @Private
+    _justifyAlignLRUD(lines) {
         var y = 0;
 
         //se for mais de uma linha
@@ -507,7 +575,8 @@ class HorizontalModule {
      *
      * @param lines Array of lines to be repositioned {Array}
      */
-    @Private _leftAlignRLUD(lines) {
+    @Private
+    _leftAlignRLUD(lines) {
 
         var y = 0;
 
@@ -545,7 +614,8 @@ class HorizontalModule {
     *
     * @param lines Array of lines to be repositioned {Array}
     */
-    @Private _centerAlignRLUD(lines) {
+    @Private
+    _centerAlignRLUD(lines) {
         var y = 0;
         for (var i = 0; i < lines.length; i++) {
 
@@ -581,7 +651,8 @@ class HorizontalModule {
     *
     * @param lines Array of lines to be repositioned {Array}
     */
-    @Private _rightAlignRLUD(lines) {
+    @Private
+    _rightAlignRLUD(lines) {
 
         var y = 0;
         for (var i = 0; i < lines.length; i++) {
@@ -616,7 +687,8 @@ class HorizontalModule {
     *
     * @param lines Array of lines to be repositioned {Array}
     */
-    @Private _justifyAlignRLUD(lines) {
+    @Private
+    _justifyAlignRLUD(lines) {
 
         var y = 0;
         if (lines.length > 1) {
@@ -710,7 +782,8 @@ class HorizontalModule {
     *
     * @param lines Array of lines to be repositioned {Array}
     */
-    @Private _leftAlignLRDU(lines) {
+    @Private
+    _leftAlignLRDU(lines) {
 
         var y = this._height;
         for (var i = 0; i < lines.length; i++) {
@@ -745,7 +818,8 @@ class HorizontalModule {
     *
     * @param lines Array of lines to be repositioned {Array}
     */
-    @Private _rightAlignLRDU(lines) {
+    @Private
+    _rightAlignLRDU(lines) {
 
         var y = this._height;
         for (var i = 0; i < lines.length; i++) {
@@ -779,7 +853,8 @@ class HorizontalModule {
     *
     * @param lines Array of lines to be repositioned {Array}
     */
-    @Private _centerAlignLRDU(lines) {
+    @Private
+    _centerAlignLRDU(lines) {
         var y = this._height;
         for (var i = 0; i < lines.length; i++) {
             var line = lines[i];
@@ -812,7 +887,8 @@ class HorizontalModule {
     *
     * @param lines Array of lines to be repositioned {Array}
     */
-    @Private _justifyAlignLRDU(lines) {
+    @Private
+    _justifyAlignLRDU(lines) {
 
         var y = this._height;
         if (lines.length > 1) {
@@ -890,7 +966,8 @@ class HorizontalModule {
     *
     * @param lines Array of lines to be repositioned {Array}
     */
-    @Private _leftAlignRLDU(lines) {
+    @Private
+    _leftAlignRLDU(lines) {
 
         var y = this._height;
         for (var i = 0; i < lines.length; i++) {
@@ -925,7 +1002,8 @@ class HorizontalModule {
     * @param lines Array of lines to be repositioned {Array}
     */
 
-    @Private _centerAlignRLDU(lines) {
+    @Private
+    _centerAlignRLDU(lines) {
 
         var y = this._height;
         for (var i = 0; i < lines.length; i++) {
@@ -959,7 +1037,8 @@ class HorizontalModule {
     *
     * @param lines Array of lines to be repositioned {Array}
     */
-    @Private _rightAlignRLDU(lines) {
+    @Private
+    _rightAlignRLDU(lines) {
 
         var y = this._height;
         for (var i = 0; i < lines.length; i++) {
@@ -994,7 +1073,8 @@ class HorizontalModule {
     *
     * @param lines Array of lines to be repositioned {Array}
     */
-    @Private _justifyAlignRLDU(lines) {
+    @Private
+    _justifyAlignRLDU(lines) {
 
         var y = this._height;
         if (lines.length > 1) {

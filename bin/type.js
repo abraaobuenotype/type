@@ -8960,7 +8960,7 @@ var type = (0, _autobindDecorator2.default)(_class = function () {
     function type() {
         _classCallCheck(this, type);
 
-        this.version = '1.7.5';
+        this.version = '1.8.0';
         this.Loader = _Loader2.default;
         this.Metrics = _Metrics2.default;
         this.text = {
@@ -16583,6 +16583,8 @@ var _alignLines = new WeakMap();
 
 var _leftAlignLRUD = new WeakMap();
 
+var _stackedAlignLRUD = new WeakMap();
+
 var _centerAlignLRUD = new WeakMap();
 
 var _rightAlignLRUD = new WeakMap();
@@ -16683,6 +16685,10 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
                         case "justify":
                             _justifyAlignLRUD.get(this)(lines);
                             break;
+                        case "stacked":
+                            _leftAlignLRUD.get(this)(lines);
+                            _stackedAlignLRUD.get(this)(lines);
+                            break;
                         default:
                             _leftAlignLRUD.get(this)(lines);
                     }
@@ -16766,6 +16772,63 @@ var HorizontalModule = (0, _autobindDecorator2.default)(_class = function () {
                         continue;
                     }
                 }
+                y += this._spaceBetweenLines;
+            }
+        }.bind(this));
+
+        _stackedAlignLRUD.set(this, function (lines) {
+            var mxWidth = 0;
+            console.log(lines);
+            lines.map(function (el) {
+                if (el.width > mxWidth) {
+                    mxWidth = el.width;
+                }
+            });
+
+            var y = 0;
+
+            for (var i = 0; i < lines.length; i++) {
+                var el = lines[i];
+                var scale = mxWidth / el.width;
+
+                var lineHeight = 0;
+                if (i !== 0) {
+                    y += lines[i - 1].height;
+                }
+
+                for (var j = 0; j < el.words.length; j++) {
+                    var w = el.words[j];
+                    var wY = 2048;
+                    var wHeight = 0;
+
+                    for (var k = 0; k < w.chars.length; k++) {
+                        var c = w.chars[k];
+
+                        c.x = c.x * scale;
+                        c.y = (c.y - el.y) * scale;
+
+                        c.setStyle({ fontSize: c.style.fontSize * scale });
+
+                        if (c.y < wY) wY = c.y;
+                        if (c.y + c.height > wHeight) wHeight = c.y + c.height;
+
+                        c.y += y;
+                    }
+
+                    var firstChar = w.chars[0];
+                    var lastChar = w.chars[w.chars.length - 1];
+
+                    w.x = firstChar.x;
+                    w.width = lastChar.x + lastChar.width;
+                    w.height = wHeight;
+
+                    if (w.height > lineHeight) lineHeight = w.height;
+                }
+
+                el.width = mxWidth;
+                el.height = lineHeight;
+                el.y = y;
+
                 y += this._spaceBetweenLines;
             }
         }.bind(this));
