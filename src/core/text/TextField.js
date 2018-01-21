@@ -194,7 +194,7 @@ class TextField extends PIXI.Container {
         this.getMap(this._textSupport.childNodes);
 
         var oldText = this._text;
-        this._text = this._textSupport.innerText;
+        this._text = this._textSupport.textContent;
 
         var diff = JsDiff.diffChars(oldText, this._text);
         this._change(JsDiff.convertChangesToDMP(diff));
