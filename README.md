@@ -23,7 +23,7 @@ Type for PIXI is a powerfull tool to work with texts on HTML 5 canvas.
 
 #### Basic Usage Example
 
-> ###**PIXI.js v4+ required**
+> ### **PIXI.js v4+ required**
 > official website: [http://www.pixijs.com/](http://www.pixijs.com/)
 
 ```
@@ -31,56 +31,66 @@ Type for PIXI is a powerfull tool to work with texts on HTML 5 canvas.
 <script src="js/type.min.js" ></script>
 ```
 
+### es6+
+
+```
+import 'pixi.js';
+import 'type-for-pixi';
+```
+
+
 ```
 <script>
 	window.onload = function(){
-		//loading fonts
-		var loader = new type.Loader();
-		//.add(fontFamilyName, url)
-		loader.add('century', 'fonts/century.ttf');
-		loader.add('playtime', 'fonts/playtime-webfont.ttf');
-		loader.once('loadComplete', init);
-		loader.load();
+		//creating loader to load fonts
+        var loader = new type.Loader();
+        //adding fonts using add method
+        //example: .add('century', 'fonts/century.ttf');
+        loader.add('century', '../fonts/century.ttf');
+		loader.add('playtime', '../fonts/playtime.ttf');
+        //adding listener to verify when fonts have been loaded
+        loader.once('loadComplete', init);
+        //load fonts
+        loader.load();
 
 		function init(){
-			var renderer = PIXI.autodetectRenderer(1024, 500, {transparent: true});
-			document.body.appendChild(renderer.view);
+			//creating PIXI
+            var app = new PIXI.Application(1024,500, {transparent: true});
+            document.body.appendChild(app.view);
 
-			var stage = new PIXI.Container();
+            //creating TEXT with area 600x600 px
+            var myText = new type.text.TextField(600,600);
+            //seting text with tags for style
+            //exemple: .setText('text', styleObject)
+			myText.setText(
+                '<tag>Nada do que é <into>social e humano</into> é mais\nreal que as <anothertag>utopias.</anothertag> Na sua vertente eutópica,\nas utopias constituíram sempre o fundamento <under>simbólico e mítico</under>...</tag>',
+                {
+                    align: 'justify',
 
-			var myText = new type.text.TextField(600, 600);
-            myText.setText('<mytag>Nada do que é <tagb>social e humano</tagb> é mais real que as <anothertag>utopias.</anothertag></mytag>', {
-                align: 'left',
+                    tag: {
+                        fontFamily: "century",
+                        fontSize: 20,
+                        fill: "red"
+                    },
 
-                mytag: {
-                    fontFamily: "century",
-                    fontSize: 20,
-                    fill: "red"
-                },
+                    into: {
+                        fontFamily: "playtime",
+                        fontSize: 50,
+                        fill: "green"
+                    },
 
-                tagb: {
-                    fontFamily: "playtime",
-                    fontSize: 50,
-                    fill: "green"
-                },
+                    anothertag: {
+                        fontWeight: "bold",
+                        fill: "#198c67"
+                    },
 
-                anothertag: {
-                    fontWeight: "bold",
-                    underscore: true
+                    under: {
+                        underscore: true
+                    }
                 }
-            });
+            );
 
-			myText.x = 300;
-			myText.y = 300;
-
-			stage.addChild(myText);
-			animate();
-
-			function animate(){
-				requestAnimationFrame(animate);
-
-				renderer.render(stage);
-			}
+			app.stage.addChild(myText);
 		}
 	}
 </script>
@@ -88,24 +98,15 @@ Type for PIXI is a powerfull tool to work with texts on HTML 5 canvas.
 #### NPM install
 
 ```
-npm install type-for-pixi --save
+npm i type-for-pixi -P
 ```
 
 #### Type is writen using es2015+ features
 
-> compile with browserify and babelify with presset es2015 and plugins:
+> compile with webpack and babel with presset env and plugins:
 > - babel-plugin-transform-decorators-legacy
 > - babel-plugin-transform-class-properties
 > - babel-plugin-transform-private-properties
-
-```
-require('type-for-pixi');
-
-var type = window.type._instance;
-var loader = new type.Loader();
-
-...
-```
 
 -------------
 
@@ -114,10 +115,13 @@ var loader = new type.Loader();
 For more Examples download the project and open the examples folder or click this links:  
 
 
-[view simple tag example here](http://www.studiokori.com.br/typeExample/example1/);  
-[view all simple aligns here](http://www.studiokori.com.br/typeExample/example2/);  
-[view Tween example here](http://www.studiokori.com.br/typeExample/example3/);  
-[view Custom Align example here](http://www.studiokori.com.br/typeExample/example4);  
+[view Simple tag example here](http://www.studiokori.com.br/typeExample/1.7/simple/);  
+[view all Simple Aligns here](http://www.studiokori.com.br/typeExample/1.7/align);  
+[view Tween example here](http://www.studiokori.com.br/typeExample/1.7/tween);  
+[view Custom Align example here](http://www.studiokori.com.br/typeExample/1.7/custom_align);  
+[view Input example here](http://www.studiokori.com.br/typeExample/1.7/input);   
+[view Stacked Align example here](http://www.studiokori.com.br/typeExample/1.7/stackedAlign);  
+[view Simple with japanese font example here](http://www.studiokori.com.br/typeExample/1.7/japanese);  
 
 
 -------------
@@ -130,15 +134,15 @@ the only time you should need to build Type is if you are developing it.
 
 If you don't already have Node.js and NPM, go install them. Once you do, you can then install grunt:
 
-    npm install -g grunt-cli
+    npm i -g grunt-cli
 
 After that you can install the project modules at the project root file:
 
-    npm install
+    npm i
 
 Then, to build the source, run:
 
-    grunt build
+    npm run build
 
 -------------
 
@@ -147,7 +151,7 @@ Then, to build the source, run:
 - More customizations
 - Softkeyboard
 - Cursor
-- Text Selection
+- Box Vertical Align
 
 -------------
 
