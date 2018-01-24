@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Type exemple</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.0/pixi.min.js"></script>
+    <script src="../js/type.min.js" charset="utf-8"></script>
+</head>
+<body>
+
+    <script type="text/javascript">
+        //creating loader to load fonts
+        var loader = new type.Loader();
+        //adding fonts using add method
+        //example: .add('century', 'fonts/century.ttf');
+        loader.add('japonesa', '../fonts/Meiryo.ttf');
+		loader.add('playtime', '../fonts/playtime.ttf');
+        //adding listener to verify when fonts have been loaded
+        loader.once('loadComplete', init);
+        //load fonts
+        loader.load();
+
+        function init(){
+            //creating PIXI
+            var app = new PIXI.Application(1024,500, {transparent: true});
+            document.body.appendChild(app.view);
+
+            //creating TEXT with area 600x600 px
+            var myText = new type.text.TextField(600,600);
+            //seting text with tags for style
+            //exemple: .setText('text', styleObject)
+            myText.setText(
+                '<tag>マルチプライヤ</tag>',
+                {
+                    align: 'left',
+
+                    tag: {
+                        fontFamily: "japonesa",
+                        fontSize: 40,
+                        fill: "blue",
+                        dropShadow: false,
+                        dropShadowColor: '#0000GG'
+                    }
+                }
+            );
+
+            app.stage.addChild(myText);
+        }
+
+    </script>
+
+</body>
+</html>

@@ -21535,7 +21535,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -21607,88 +21607,88 @@ var _startingY = new WeakMap();
 var _steps = new WeakMap();
 
 var TypeAlign = (0, _autobindDecorator2.default)(_class = function () {
-  function TypeAlign() {
-    _classCallCheck(this, TypeAlign);
+    function TypeAlign() {
+        _classCallCheck(this, TypeAlign);
 
-    _startingX.set(this, 0);
+        _startingX.set(this, 0);
 
-    _startingY.set(this, false);
+        _startingY.set(this, false);
 
-    _steps.set(this, []);
-  }
+        _steps.set(this, []);
+    }
 
-  /*
-   * Starting x point of the chars
-   *
-   * @member {number}
-   * @memberof type.text.TypeAlign#
-   */
-
-  /*
-   * Starting y point of the chars
-   *
-   * @member {number}
-   * @memberof type.text.TypeAlign#
-   */
-
-  /*
-   * steps to follow after the starting point to align the chars each object inside must contain x, y and rotation
-   *
-   * @member {Array}
-   * @memberof type.text.TypeAlign#
-   */
-
-
-  _createClass(TypeAlign, [{
-    key: 'startingX',
-
-
-    /**
+    /*
      * Starting x point of the chars
      *
      * @member {number}
      * @memberof type.text.TypeAlign#
      */
-    get: function get() {
-      return _startingX.get(this);
-    },
-    set: function set(value) {
-      _startingX.set(this, value);
-    }
 
-    /**
+    /*
      * Starting y point of the chars
      *
      * @member {number}
      * @memberof type.text.TypeAlign#
      */
 
-  }, {
-    key: 'startingY',
-    get: function get() {
-      return _startingY.get(this);
-    },
-    set: function set(value) {
-      _startingY.set(this, value);
-    }
-    /**
+    /*
      * steps to follow after the starting point to align the chars each object inside must contain x, y and rotation
      *
      * @member {Array}
      * @memberof type.text.TypeAlign#
      */
 
-  }, {
-    key: 'steps',
-    get: function get() {
-      return _steps.get(this);
-    },
-    set: function set(value) {
-      _steps.set(this, value);
-    }
-  }]);
 
-  return TypeAlign;
+    _createClass(TypeAlign, [{
+        key: 'startingX',
+
+
+        /**
+         * Starting x point of the chars
+         *
+         * @member {number}
+         * @memberof type.text.TypeAlign#
+         */
+        get: function get() {
+            return _startingX.get(this);
+        },
+        set: function set(value) {
+            _startingX.set(this, value);
+        }
+
+        /**
+         * Starting y point of the chars
+         *
+         * @member {number}
+         * @memberof type.text.TypeAlign#
+         */
+
+    }, {
+        key: 'startingY',
+        get: function get() {
+            return _startingY.get(this);
+        },
+        set: function set(value) {
+            _startingY.set(this, value);
+        }
+        /**
+         * steps to follow after the starting point to align the chars each object inside must contain x, y and rotation
+         *
+         * @member {Array}
+         * @memberof type.text.TypeAlign#
+         */
+
+    }, {
+        key: 'steps',
+        get: function get() {
+            return _steps.get(this);
+        },
+        set: function set(value) {
+            _steps.set(this, value);
+        }
+    }]);
+
+    return TypeAlign;
 }()) || _class;
 
 exports.default = TypeAlign;
