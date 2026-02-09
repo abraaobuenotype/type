@@ -112,16 +112,16 @@ npm i type-for-pixi -P
 
 #### More Examples
 
-For more Examples download the project and open the examples folder or click this links:  
+For more Examples download the project and open the examples folder or click this links (GitHub Pages):  
 
 
-[view Simple tag example here](http://www.studiokori.com.br/typeExample/1.7/simple/);  
-[view all Simple Aligns here](http://www.studiokori.com.br/typeExample/1.7/align);  
-[view Tween example here](http://www.studiokori.com.br/typeExample/1.7/tween);  
-[view Custom Align example here](http://www.studiokori.com.br/typeExample/1.7/custom_align);  
-[view Input example here](http://www.studiokori.com.br/typeExample/1.7/input);   
-[view Stacked Align example here](http://www.studiokori.com.br/typeExample/1.7/stackedAlign);  
-[view Simple with japanese font example here](http://www.studiokori.com.br/typeExample/1.7/japanese);  
+[view Simple tag example here](https://abraaobuenotype.github.io/type/examples/simple/)  
+[view all Simple Aligns here](https://abraaobuenotype.github.io/type/examples/align/)  
+[view Tween example here](https://abraaobuenotype.github.io/type/examples/tween/)  
+[view Custom Align example here](https://abraaobuenotype.github.io/type/examples/custom_align/)  
+[view Input example here](https://abraaobuenotype.github.io/type/examples/input/)  
+[view Stacked Align example here](https://abraaobuenotype.github.io/type/examples/stackedAlign/)  
+[view Simple with japanese font example here](https://abraaobuenotype.github.io/type/examples/japanese/)  
 
 
 -------------
